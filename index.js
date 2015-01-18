@@ -30,7 +30,6 @@ var ref = require("ref"),
     DOUBLE = ref.types.double,
     PDOUBLE = ref.refType(DOUBLE),
     STRING = ref.types.CString,
-    WSTRING = "string",
     BITMAP = VOID,
     PBITMAP = PVOID,
     MULTIBITMAP = VOID,
@@ -119,7 +118,7 @@ var ref = require("ref"),
 function setToDefaultIfUndefined(arg, argDefault) {
   return typeof arg === "undefined" ? argDefault : arg;
 }
-  
+
 function assertInteger(arg, argName) {
   if (typeof arg !== "number" || arg % 1 !== 0) {
     throw new Error(
@@ -202,8 +201,6 @@ library = new ffi.Library(libraryName, {
   
   "FreeImage_Clone": [PBITMAP, [PBITMAP]],
   "FreeImage_HasPixels": [BOOL, [PBITMAP]],
-  "FreeImage_LoadU": [PBITMAP, [LONG, WSTRING, LONG]],
-  "FreeImage_SaveU": [BOOL, [LONG, PBITMAP, WSTRING, LONG]],
   "FreeImage_OpenMemory": [PMEMORY, [PBYTE, DWORD]],
   "FreeImage_CloseMemory": [VOID, [PMEMORY]],
   "FreeImage_LoadFromMemory": [PBITMAP, [LONG, PMEMORY, LONG]],
@@ -226,7 +223,6 @@ library = new ffi.Library(libraryName, {
   "FreeImage_MovePage": [BOOL, [PMULTIBITMAP, LONG, LONG]],
   "FreeImage_GetLockedPageNumbers": [BOOL, [PMULTIBITMAP, PLONG, PLONG]],
   "FreeImage_GetFileType": [LONG, [STRING, LONG]],
-  "FreeImage_GetFileTypeU": [LONG, [WSTRING, LONG]],
   "FreeImage_GetFileTypeFromMemory": [LONG, [PMEMORY, LONG]],
   "FreeImage_GetImageType": [LONG, [PBITMAP]],
   "FreeImage_IsLittleEndian": [BOOL, []],
@@ -362,9 +358,7 @@ library = new ffi.Library(libraryName, {
   "FreeImage_CloneMetadata": [BOOL, [PBITMAP, PBITMAP]],
   "FreeImage_TagToString": [STRING, [LONG, PTAG, STRING]],
   "FreeImage_JPEGTransform": [BOOL, [STRING, STRING, LONG, BOOL]],
-  "FreeImage_JPEGTransformU": [BOOL, [WSTRING, WSTRING, LONG, BOOL]],
   "FreeImage_JPEGCrop": [BOOL, [STRING, STRING, LONG, LONG, LONG, LONG]],
-  "FreeImage_JPEGCropU": [BOOL, [WSTRING, WSTRING, LONG, LONG, LONG, LONG]],
   "FreeImage_RotateClassic": [PBITMAP, [PBITMAP, DOUBLE]],
   "FreeImage_Rotate": [PBITMAP, [PBITMAP, DOUBLE, PVOID]],
   "FreeImage_RotateEx": [PBITMAP, [PBITMAP, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, BOOL]],
@@ -824,14 +818,6 @@ module.exports = {
   hasPixels: function (dib) {
     return library.FreeImage_HasPixels(dib);
   },
-  // FIBITMAP *FreeImage_LoadU(FREE_IMAGE_FORMAT fif, const wchar_t *filename, int flags FI_DEFAULT(0));
-  loadU: function (fif, filename, flags) {
-    return library.FreeImage_LoadU(fif, filename, flags);
-  },
-  // BOOL FreeImage_SaveU(FREE_IMAGE_FORMAT fif, FIBITMAP *dib, const wchar_t *filename, int flags FI_DEFAULT(0));
-  saveU: function (fif, dib, filename, flags) {
-    return library.FreeImage_SaveU(fif, dib, filename, flags);
-  },
   // FIMEMORY *FreeImage_OpenMemory(BYTE *data FI_DEFAULT(0), DWORD size_in_bytes FI_DEFAULT(0));
   openMemory: function (data, size_in_bytes) {
     return library.FreeImage_OpenMemory(data, size_in_bytes);
@@ -919,10 +905,6 @@ module.exports = {
   // FREE_IMAGE_FORMAT FreeImage_GetFileType(const char *filename, int size FI_DEFAULT(0));
   getFileType: function (filename, size) {
     return library.FreeImage_GetFileType(filename, size);
-  },
-  // FREE_IMAGE_FORMAT FreeImage_GetFileTypeU(const wchar_t *filename, int size FI_DEFAULT(0));
-  getFileTypeU: function (filename, size) {
-    return library.FreeImage_GetFileTypeU(filename, size);
   },
   // FREE_IMAGE_FORMAT FreeImage_GetFileTypeFromMemory(FIMEMORY *stream, int size FI_DEFAULT(0));
   getFileTypeFromMemory: function (stream, size) {
@@ -1461,31 +1443,19 @@ module.exports = {
     return library.FreeImage_TagToString(model, tag, Make);
   },
   // BOOL FreeImage_JPEGTransform(const char *src_file, const char *dst_file, FREE_IMAGE_OPERATION operation, BOOL perfect FI_DEFAULT(TRUE));
-  jPEGTransform: function (src_file, dst_file, operation, perfect) {
+  jpegTransform: function (src_file, dst_file, operation, perfect) {
     return library.FreeImage_JPEGTransform(src_file, dst_file, operation, perfect);
   },
-  // BOOL FreeImage_JPEGTransformU(const wchar_t *src_file, const wchar_t *dst_file, FREE_IMAGE_OPERATION operation, BOOL perfect FI_DEFAULT(TRUE));
-  jPEGTransformU: function (src_file, dst_file, operation, perfect) {
-    return library.FreeImage_JPEGTransformU(src_file, dst_file, operation, perfect);
-  },
   // BOOL FreeImage_JPEGCrop(const char *src_file, const char *dst_file, int left, int top, int right, int bottom);
-  jPEGCrop: function (src_file, dst_file, left, top, right, bottom) {
+  jpegCrop: function (src_file, dst_file, left, top, right, bottom) {
     return library.FreeImage_JPEGCrop(src_file, dst_file, left, top, right, bottom);
   },
-  // BOOL FreeImage_JPEGCropU(const wchar_t *src_file, const wchar_t *dst_file, int left, int top, int right, int bottom);
-  jPEGCropU: function (src_file, dst_file, left, top, right, bottom) {
-    return library.FreeImage_JPEGCropU(src_file, dst_file, left, top, right, bottom);
-  },
   // BOOL FreeImage_JPEGTransformCombined(const char *src_file, const char *dst_file, FREE_IMAGE_OPERATION operation, int* left, int* top, int* right, int* bottom, BOOL perfect FI_DEFAULT(TRUE));
-  jPEGTransformCombined: function (src_file, dst_file, operation, left, top, right, bottom, perfect) {
+  jpegTransformCombined: function (src_file, dst_file, operation, left, top, right, bottom, perfect) {
     return library.FreeImage_JPEGTransformCombined(src_file, dst_file, operation, left, top, right, bottom, perfect);
   },
-  // BOOL FreeImage_JPEGTransformCombinedU(const wchar_t *src_file, const wchar_t *dst_file, FREE_IMAGE_OPERATION operation, int* left, int* top, int* right, int* bottom, BOOL perfect FI_DEFAULT(TRUE));
-  jPEGTransformCombinedU: function (src_file, dst_file, operation, left, top, right, bottom, perfect) {
-    return library.FreeImage_JPEGTransformCombinedU(src_file, dst_file, operation, left, top, right, bottom, perfect);
-  },
   // BOOL FreeImage_JPEGTransformCombinedFromMemory(FIMEMORY* src_stream, FIMEMORY* dst_stream, FREE_IMAGE_OPERATION operation, int* left, int* top, int* right, int* bottom, BOOL perfect FI_DEFAULT(TRUE));
-  jPEGTransformCombinedFromMemory: function (src_stream, dst_stream, operation, left, top, right, bottom, perfect) {
+  jpegTransformCombinedFromMemory: function (src_stream, dst_stream, operation, left, top, right, bottom, perfect) {
     return library.FreeImage_JPEGTransformCombinedFromMemory(src_stream, dst_stream, operation, left, top, right, bottom, perfect);
   },
   // FIBITMAP *FreeImage_RotateClassic(FIBITMAP *dib, double angle);
