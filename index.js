@@ -1,7 +1,7 @@
 var ref = require("ref"),
     RefArray = require("ref-array"),
     RefStruct = require("ref-struct"),
-    FFI = require("ffi"),
+    ffi = require("ffi"),
     os = require("os"),
     // Constants
     FALSE = 0,
@@ -116,20 +116,93 @@ var ref = require("ref"),
     libraryName = "",
     library = null;
     
+function setToDefaultIfUndefined(arg, argDefault) {
+  return typeof arg === "undefined" ? argDefault : arg;
+}
+  
+function assertInteger(arg, argName) {
+  if (typeof arg !== "number" || arg % 1 !== 0) {
+    throw new Error(
+      "Argument \"" + argName + "\" " + 
+      "must be an integer (" + arg + ")."
+    );
+  }
+}    
+
+function assertUnsignedInteger(arg, argName) {
+  if (typeof arg !== "number" || arg % 1 !== 0 || arg < 0) {
+    throw new Error(
+      "Argument \"" + argName + "\" " + 
+      "must be an unsigned integer (" + arg + ")."
+    );
+  }
+}    
+
+function assertNonEmptyString(arg, argName) {
+  if (typeof arg !== "string" || arg.length === 0) {
+    throw new Error(
+      "Argument \"" + argName + "\" " + 
+      "must be a non-empty string (" + arg + ")."
+    );
+  }
+}
+
+function assertNonNullObject(arg, argName) {
+  if (
+    typeof arg !== "object" || 
+    arg === null ||
+    typeof arg.isNull !== "function" || 
+    arg.isNull()
+  ) {
+    throw new Error(
+      "Argument \"" + argName + "\" " + 
+      "must be a non-null object (" + arg + ")."
+    );
+  }
+}
+
+function assertImageType(arg, argName) {
+  var p;
+  for (p in module.exports.IMAGE_TYPE) {
+    if (arg === module.exports.IMAGE_TYPE[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be an image type (" + arg + ")."
+  );
+}
+
+function assertImageFormat(arg, argName) {
+  var p;
+  for (p in module.exports.IMAGE_FORMAT) {
+    if (arg === module.exports.IMAGE_FORMAT[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be an image format (" + arg + ")."
+  );
+}
+
 libraryName = os.platform().indexOf("win") >= 0 ? "FreeImage" : "libfreeimage";
-library = new FFI.Library(libraryName, {
-  "FreeImage_Initialise": [VOID, [BOOL]],
-  "FreeImage_DeInitialise": [VOID, []],
+library = new ffi.Library(libraryName, {
+  // General functions
   "FreeImage_GetVersion": [STRING, []],
   "FreeImage_GetCopyrightMessage": [STRING, []],
+  // Bitmap management functions
   "FreeImage_Allocate": [PBITMAP, [LONG, LONG, LONG, DWORD, DWORD, DWORD]],
   "FreeImage_AllocateT": [PBITMAP, [LONG, LONG, LONG, LONG, DWORD, DWORD, DWORD]],
-  "FreeImage_Clone": [PBITMAP, [PBITMAP]],
-  "FreeImage_Unload": [VOID, [PBITMAP]],
-  "FreeImage_HasPixels": [BOOL, [PBITMAP]],
-  "FreeImage_Load": [PBITMAP, [LONG, STRING, LONG]],
-  "FreeImage_LoadU": [PBITMAP, [LONG, WSTRING, LONG]],
   "FreeImage_Save": [BOOL, [LONG, PBITMAP, STRING, LONG]],
+  "FreeImage_Load": [PBITMAP, [LONG, STRING, LONG]],
+  "FreeImage_Unload": [VOID, [PBITMAP]],
+  
+  
+  "FreeImage_Clone": [PBITMAP, [PBITMAP]],
+  "FreeImage_HasPixels": [BOOL, [PBITMAP]],
+  "FreeImage_LoadU": [PBITMAP, [LONG, WSTRING, LONG]],
   "FreeImage_SaveU": [BOOL, [LONG, PBITMAP, WSTRING, LONG]],
   "FreeImage_OpenMemory": [PMEMORY, [PBYTE, DWORD]],
   "FreeImage_CloseMemory": [VOID, [PMEMORY]],
@@ -368,7 +441,7 @@ module.exports = {
   },
   ICC_DEFAULT: 0x00,
   ICC_COLOR_IS_CMYK: 0x01,
-  FORMAT: {
+  IMAGE_FORMAT: {
     UNKNOWN: -1,
     BMP: 0,
     ICO: 1,
@@ -409,7 +482,7 @@ module.exports = {
     WEBP: 35,
     JXR: 36
   },
-  TYPE: {
+  IMAGE_TYPE: {
     UNKNOWN: 0,
     BITMAP: 1,
     UINT16: 2,
@@ -680,53 +753,80 @@ module.exports = {
     ALPHA_IS_INDEX: 0x04,
     PALETTE_SEARCH_MASK: 0x06
   },
-  // void FreeImage_Initialise(BOOL load_local_plugins_only FI_DEFAULT(FALSE));
-  initialise: function (load_local_plugins_only) {
-    return library.FreeImage_Initialise(load_local_plugins_only);
-  },
-  // void FreeImage_DeInitialise(void);
-  deInitialise: function () {
-    return library.FreeImage_DeInitialise();
-  },
-  // const char *FreeImage_GetVersion(void);
+  // General functions
   getVersion: function () {
     return library.FreeImage_GetVersion();
   },
-  // const char *FreeImage_GetCopyrightMessage(void);
   getCopyrightMessage: function () {
     return library.FreeImage_GetCopyrightMessage();
   },
-  // FIBITMAP *FreeImage_Allocate(int width, int height, int bpp, unsigned red_mask FI_DEFAULT(0), unsigned green_mask FI_DEFAULT(0), unsigned blue_mask FI_DEFAULT(0));
-  allocate: function (width, height, bpp, red_mask, green_mask, blue_mask) {
-    return library.FreeImage_Allocate(width, height, bpp, red_mask, green_mask, blue_mask);
+  // Bitmap management functions
+  allocate: function (width, height, bpp, redMask, greenMask, blueMask) {
+    redMask = setToDefaultIfUndefined(redMask, 0);
+    greenMask = setToDefaultIfUndefined(greenMask, 0);
+    blueMask = setToDefaultIfUndefined(blueMask, 0);
+    assertInteger(width, "width");
+    assertInteger(height, "height");
+    assertInteger(bpp, "bpp");
+    assertUnsignedInteger(redMask, "redMask");
+    assertUnsignedInteger(greenMask, "greenMask");
+    assertUnsignedInteger(blueMask, "blueMask");
+    return library.FreeImage_Allocate(
+      width, height, bpp, 
+      redMask, greenMask, blueMask
+    );
   },
-  // FIBITMAP *FreeImage_AllocateT(FREE_IMAGE_TYPE type, int width, int height, int bpp FI_DEFAULT(8), unsigned red_mask FI_DEFAULT(0), unsigned green_mask FI_DEFAULT(0), unsigned blue_mask FI_DEFAULT(0));
-  allocateT: function (type, width, height, bpp, red_mask, green_mask, blue_mask) {
-    return library.FreeImage_AllocateT(type, width, height, bpp, red_mask, green_mask, blue_mask);
+  allocateT: function (type, width, height, bpp, redMask, greenMask, blueMask) {
+    bpp = setToDefaultIfUndefined(bpp, 8);
+    redMask = setToDefaultIfUndefined(redMask, 0);
+    greenMask = setToDefaultIfUndefined(greenMask, 0);
+    blueMask = setToDefaultIfUndefined(blueMask, 0);
+    assertImageType(type, "type");
+    assertInteger(width, "width");
+    assertInteger(height, "height");
+    assertInteger(bpp, "bpp");
+    assertUnsignedInteger(redMask, "redMask");
+    assertUnsignedInteger(greenMask, "greenMask");
+    assertUnsignedInteger(blueMask, "blueMask");
+    return library.FreeImage_AllocateT(
+      type,
+      width, height, bpp, 
+      redMask, greenMask, blueMask
+    );
   },
+  save: function (format, bitmap, fileName, flags) {
+    flags = setToDefaultIfUndefined(flags, 0);
+    assertImageFormat(format, "format");
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonEmptyString(fileName, "fileName");
+    assertInteger(flags, "flags");
+    return library.FreeImage_Save(format, bitmap, fileName, flags) === TRUE;
+  },
+  load: function (format, fileName, flags) {
+    flags = setToDefaultIfUndefined(flags, 0);
+    assertImageFormat(format, "format");
+    assertNonEmptyString(fileName, "fileName");
+    assertInteger(flags, "flags");
+    return library.FreeImage_Load(format, fileName, flags);
+  },
+  unload: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_Unload(bitmap);
+  },
+
+
+
   // FIBITMAP * FreeImage_Clone(FIBITMAP *dib);
   clone: function (dib) {
     return library.FreeImage_Clone(dib);
-  },
-  // void FreeImage_Unload(FIBITMAP *dib);
-  unload: function (dib) {
-    return library.FreeImage_Unload(dib);
   },
   // BOOL FreeImage_HasPixels(FIBITMAP *dib);
   hasPixels: function (dib) {
     return library.FreeImage_HasPixels(dib);
   },
-  // FIBITMAP *FreeImage_Load(FREE_IMAGE_FORMAT fif, const char *filename, int flags FI_DEFAULT(0));
-  load: function (fif, filename, flags) {
-    return library.FreeImage_Load(fif, filename, flags);
-  },
   // FIBITMAP *FreeImage_LoadU(FREE_IMAGE_FORMAT fif, const wchar_t *filename, int flags FI_DEFAULT(0));
   loadU: function (fif, filename, flags) {
     return library.FreeImage_LoadU(fif, filename, flags);
-  },
-  // BOOL FreeImage_Save(FREE_IMAGE_FORMAT fif, FIBITMAP *dib, const char *filename, int flags FI_DEFAULT(0));
-  save: function (fif, dib, filename, flags) {
-    return library.FreeImage_Save(fif, dib, filename, flags);
   },
   // BOOL FreeImage_SaveU(FREE_IMAGE_FORMAT fif, FIBITMAP *dib, const wchar_t *filename, int flags FI_DEFAULT(0));
   saveU: function (fif, dib, filename, flags) {
