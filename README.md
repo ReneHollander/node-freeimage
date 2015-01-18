@@ -15,9 +15,9 @@ From bitbucket.org:
 
 ## Usage
 
-    var fi = require('node-freeimage');
+    var fi = require("node-freeimage");
 
-    console.log('FreeImage version:', fi.getVersion);
+    console.log("FreeImage version:", fi.getVersion());
 
 ## Tests
 
