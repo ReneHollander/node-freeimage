@@ -1,0 +1,29 @@
+{
+  "name": "node-freeimage",
+  "version": "0.1.0",
+  "description": "Node.js wrapper around FreeImage",
+  "keywords": [
+    "FreeImage",
+    "FFI"
+  ],
+  "author": "Laszlo Kocsis <kocsis1977@gmail.com> (http://stackoverflow.com/users/600135/kol)",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "dependencies": {
+    "ffi": "^1.2.7",
+    "ref": "^0.3.3",
+    "ref-array": "^1.1.0",
+    "ref-struct": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/koldev/node-freeimage.git"
+  }
+}
