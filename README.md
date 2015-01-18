@@ -2,6 +2,8 @@ node-freeimage
 ==============
 
 Node.js wrapper around [FreeImage](http://freeimage.sourceforge.net/).
+Since this package uses [FFI](https://www.npmjs.com/package/node-ffi), the FreeImage dynamic library must be installed. 
+IMPORTANT: On 64-bit systems, only the 64-bit version of FreeImage can be used by FFI!
 
 ## Installation
 
