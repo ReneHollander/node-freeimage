@@ -71,7 +71,7 @@ var ref = require("ref"),
     PBITMAPINFOHEADER = ref.refType(BITMAPINFOHEADER),
     BITMAPINFO = RefStruct({
       bmiHeader: BITMAPINFOHEADER, 
-      bmiColors: RefArray(RGBQUAD, 1)
+      bmiColors: RefArray(RGBQUAD)
     }),
     PBITMAPINFO = ref.refType(BITMAPINFO),
     RGB16 = RefStruct({
@@ -787,13 +787,158 @@ module.exports = {
     return library.FreeImage_Unload(bitmap);
   },
   // Bitmap information functions
-  
-
-
-  // BOOL FreeImage_HasPixels(FIBITMAP *dib);
-  hasPixels: function (dib) {
-    return library.FreeImage_HasPixels(dib);
+  getImageType: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetImageType(bitmap);
   },
+  getColorsUsed: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetColorsUsed(bitmap);
+  },
+  getBPP: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetBPP(bitmap);
+  },
+  getWidth: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetWidth(bitmap);
+  },
+  getHeight: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetHeight(bitmap);
+  },
+  getLine: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetLine(bitmap);
+  },
+  getPitch: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetPitch(bitmap);
+  },
+  getDIBSize: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetDIBSize(bitmap);
+  },
+  getPalette: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetPalette(bitmap);
+  },
+  getDotsPerMeterX: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetDotsPerMeterX(bitmap);
+  },
+  getDotsPerMeterY: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetDotsPerMeterY(bitmap);
+  },
+  setDotsPerMeterX: function (bitmap, dpmX) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertUnsignedInteger(dpmX, "dpmX");
+    library.FreeImage_SetDotsPerMeterX(bitmap, dpmX);
+  },
+  setDotsPerMeterY: function (bitmap, dpmY) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertUnsignedInteger(dpmY, "dpmY");
+    library.FreeImage_SetDotsPerMeterY(bitmap, dpmY);
+  },
+  getInfoHeader: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetInfoHeader(bitmap);
+  },
+  getInfo: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetInfo(bitmap);
+  },
+  // FREE_IMAGE_COLOR_TYPE FreeImage_GetColorType(FIBITMAP *bitmap);
+  getColorType: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetColorType(bitmap);
+  },
+  // unsigned FreeImage_GetRedMask(FIBITMAP *bitmap);
+  getRedMask: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetRedMask(bitmap);
+  },
+  // unsigned FreeImage_GetGreenMask(FIBITMAP *bitmap);
+  getGreenMask: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetGreenMask(bitmap);
+  },
+  // unsigned FreeImage_GetBlueMask(FIBITMAP *bitmap);
+  getBlueMask: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetBlueMask(bitmap);
+  },
+  // unsigned FreeImage_GetTransparencyCount(FIBITMAP *bitmap);
+  getTransparencyCount: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetTransparencyCount(bitmap);
+  },
+  // BYTE * FreeImage_GetTransparencyTable(FIBITMAP *bitmap);
+  getTransparencyTable: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetTransparencyTable(bitmap);
+  },
+  // void FreeImage_SetTransparent(FIBITMAP *bitmap, BOOL enabled);
+  setTransparent: function (bitmap, enabled) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_SetTransparent(bitmap, enabled);
+  },
+  // void FreeImage_SetTransparencyTable(FIBITMAP *bitmap, BYTE *table, int count);
+  setTransparencyTable: function (bitmap, table, count) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_SetTransparencyTable(bitmap, table, count);
+  },
+  // BOOL FreeImage_IsTransparent(FIBITMAP *bitmap);
+  isTransparent: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_IsTransparent(bitmap);
+  },
+  // void FreeImage_SetTransparentIndex(FIBITMAP *bitmap, int index);
+  setTransparentIndex: function (bitmap, index) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_SetTransparentIndex(bitmap, index);
+  },
+  // int FreeImage_GetTransparentIndex(FIBITMAP *bitmap);
+  getTransparentIndex: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetTransparentIndex(bitmap);
+  },
+  // BOOL FreeImage_HasBackgroundColor(FIBITMAP *bitmap);
+  hasBackgroundColor: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_HasBackgroundColor(bitmap);
+  },
+  // BOOL FreeImage_GetBackgroundColor(FIBITMAP *bitmap, RGBQUAD *bkcolor);
+  getBackgroundColor: function (bitmap, bkcolor) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetBackgroundColor(bitmap, bkcolor);
+  },
+  // BOOL FreeImage_SetBackgroundColor(FIBITMAP *bitmap, RGBQUAD *bkcolor);
+  setBackgroundColor: function (bitmap, bkcolor) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_SetBackgroundColor(bitmap, bkcolor);
+  },
+  // BOOL FreeImage_HasPixels(FIBITMAP *bitmap);
+  hasPixels: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_HasPixels(bitmap);
+  },
+  // FIBITMAP *FreeImage_GetThumbnail(FIBITMAP *bitmap);
+  getThumbnail: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetThumbnail(bitmap);
+  },
+  // BOOL FreeImage_SetThumbnail(FIBITMAP *bitmap, FIBITMAP *thumbnail);
+  setThumbnail: function (bitmap, thumbnail) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_SetThumbnail(bitmap, thumbnail);
+  },
+
+
+  
+  
+  
   // FIMULTIBITMAP * FreeImage_OpenMultiBitmap(FREE_IMAGE_FORMAT fif, const char *filename, BOOL create_new, BOOL read_only, BOOL keep_cache_in_memory FI_DEFAULT(FALSE), int flags FI_DEFAULT(0));
   openMultiBitmap: function (fif, filename, create_new, read_only, keep_cache_in_memory, flags) {
     return library.FreeImage_OpenMultiBitmap(fif, filename, create_new, read_only, keep_cache_in_memory, flags);
@@ -838,10 +983,6 @@ module.exports = {
   getFileType: function (filename, size) {
     return library.FreeImage_GetFileType(filename, size);
   },
-  // FREE_IMAGE_TYPE FreeImage_GetImageType(FIBITMAP *dib);
-  getImageType: function (dib) {
-    return library.FreeImage_GetImageType(dib);
-  },
   // BOOL FreeImage_IsLittleEndian(void);
   isLittleEndian: function () {
     return library.FreeImage_IsLittleEndian();
@@ -854,161 +995,41 @@ module.exports = {
   lookupSVGColor: function (szColor, nRed, nGreen, nBlue) {
     return library.FreeImage_LookupSVGColor(szColor, nRed, nGreen, nBlue);
   },
-  // BYTE *FreeImage_GetBits(FIBITMAP *dib);
-  getBits: function (dib) {
-    return library.FreeImage_GetBits(dib);
+  // BYTE *FreeImage_GetBits(FIBITMAP *bitmap);
+  getBits: function (bitmap) {
+    return library.FreeImage_GetBits(bitmap);
   },
-  // BYTE *FreeImage_GetScanLine(FIBITMAP *dib, int scanline);
-  getScanLine: function (dib, scanline) {
-    return library.FreeImage_GetScanLine(dib, scanline);
+  // BYTE *FreeImage_GetScanLine(FIBITMAP *bitmap, int scanline);
+  getScanLine: function (bitmap, scanline) {
+    return library.FreeImage_GetScanLine(bitmap, scanline);
   },
-  // BOOL FreeImage_GetPixelIndex(FIBITMAP *dib, unsigned x, unsigned y, BYTE *value);
-  getPixelIndex: function (dib, x, y, value) {
-    return library.FreeImage_GetPixelIndex(dib, x, y, value);
+  // BOOL FreeImage_GetPixelIndex(FIBITMAP *bitmap, unsigned x, unsigned y, BYTE *value);
+  getPixelIndex: function (bitmap, x, y, value) {
+    return library.FreeImage_GetPixelIndex(bitmap, x, y, value);
   },
-  // BOOL FreeImage_GetPixelColor(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
-  getPixelColor: function (dib, x, y, value) {
-    return library.FreeImage_GetPixelColor(dib, x, y, value);
+  // BOOL FreeImage_GetPixelColor(FIBITMAP *bitmap, unsigned x, unsigned y, RGBQUAD *value);
+  getPixelColor: function (bitmap, x, y, value) {
+    return library.FreeImage_GetPixelColor(bitmap, x, y, value);
   },
-  // BOOL FreeImage_SetPixelIndex(FIBITMAP *dib, unsigned x, unsigned y, BYTE *value);
-  setPixelIndex: function (dib, x, y, value) {
-    return library.FreeImage_SetPixelIndex(dib, x, y, value);
+  // BOOL FreeImage_SetPixelIndex(FIBITMAP *bitmap, unsigned x, unsigned y, BYTE *value);
+  setPixelIndex: function (bitmap, x, y, value) {
+    return library.FreeImage_SetPixelIndex(bitmap, x, y, value);
   },
-  // BOOL FreeImage_SetPixelColor(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
-  setPixelColor: function (dib, x, y, value) {
-    return library.FreeImage_SetPixelColor(dib, x, y, value);
+  // BOOL FreeImage_SetPixelColor(FIBITMAP *bitmap, unsigned x, unsigned y, RGBQUAD *value);
+  setPixelColor: function (bitmap, x, y, value) {
+    return library.FreeImage_SetPixelColor(bitmap, x, y, value);
   },
-  // unsigned FreeImage_GetColorsUsed(FIBITMAP *dib);
-  getColorsUsed: function (dib) {
-    return library.FreeImage_GetColorsUsed(dib);
+  // FIICCPROFILE *FreeImage_GetICCProfile(FIBITMAP *bitmap);
+  getICCProfile: function (bitmap) {
+    return library.FreeImage_GetICCProfile(bitmap);
   },
-  // unsigned FreeImage_GetBPP(FIBITMAP *dib);
-  getBPP: function (dib) {
-    return library.FreeImage_GetBPP(dib);
+  // FIICCPROFILE *FreeImage_CreateICCProfile(FIBITMAP *bitmap, void *data, long size);
+  createICCProfile: function (bitmap, data, size) {
+    return library.FreeImage_CreateICCProfile(bitmap, data, size);
   },
-  // unsigned FreeImage_GetWidth(FIBITMAP *dib);
-  getWidth: function (dib) {
-    return library.FreeImage_GetWidth(dib);
-  },
-  // unsigned FreeImage_GetHeight(FIBITMAP *dib);
-  getHeight: function (dib) {
-    return library.FreeImage_GetHeight(dib);
-  },
-  // unsigned FreeImage_GetLine(FIBITMAP *dib);
-  getLine: function (dib) {
-    return library.FreeImage_GetLine(dib);
-  },
-  // unsigned FreeImage_GetPitch(FIBITMAP *dib);
-  getPitch: function (dib) {
-    return library.FreeImage_GetPitch(dib);
-  },
-  // unsigned FreeImage_GetDIBSize(FIBITMAP *dib);
-  getDIBSize: function (dib) {
-    return library.FreeImage_GetDIBSize(dib);
-  },
-  // RGBQUAD *FreeImage_GetPalette(FIBITMAP *dib);
-  getPalette: function (dib) {
-    return library.FreeImage_GetPalette(dib);
-  },
-  // unsigned FreeImage_GetDotsPerMeterX(FIBITMAP *dib);
-  getDotsPerMeterX: function (dib) {
-    return library.FreeImage_GetDotsPerMeterX(dib);
-  },
-  // unsigned FreeImage_GetDotsPerMeterY(FIBITMAP *dib);
-  getDotsPerMeterY: function (dib) {
-    return library.FreeImage_GetDotsPerMeterY(dib);
-  },
-  // void FreeImage_SetDotsPerMeterX(FIBITMAP *dib, unsigned res);
-  setDotsPerMeterX: function (dib, res) {
-    return library.FreeImage_SetDotsPerMeterX(dib, res);
-  },
-  // void FreeImage_SetDotsPerMeterY(FIBITMAP *dib, unsigned res);
-  setDotsPerMeterY: function (dib, res) {
-    return library.FreeImage_SetDotsPerMeterY(dib, res);
-  },
-  // BITMAPINFOHEADER *FreeImage_GetInfoHeader(FIBITMAP *dib);
-  getInfoHeader: function (dib) {
-    return library.FreeImage_GetInfoHeader(dib);
-  },
-  // BITMAPINFO *FreeImage_GetInfo(FIBITMAP *dib);
-  getInfo: function (dib) {
-    return library.FreeImage_GetInfo(dib);
-  },
-  // FREE_IMAGE_COLOR_TYPE FreeImage_GetColorType(FIBITMAP *dib);
-  getColorType: function (dib) {
-    return library.FreeImage_GetColorType(dib);
-  },
-  // unsigned FreeImage_GetRedMask(FIBITMAP *dib);
-  getRedMask: function (dib) {
-    return library.FreeImage_GetRedMask(dib);
-  },
-  // unsigned FreeImage_GetGreenMask(FIBITMAP *dib);
-  getGreenMask: function (dib) {
-    return library.FreeImage_GetGreenMask(dib);
-  },
-  // unsigned FreeImage_GetBlueMask(FIBITMAP *dib);
-  getBlueMask: function (dib) {
-    return library.FreeImage_GetBlueMask(dib);
-  },
-  // unsigned FreeImage_GetTransparencyCount(FIBITMAP *dib);
-  getTransparencyCount: function (dib) {
-    return library.FreeImage_GetTransparencyCount(dib);
-  },
-  // BYTE * FreeImage_GetTransparencyTable(FIBITMAP *dib);
-  getTransparencyTable: function (dib) {
-    return library.FreeImage_GetTransparencyTable(dib);
-  },
-  // void FreeImage_SetTransparent(FIBITMAP *dib, BOOL enabled);
-  setTransparent: function (dib, enabled) {
-    return library.FreeImage_SetTransparent(dib, enabled);
-  },
-  // void FreeImage_SetTransparencyTable(FIBITMAP *dib, BYTE *table, int count);
-  setTransparencyTable: function (dib, table, count) {
-    return library.FreeImage_SetTransparencyTable(dib, table, count);
-  },
-  // BOOL FreeImage_IsTransparent(FIBITMAP *dib);
-  isTransparent: function (dib) {
-    return library.FreeImage_IsTransparent(dib);
-  },
-  // void FreeImage_SetTransparentIndex(FIBITMAP *dib, int index);
-  setTransparentIndex: function (dib, index) {
-    return library.FreeImage_SetTransparentIndex(dib, index);
-  },
-  // int FreeImage_GetTransparentIndex(FIBITMAP *dib);
-  getTransparentIndex: function (dib) {
-    return library.FreeImage_GetTransparentIndex(dib);
-  },
-  // BOOL FreeImage_HasBackgroundColor(FIBITMAP *dib);
-  hasBackgroundColor: function (dib) {
-    return library.FreeImage_HasBackgroundColor(dib);
-  },
-  // BOOL FreeImage_GetBackgroundColor(FIBITMAP *dib, RGBQUAD *bkcolor);
-  getBackgroundColor: function (dib, bkcolor) {
-    return library.FreeImage_GetBackgroundColor(dib, bkcolor);
-  },
-  // BOOL FreeImage_SetBackgroundColor(FIBITMAP *dib, RGBQUAD *bkcolor);
-  setBackgroundColor: function (dib, bkcolor) {
-    return library.FreeImage_SetBackgroundColor(dib, bkcolor);
-  },
-  // FIBITMAP *FreeImage_GetThumbnail(FIBITMAP *dib);
-  getThumbnail: function (dib) {
-    return library.FreeImage_GetThumbnail(dib);
-  },
-  // BOOL FreeImage_SetThumbnail(FIBITMAP *dib, FIBITMAP *thumbnail);
-  setThumbnail: function (dib, thumbnail) {
-    return library.FreeImage_SetThumbnail(dib, thumbnail);
-  },
-  // FIICCPROFILE *FreeImage_GetICCProfile(FIBITMAP *dib);
-  getICCProfile: function (dib) {
-    return library.FreeImage_GetICCProfile(dib);
-  },
-  // FIICCPROFILE *FreeImage_CreateICCProfile(FIBITMAP *dib, void *data, long size);
-  createICCProfile: function (dib, data, size) {
-    return library.FreeImage_CreateICCProfile(dib, data, size);
-  },
-  // void FreeImage_DestroyICCProfile(FIBITMAP *dib);
-  destroyICCProfile: function (dib) {
-    return library.FreeImage_DestroyICCProfile(dib);
+  // void FreeImage_DestroyICCProfile(FIBITMAP *bitmap);
+  destroyICCProfile: function (bitmap) {
+    return library.FreeImage_DestroyICCProfile(bitmap);
   },
   // void FreeImage_ConvertLine1To4(BYTE *target, BYTE *source, int width_in_pixels);
   convertLine1To4: function (target, source, width_in_pixels) {
@@ -1154,73 +1175,73 @@ module.exports = {
   convertLine24To32: function (target, source, width_in_pixels) {
     return library.FreeImage_ConvertLine24To32(target, source, width_in_pixels);
   },
-  // FIBITMAP *FreeImage_ConvertTo4Bits(FIBITMAP *dib);
-  convertTo4Bits: function (dib) {
-    return library.FreeImage_ConvertTo4Bits(dib);
+  // FIBITMAP *FreeImage_ConvertTo4Bits(FIBITMAP *bitmap);
+  convertTo4Bits: function (bitmap) {
+    return library.FreeImage_ConvertTo4Bits(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo8Bits(FIBITMAP *dib);
-  convertTo8Bits: function (dib) {
-    return library.FreeImage_ConvertTo8Bits(dib);
+  // FIBITMAP *FreeImage_ConvertTo8Bits(FIBITMAP *bitmap);
+  convertTo8Bits: function (bitmap) {
+    return library.FreeImage_ConvertTo8Bits(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertToGreyscale(FIBITMAP *dib);
-  convertToGreyscale: function (dib) {
-    return library.FreeImage_ConvertToGreyscale(dib);
+  // FIBITMAP *FreeImage_ConvertToGreyscale(FIBITMAP *bitmap);
+  convertToGreyscale: function (bitmap) {
+    return library.FreeImage_ConvertToGreyscale(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo16Bits555(FIBITMAP *dib);
-  convertTo16Bits555: function (dib) {
-    return library.FreeImage_ConvertTo16Bits555(dib);
+  // FIBITMAP *FreeImage_ConvertTo16Bits555(FIBITMAP *bitmap);
+  convertTo16Bits555: function (bitmap) {
+    return library.FreeImage_ConvertTo16Bits555(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo16Bits565(FIBITMAP *dib);
-  convertTo16Bits565: function (dib) {
-    return library.FreeImage_ConvertTo16Bits565(dib);
+  // FIBITMAP *FreeImage_ConvertTo16Bits565(FIBITMAP *bitmap);
+  convertTo16Bits565: function (bitmap) {
+    return library.FreeImage_ConvertTo16Bits565(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo24Bits(FIBITMAP *dib);
-  convertTo24Bits: function (dib) {
-    return library.FreeImage_ConvertTo24Bits(dib);
+  // FIBITMAP *FreeImage_ConvertTo24Bits(FIBITMAP *bitmap);
+  convertTo24Bits: function (bitmap) {
+    return library.FreeImage_ConvertTo24Bits(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo32Bits(FIBITMAP *dib);
-  convertTo32Bits: function (dib) {
-    return library.FreeImage_ConvertTo32Bits(dib);
+  // FIBITMAP *FreeImage_ConvertTo32Bits(FIBITMAP *bitmap);
+  convertTo32Bits: function (bitmap) {
+    return library.FreeImage_ConvertTo32Bits(bitmap);
   },
-  // FIBITMAP *FreeImage_ColorQuantize(FIBITMAP *dib, FREE_IMAGE_QUANTIZE quantize);
-  colorQuantize: function (dib, quantize) {
-    return library.FreeImage_ColorQuantize(dib, quantize);
+  // FIBITMAP *FreeImage_ColorQuantize(FIBITMAP *bitmap, FREE_IMAGE_QUANTIZE quantize);
+  colorQuantize: function (bitmap, quantize) {
+    return library.FreeImage_ColorQuantize(bitmap, quantize);
   },
-  // FIBITMAP *FreeImage_ColorQuantizeEx(FIBITMAP *dib, FREE_IMAGE_QUANTIZE quantize FI_DEFAULT(FIQ_WUQUANT), int PaletteSize FI_DEFAULT(256), int ReserveSize FI_DEFAULT(0), RGBQUAD *ReservePalette FI_DEFAULT(NULL));
-  colorQuantizeEx: function (dib, quantize, PaletteSize, ReserveSize, ReservePalette) {
-    return library.FreeImage_ColorQuantizeEx(dib, quantize, PaletteSize, ReserveSize, ReservePalette);
+  // FIBITMAP *FreeImage_ColorQuantizeEx(FIBITMAP *bitmap, FREE_IMAGE_QUANTIZE quantize FI_DEFAULT(FIQ_WUQUANT), int PaletteSize FI_DEFAULT(256), int ReserveSize FI_DEFAULT(0), RGBQUAD *ReservePalette FI_DEFAULT(NULL));
+  colorQuantizeEx: function (bitmap, quantize, PaletteSize, ReserveSize, ReservePalette) {
+    return library.FreeImage_ColorQuantizeEx(bitmap, quantize, PaletteSize, ReserveSize, ReservePalette);
   },
-  // FIBITMAP *FreeImage_Threshold(FIBITMAP *dib, BYTE T);
-  threshold: function (dib, T) {
-    return library.FreeImage_Threshold(dib, T);
+  // FIBITMAP *FreeImage_Threshold(FIBITMAP *bitmap, BYTE T);
+  threshold: function (bitmap, T) {
+    return library.FreeImage_Threshold(bitmap, T);
   },
-  // FIBITMAP *FreeImage_Dither(FIBITMAP *dib, FREE_IMAGE_DITHER algorithm);
-  dither: function (dib, algorithm) {
-    return library.FreeImage_Dither(dib, algorithm);
+  // FIBITMAP *FreeImage_Dither(FIBITMAP *bitmap, FREE_IMAGE_DITHER algorithm);
+  dither: function (bitmap, algorithm) {
+    return library.FreeImage_Dither(bitmap, algorithm);
   },
   // FIBITMAP *FreeImage_ConvertFromRawBits(BYTE *bits, int width, int height, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown FI_DEFAULT(FALSE));
   convertFromRawBits: function (bits, width, height, pitch, bpp, red_mask, green_mask, blue_mask, topdown) {
     return library.FreeImage_ConvertFromRawBits(bits, width, height, pitch, bpp, red_mask, green_mask, blue_mask, topdown);
   },
-  // void FreeImage_ConvertToRawBits(BYTE *bits, FIBITMAP *dib, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown FI_DEFAULT(FALSE));
-  convertToRawBits: function (bits, dib, pitch, bpp, red_mask, green_mask, blue_mask, topdown) {
-    return library.FreeImage_ConvertToRawBits(bits, dib, pitch, bpp, red_mask, green_mask, blue_mask, topdown);
+  // void FreeImage_ConvertToRawBits(BYTE *bits, FIBITMAP *bitmap, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown FI_DEFAULT(FALSE));
+  convertToRawBits: function (bits, bitmap, pitch, bpp, red_mask, green_mask, blue_mask, topdown) {
+    return library.FreeImage_ConvertToRawBits(bits, bitmap, pitch, bpp, red_mask, green_mask, blue_mask, topdown);
   },
-  // FIBITMAP *FreeImage_ConvertToFloat(FIBITMAP *dib);
-  convertToFloat: function (dib) {
-    return library.FreeImage_ConvertToFloat(dib);
+  // FIBITMAP *FreeImage_ConvertToFloat(FIBITMAP *bitmap);
+  convertToFloat: function (bitmap) {
+    return library.FreeImage_ConvertToFloat(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertToRGBF(FIBITMAP *dib);
-  convertToRGBF: function (dib) {
-    return library.FreeImage_ConvertToRGBF(dib);
+  // FIBITMAP *FreeImage_ConvertToRGBF(FIBITMAP *bitmap);
+  convertToRGBF: function (bitmap) {
+    return library.FreeImage_ConvertToRGBF(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertToUINT16(FIBITMAP *dib);
-  convertToUINT16: function (dib) {
-    return library.FreeImage_ConvertToUINT16(dib);
+  // FIBITMAP *FreeImage_ConvertToUINT16(FIBITMAP *bitmap);
+  convertToUINT16: function (bitmap) {
+    return library.FreeImage_ConvertToUINT16(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertToRGB16(FIBITMAP *dib);
-  convertToRGB16: function (dib) {
-    return library.FreeImage_ConvertToRGB16(dib);
+  // FIBITMAP *FreeImage_ConvertToRGB16(FIBITMAP *bitmap);
+  convertToRGB16: function (bitmap) {
+    return library.FreeImage_ConvertToRGB16(bitmap);
   },
   // FIBITMAP *FreeImage_ConvertToStandardType(FIBITMAP *src, BOOL scale_linear FI_DEFAULT(TRUE));
   convertToStandardType: function (src, scale_linear) {
@@ -1230,9 +1251,9 @@ module.exports = {
   convertToType: function (src, dst_type, scale_linear) {
     return library.FreeImage_ConvertToType(src, dst_type, scale_linear);
   },
-  // FIBITMAP *FreeImage_ToneMapping(FIBITMAP *dib, FREE_IMAGE_TMO tmo, double first_param FI_DEFAULT(0), double second_param FI_DEFAULT(0));
-  toneMapping: function (dib, tmo, first_param, second_param) {
-    return library.FreeImage_ToneMapping(dib, tmo, first_param, second_param);
+  // FIBITMAP *FreeImage_ToneMapping(FIBITMAP *bitmap, FREE_IMAGE_TMO tmo, double first_param FI_DEFAULT(0), double second_param FI_DEFAULT(0));
+  toneMapping: function (bitmap, tmo, first_param, second_param) {
+    return library.FreeImage_ToneMapping(bitmap, tmo, first_param, second_param);
   },
   // FIBITMAP *FreeImage_TmoDrago03(FIBITMAP *src, double gamma FI_DEFAULT(2.2), double exposure FI_DEFAULT(0));
   tmoDrago03: function (src, gamma, exposure) {
@@ -1338,9 +1359,9 @@ module.exports = {
   setTagValue: function (tag, value) {
     return library.FreeImage_SetTagValue(tag, value);
   },
-  // FIMETADATA *FreeImage_FindFirstMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *dib, FITAG **tag);
-  findFirstMetadata: function (model, dib, tag) {
-    return library.FreeImage_FindFirstMetadata(model, dib, tag);
+  // FIMETADATA *FreeImage_FindFirstMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, FITAG **tag);
+  findFirstMetadata: function (model, bitmap, tag) {
+    return library.FreeImage_FindFirstMetadata(model, bitmap, tag);
   },
   // BOOL FreeImage_FindNextMetadata(FIMETADATA *mdhandle, FITAG **tag);
   findNextMetadata: function (mdhandle, tag) {
@@ -1350,17 +1371,17 @@ module.exports = {
   findCloseMetadata: function (mdhandle) {
     return library.FreeImage_FindCloseMetadata(mdhandle);
   },
-  // BOOL FreeImage_SetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *dib, const char *key, FITAG *tag);
-  setMetadata: function (model, dib, key, tag) {
-    return library.FreeImage_SetMetadata(model, dib, key, tag);
+  // BOOL FreeImage_SetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, const char *key, FITAG *tag);
+  setMetadata: function (model, bitmap, key, tag) {
+    return library.FreeImage_SetMetadata(model, bitmap, key, tag);
   },
-  // BOOL FreeImage_GetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *dib, const char *key, FITAG **tag);
-  getMetadata: function (model, dib, key, tag) {
-    return library.FreeImage_GetMetadata(model, dib, key, tag);
+  // BOOL FreeImage_GetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, const char *key, FITAG **tag);
+  getMetadata: function (model, bitmap, key, tag) {
+    return library.FreeImage_GetMetadata(model, bitmap, key, tag);
   },
-  // unsigned FreeImage_GetMetadataCount(FREE_IMAGE_MDMODEL model, FIBITMAP *dib);
-  getMetadataCount: function (model, dib) {
-    return library.FreeImage_GetMetadataCount(model, dib);
+  // unsigned FreeImage_GetMetadataCount(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap);
+  getMetadataCount: function (model, bitmap) {
+    return library.FreeImage_GetMetadataCount(model, bitmap);
   },
   // BOOL FreeImage_CloneMetadata(FIBITMAP *dst, FIBITMAP *src);
   cloneMetadata: function (dst, src) {
@@ -1386,85 +1407,85 @@ module.exports = {
   jpegTransformCombinedFromMemory: function (src_stream, dst_stream, operation, left, top, right, bottom, perfect) {
     return library.FreeImage_JPEGTransformCombinedFromMemory(src_stream, dst_stream, operation, left, top, right, bottom, perfect);
   },
-  // FIBITMAP *FreeImage_RotateClassic(FIBITMAP *dib, double angle);
-  rotateClassic: function (dib, angle) {
-    return library.FreeImage_RotateClassic(dib, angle);
+  // FIBITMAP *FreeImage_RotateClassic(FIBITMAP *bitmap, double angle);
+  rotateClassic: function (bitmap, angle) {
+    return library.FreeImage_RotateClassic(bitmap, angle);
   },
-  // FIBITMAP *FreeImage_Rotate(FIBITMAP *dib, double angle, const void *bkcolor FI_DEFAULT(NULL));
-  rotate: function (dib, angle, bkcolor) {
-    return library.FreeImage_Rotate(dib, angle, bkcolor);
+  // FIBITMAP *FreeImage_Rotate(FIBITMAP *bitmap, double angle, const void *bkcolor FI_DEFAULT(NULL));
+  rotate: function (bitmap, angle, bkcolor) {
+    return library.FreeImage_Rotate(bitmap, angle, bkcolor);
   },
-  // FIBITMAP *FreeImage_RotateEx(FIBITMAP *dib, double angle, double x_shift, double y_shift, double x_origin, double y_origin, BOOL use_mask);
-  rotateEx: function (dib, angle, x_shift, y_shift, x_origin, y_origin, use_mask) {
-    return library.FreeImage_RotateEx(dib, angle, x_shift, y_shift, x_origin, y_origin, use_mask);
+  // FIBITMAP *FreeImage_RotateEx(FIBITMAP *bitmap, double angle, double x_shift, double y_shift, double x_origin, double y_origin, BOOL use_mask);
+  rotateEx: function (bitmap, angle, x_shift, y_shift, x_origin, y_origin, use_mask) {
+    return library.FreeImage_RotateEx(bitmap, angle, x_shift, y_shift, x_origin, y_origin, use_mask);
   },
-  // BOOL FreeImage_FlipHorizontal(FIBITMAP *dib);
-  flipHorizontal: function (dib) {
-    return library.FreeImage_FlipHorizontal(dib);
+  // BOOL FreeImage_FlipHorizontal(FIBITMAP *bitmap);
+  flipHorizontal: function (bitmap) {
+    return library.FreeImage_FlipHorizontal(bitmap);
   },
-  // BOOL FreeImage_FlipVertical(FIBITMAP *dib);
-  flipVertical: function (dib) {
-    return library.FreeImage_FlipVertical(dib);
+  // BOOL FreeImage_FlipVertical(FIBITMAP *bitmap);
+  flipVertical: function (bitmap) {
+    return library.FreeImage_FlipVertical(bitmap);
   },
-  // FIBITMAP *FreeImage_Rescale(FIBITMAP *dib, int dst_width, int dst_height, FREE_IMAGE_FILTER filter FI_DEFAULT(FILTER_CATMULLROM));
-  rescale: function (dib, dst_width, dst_height, filter) {
-    return library.FreeImage_Rescale(dib, dst_width, dst_height, filter);
+  // FIBITMAP *FreeImage_Rescale(FIBITMAP *bitmap, int dst_width, int dst_height, FREE_IMAGE_FILTER filter FI_DEFAULT(FILTER_CATMULLROM));
+  rescale: function (bitmap, dst_width, dst_height, filter) {
+    return library.FreeImage_Rescale(bitmap, dst_width, dst_height, filter);
   },
-  // FIBITMAP *FreeImage_MakeThumbnail(FIBITMAP *dib, int max_pixel_size, BOOL convert FI_DEFAULT(TRUE));
-  makeThumbnail: function (dib, max_pixel_size, convert) {
-    return library.FreeImage_MakeThumbnail(dib, max_pixel_size, convert);
+  // FIBITMAP *FreeImage_MakeThumbnail(FIBITMAP *bitmap, int max_pixel_size, BOOL convert FI_DEFAULT(TRUE));
+  makeThumbnail: function (bitmap, max_pixel_size, convert) {
+    return library.FreeImage_MakeThumbnail(bitmap, max_pixel_size, convert);
   },
-  // BOOL FreeImage_AdjustCurve(FIBITMAP *dib, BYTE *LUT, FREE_IMAGE_COLOR_CHANNEL channel);
-  adjustCurve: function (dib, LUT, channel) {
-    return library.FreeImage_AdjustCurve(dib, LUT, channel);
+  // BOOL FreeImage_AdjustCurve(FIBITMAP *bitmap, BYTE *LUT, FREE_IMAGE_COLOR_CHANNEL channel);
+  adjustCurve: function (bitmap, LUT, channel) {
+    return library.FreeImage_AdjustCurve(bitmap, LUT, channel);
   },
-  // BOOL FreeImage_AdjustGamma(FIBITMAP *dib, double gamma);
-  adjustGamma: function (dib, gamma) {
-    return library.FreeImage_AdjustGamma(dib, gamma);
+  // BOOL FreeImage_AdjustGamma(FIBITMAP *bitmap, double gamma);
+  adjustGamma: function (bitmap, gamma) {
+    return library.FreeImage_AdjustGamma(bitmap, gamma);
   },
-  // BOOL FreeImage_AdjustBrightness(FIBITMAP *dib, double percentage);
-  adjustBrightness: function (dib, percentage) {
-    return library.FreeImage_AdjustBrightness(dib, percentage);
+  // BOOL FreeImage_AdjustBrightness(FIBITMAP *bitmap, double percentage);
+  adjustBrightness: function (bitmap, percentage) {
+    return library.FreeImage_AdjustBrightness(bitmap, percentage);
   },
-  // BOOL FreeImage_AdjustContrast(FIBITMAP *dib, double percentage);
-  adjustContrast: function (dib, percentage) {
-    return library.FreeImage_AdjustContrast(dib, percentage);
+  // BOOL FreeImage_AdjustContrast(FIBITMAP *bitmap, double percentage);
+  adjustContrast: function (bitmap, percentage) {
+    return library.FreeImage_AdjustContrast(bitmap, percentage);
   },
-  // BOOL FreeImage_Invert(FIBITMAP *dib);
-  invert: function (dib) {
-    return library.FreeImage_Invert(dib);
+  // BOOL FreeImage_Invert(FIBITMAP *bitmap);
+  invert: function (bitmap) {
+    return library.FreeImage_Invert(bitmap);
   },
-  // BOOL FreeImage_GetHistogram(FIBITMAP *dib, DWORD *histo, FREE_IMAGE_COLOR_CHANNEL channel FI_DEFAULT(FICC_BLACK));
-  getHistogram: function (dib, histo, channel) {
-    return library.FreeImage_GetHistogram(dib, histo, channel);
+  // BOOL FreeImage_GetHistogram(FIBITMAP *bitmap, DWORD *histo, FREE_IMAGE_COLOR_CHANNEL channel FI_DEFAULT(FICC_BLACK));
+  getHistogram: function (bitmap, histo, channel) {
+    return library.FreeImage_GetHistogram(bitmap, histo, channel);
   },
   // int FreeImage_GetAdjustColorsLookupTable(BYTE *LUT, double brightness, double contrast, double gamma, BOOL invert);
   getAdjustColorsLookupTable: function (LUT, brightness, contrast, gamma, invert) {
     return library.FreeImage_GetAdjustColorsLookupTable(LUT, brightness, contrast, gamma, invert);
   },
-  // BOOL FreeImage_AdjustColors(FIBITMAP *dib, double brightness, double contrast, double gamma, BOOL invert FI_DEFAULT(FALSE));
-  adjustColors: function (dib, brightness, contrast, gamma, invert) {
-    return library.FreeImage_AdjustColors(dib, brightness, contrast, gamma, invert);
+  // BOOL FreeImage_AdjustColors(FIBITMAP *bitmap, double brightness, double contrast, double gamma, BOOL invert FI_DEFAULT(FALSE));
+  adjustColors: function (bitmap, brightness, contrast, gamma, invert) {
+    return library.FreeImage_AdjustColors(bitmap, brightness, contrast, gamma, invert);
   },
-  // unsigned FreeImage_ApplyColorMapping(FIBITMAP *dib, RGBQUAD *srccolors, RGBQUAD *dstcolors, unsigned count, BOOL ignore_alpha, BOOL swap);
-  applyColorMapping: function (dib, srccolors, dstcolors, count, ignore_alpha, swap) {
-    return library.FreeImage_ApplyColorMapping(dib, srccolors, dstcolors, count, ignore_alpha, swap);
+  // unsigned FreeImage_ApplyColorMapping(FIBITMAP *bitmap, RGBQUAD *srccolors, RGBQUAD *dstcolors, unsigned count, BOOL ignore_alpha, BOOL swap);
+  applyColorMapping: function (bitmap, srccolors, dstcolors, count, ignore_alpha, swap) {
+    return library.FreeImage_ApplyColorMapping(bitmap, srccolors, dstcolors, count, ignore_alpha, swap);
   },
-  // unsigned FreeImage_SwapColors(FIBITMAP *dib, RGBQUAD *color_a, RGBQUAD *color_b, BOOL ignore_alpha);
-  swapColors: function (dib, color_a, color_b, ignore_alpha) {
-    return library.FreeImage_SwapColors(dib, color_a, color_b, ignore_alpha);
+  // unsigned FreeImage_SwapColors(FIBITMAP *bitmap, RGBQUAD *color_a, RGBQUAD *color_b, BOOL ignore_alpha);
+  swapColors: function (bitmap, color_a, color_b, ignore_alpha) {
+    return library.FreeImage_SwapColors(bitmap, color_a, color_b, ignore_alpha);
   },
-  // unsigned FreeImage_ApplyPaletteIndexMapping(FIBITMAP *dib, BYTE *srcindices,  BYTE *dstindices, unsigned count, BOOL swap);
-  applyPaletteIndexMapping: function (dib, srcindices, dstindices, count, swap) {
-    return library.FreeImage_ApplyPaletteIndexMapping(dib, srcindices, dstindices, count, swap);
+  // unsigned FreeImage_ApplyPaletteIndexMapping(FIBITMAP *bitmap, BYTE *srcindices,  BYTE *dstindices, unsigned count, BOOL swap);
+  applyPaletteIndexMapping: function (bitmap, srcindices, dstindices, count, swap) {
+    return library.FreeImage_ApplyPaletteIndexMapping(bitmap, srcindices, dstindices, count, swap);
   },
-  // unsigned FreeImage_SwapPaletteIndices(FIBITMAP *dib, BYTE *index_a, BYTE *index_b);
-  swapPaletteIndices: function (dib, index_a, index_b) {
-    return library.FreeImage_SwapPaletteIndices(dib, index_a, index_b);
+  // unsigned FreeImage_SwapPaletteIndices(FIBITMAP *bitmap, BYTE *index_a, BYTE *index_b);
+  swapPaletteIndices: function (bitmap, index_a, index_b) {
+    return library.FreeImage_SwapPaletteIndices(bitmap, index_a, index_b);
   },
-  // FIBITMAP *FreeImage_GetChannel(FIBITMAP *dib, FREE_IMAGE_COLOR_CHANNEL channel);
-  getChannel: function (dib, channel) {
-    return library.FreeImage_GetChannel(dib, channel);
+  // FIBITMAP *FreeImage_GetChannel(FIBITMAP *bitmap, FREE_IMAGE_COLOR_CHANNEL channel);
+  getChannel: function (bitmap, channel) {
+    return library.FreeImage_GetChannel(bitmap, channel);
   },
   // BOOL FreeImage_SetChannel(FIBITMAP *dst, FIBITMAP *src, FREE_IMAGE_COLOR_CHANNEL channel);
   setChannel: function (dst, src, channel) {
@@ -1478,9 +1499,9 @@ module.exports = {
   setComplexChannel: function (dst, src, channel) {
     return library.FreeImage_SetComplexChannel(dst, src, channel);
   },
-  // FIBITMAP *FreeImage_Copy(FIBITMAP *dib, int left, int top, int right, int bottom);
-  copy: function (dib, left, top, right, bottom) {
-    return library.FreeImage_Copy(dib, left, top, right, bottom);
+  // FIBITMAP *FreeImage_Copy(FIBITMAP *bitmap, int left, int top, int right, int bottom);
+  copy: function (bitmap, left, top, right, bottom) {
+    return library.FreeImage_Copy(bitmap, left, top, right, bottom);
   },
   // BOOL FreeImage_Paste(FIBITMAP *dst, FIBITMAP *src, int left, int top, int alpha);
   paste: function (dst, src, left, top, alpha) {
@@ -1490,13 +1511,13 @@ module.exports = {
   composite: function (fg, useFileBkg, appBkColor, bg) {
     return library.FreeImage_Composite(fg, useFileBkg, appBkColor, bg);
   },
-  // BOOL FreeImage_PreMultiplyWithAlpha(FIBITMAP *dib);
-  preMultiplyWithAlpha: function (dib) {
-    return library.FreeImage_PreMultiplyWithAlpha(dib);
+  // BOOL FreeImage_PreMultiplyWithAlpha(FIBITMAP *bitmap);
+  preMultiplyWithAlpha: function (bitmap) {
+    return library.FreeImage_PreMultiplyWithAlpha(bitmap);
   },
-  // BOOL FreeImage_FillBackground(FIBITMAP *dib, const void *color, int options FI_DEFAULT(0));
-  fillBackground: function (dib, color, options) {
-    return library.FreeImage_FillBackground(dib, color, options);
+  // BOOL FreeImage_FillBackground(FIBITMAP *bitmap, const void *color, int options FI_DEFAULT(0));
+  fillBackground: function (bitmap, color, options) {
+    return library.FreeImage_FillBackground(bitmap, color, options);
   },
   // FIBITMAP *FreeImage_EnlargeCanvas(FIBITMAP *src, int left, int top, int right, int bottom, const void *color, int options FI_DEFAULT(0));
   enlargeCanvas: function (src, left, top, right, bottom, color, options) {
