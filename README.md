@@ -3,11 +3,25 @@ node-freeimage
 
 Node.js wrapper around [FreeImage](http://freeimage.sourceforge.net/). This package uses [FFI](https://www.npmjs.com/package/node-ffi), so the FreeImage dynamic library must be installed, see below. If you have any problems, questions or suggestions, please feel free to [contact me](http://stackoverflow.com/users/600135/kol).
 
+
+## Usage
+
+    var fi = require("node-freeimage");
+
+    console.log("FreeImage version:", fi.getVersion());
+
+
+## Requirements
+
+- Windows or Linux
+- Installed FreeImage dynamic library, version 3.16.0 or above
+
+
 ## Installation
 
-### 1) Install FreeImage
+### 1. Install FreeImage
 
-#### 1/a) Windows
+#### a) Windows
 
 The FreeImage binary distribution won't work. All exported functions were compiled using the `__stdcall` calling convention and have names in the DLL like `_FreeImage_GetVersion@0`. The `node-freeimage` package assumes that function names are not mangled.   
 
@@ -20,15 +34,13 @@ You need to download the [source distribution](http://freeimage.sourceforge.net/
 
 After compilation succeeds, copy `FreeImage.dll` from the `Release` directory into the `node-freeimage` directory.
 
-#### 1/b) Linux
+#### b) Linux
 
 Install the FreeImage development package. For example, on Ubuntu:
 
     sudo apt-get install libfreeimage-dev
     
-### 2) Install `node-freeimage`     
-
-
+### 2. Install `node-freeimage`     
 
 From npmjs.org:
 
@@ -38,25 +50,285 @@ From bitbucket.org:
 
     npm install git+https://bitbucket.org/koldev/node-freeimage.git
 
-## Usage
-
-
-
-
-    var fi = require("node-freeimage");
-
-    console.log("FreeImage version:", fi.getVersion());
 
 ## Tests
 
     npm test
-    
+ 
+   
 ## Contributing
 
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 Add unit tests for any new or changed functionality. Lint and test your code.
 
+
 ## Release History
 
 * 0.1.0 Initial release
+* 0.2.0 Added the desciption of installation steps
 
+
+## JavaScript version of supported FreeImage functions
+
+It is assumed that `node-freeimage` has been loaded as follows:
+
+    var fi = require("node-freeimage");
+
+### Bitmap function reference
+
+#### General functions
+
+- `FreeImage_Initialise`: --- (not needed)
+- `FreeImage_DeInitialise`: --- (not needed)
+- `FreeImage_GetVersion`: `fi.getVersion`
+- `FreeImage_GetCopyrightMessage`: `fi.getCopyrightMessage`
+- `FreeImage_SetOutputMessage`: ---
+
+#### Bitmap management functions
+
+- `FreeImage_Allocate`: `fi.allocate`
+- `FreeImage_AllocateT`: `fi.allocateT`
+- `FreeImage_Load`: `fi.load`
+- `FreeImage_LoadU`: ---
+- `FreeImage_LoadFromHandle`: ---
+- `FreeImage_Save`: `fi.save`
+- `FreeImage_SaveU`: ---
+- `FreeImage_SaveToHandle`: ---
+- `FreeImage_Clone`: `fi.clone`
+- `FreeImage_Unload`: `fi.unload`
+
+#### Bitmap information functions
+
+- `FreeImage_GetImageType`: `fi.getImageType`
+- `FreeImage_GetColorsUsed`: `fi.getColorsUsed`
+- `FreeImage_GetBPP`: `fi.getBPP`
+- `FreeImage_GetWidth`: `fi.getWidth`
+- `FreeImage_GetHeight`: `fi.getHeight`
+- `FreeImage_GetLine`: `fi.getLine`
+- `FreeImage_GetPitch`: `fi.getPitch`
+- `FreeImage_GetDIBSize`: `fi.getDIBSize`
+- `FreeImage_GetPalette`: `fi.getPalette`
+- `FreeImage_GetDotsPerMeterX`: `fi.getDotsPerMeterX`
+- `FreeImage_GetDotsPerMeterY`: `fi.getDotsPerMeterY`
+- `FreeImage_SetDotsPerMeterX`: `fi.setDotsPerMeterX`
+- `FreeImage_SetDotsPerMeterY`: `fi.setDotsPerMeterY`
+- `FreeImage_GetInfoHeader`: `fi.getInfoHeader`
+- `FreeImage_GetInfo`: `fi.getInfo`
+- `FreeImage_GetColorType`: `fi.getColorType`
+- `FreeImage_GetRedMask`: `fi.getRedMask`
+- `FreeImage_GetGreenMask`: `fi.getGreenMask`
+- `FreeImage_GetBlueMask`: `fi.getBlueMask`
+- `FreeImage_GetTransparencyCount`: `fi.getTransparencyCount`
+- `FreeImage_GetTransparencyTable`: `fi.getTransparencyTable`
+- `FreeImage_SetTransparencyTable`: `fi.setTransparencyTable`
+- `FreeImage_SetTransparent`: `fi.setTransparent`
+- `FreeImage_IsTransparent`: `fi.isTransparent`
+- `FreeImage_SetTransparentIndex`: `fi.setTransparentIndex`
+- `FreeImage_GetTransparentIndex`: `fi.getTransparentIndex`
+- `FreeImage_HasBackgroundColor`: `fi.hasBackgroundColor`
+- `FreeImage_GetBackgroundColor`: `fi.getBackgroundColor`
+- `FreeImage_SetBackgroundColor`: `fi.setBackgroundColor`
+- `FreeImage_HasPixels`: `fi.hasPixels`
+- `FreeImage_GetThumbnail`: `fi.getThumbnail`
+- `FreeImage_SetThumbnail`: `fi.setThumbnail`
+
+#### Filetype functions
+
+- `FreeImage_GetFileType`: `fi.getFileType`
+- `FreeImage_GetFileTypeU`: ---
+- `FreeImage_GetFileTypeFromHandle`: ---
+- `FreeImage_GetFileTypeFromMemory`: ---
+
+#### Pixel access functions
+
+- `FreeImage_GetBits`: `fi.getBits`
+- `FreeImage_GetScanLine`: `fi.getScanLine`
+- `FreeImage_GetPixelIndex`: `fi.getPixelIndex`
+- `FreeImage_GetPixelColor`: `fi.getPixelColor`
+- `FreeImage_SetPixelIndex`: `fi.setPixelIndex`
+- `FreeImage_SetPixelColor`: `fi.setPixelColor`
+
+#### Conversion functions
+
+- `FreeImage_ConvertTo4Bits`: `fi.convertTo4Bits`
+- `FreeImage_ConvertTo8Bits`: `fi.convertTo8Bits`
+- `FreeImage_ConvertToGreyscale`: `fi.convertToGreyscale`
+- `FreeImage_ConvertTo16Bits555`: `fi.convertTo16Bits555`
+- `FreeImage_ConvertTo16Bits565`: `fi.convertTo16Bits565`
+- `FreeImage_ConvertTo24Bits`: `fi.convertTo24Bits`
+- `FreeImage_ConvertTo32Bits`: `fi.convertTo32Bits`
+- `FreeImage_ColorQuantize`: `fi.colorQuantize`
+- `FreeImage_ColorQuantizeEx`: `fi.colorQuantizeEx`
+- `FreeImage_Threshold`: `fi.threshold`
+- `FreeImage_Dither`: `fi.dither`
+- `FreeImage_ConvertFromRawBits`: `fi.convertFromRawBits`
+- `FreeImage_ConvertToRawBits`: `fi.convertToRawBits`
+- `FreeImage_ConvertToStandardType`: `fi.convertToStandardType`
+- `FreeImage_ConvertToType`: `fi.convertToType`
+- `FreeImage_ConvertToFloat`: `fi.convertToFloat`
+- `FreeImage_ConvertToRGBF`: `fi.convertToRGBF`
+- `FreeImage_ConvertToUINT16`: `fi.convertToUINT16`
+- `FreeImage_ConvertToRGB16`: `fi.convertToRGB16`
+
+##### Tone mapping operators
+
+- `FreeImage_ToneMapping`: `fi.toneMapping`
+- `FreeImage_TmoDrago03`: `fi.tmoDrago03`
+- `FreeImage_TmoReinhard05`: `fi.tmoReinhard05`
+- `FreeImage_TmoReinhard05Ex`: `fi.tmoReinhard05Ex`
+- `FreeImage_TmoFattal02`: `fi.tmoFattal02`
+
+#### ICC profile functions
+
+- `FreeImage_GetICCProfile`: `fi.getICCProfile`
+- `FreeImage_CreateICCProfile`: `fi.createICCProfile`
+- `FreeImage_DestroyICCProfile`: `fi.destroyICCProfile`
+
+#### Multipage functions
+
+- `FreeImage_OpenMultiBitmap`: `fi.openMultiBitmap`
+- `FreeImage_OpenMultiBitmapFromHandle`: ---
+- `FreeImage_SaveMultiBitmapToHandle`: ---
+- `FreeImage_CloseMultiBitmap`: `fi.closeMultiBitmap`
+- `FreeImage_GetPageCount`: `fi.getPageCount`
+- `FreeImage_AppendPage`: `fi.appendPage`
+- `FreeImage_InsertPage`: `fi.insertPage`
+- `FreeImage_DeletePage`: `fi.deletePage`
+- `FreeImage_LockPage`: `fi.lockPage`
+- `FreeImage_UnlockPage`: `fi.unlockPage`
+- `FreeImage_MovePage`: `fi.movePage`
+- `FreeImage_GetLockedPageNumbers`: `fi.getLockedPageNumbers`
+
+#### Memory I/O streams
+
+- `FreeImage_OpenMemory`: --- 
+- `FreeImage_CloseMemory`: --- 
+- `FreeImage_LoadFromMemory`: --- 
+- `FreeImage_SaveToMemory`: --- 
+- `FreeImage_AcquireMemory`: --- 
+- `FreeImage_TellMemory`: --- 
+- `FreeImage_SeekMemory`: --- 
+- `FreeImage_ReadMemory`: --- 
+- `FreeImage_WriteMemory`: --- 
+- `FreeImage_LoadMultiBitmapFromMemory`: --- 
+- `FreeImage_SaveMultiBitmapToMemory`: --- 
+
+#### Compression functions
+
+- `FreeImage_ZLibCompress`: `fi.zLibCompress`
+- `FreeImage_ZLibUncompress`: `fi.zLibUncompress`
+- `FreeImage_ZLibGZip`: `fi.zLibGZip`
+- `FreeImage_ZLibGUnzip`: `fi.zLibGUnzip`
+- `FreeImage_ZLibCRC32`: `fi.zLibCRC32`
+
+#### Helper functions
+
+- `FreeImage_IsLittleEndian`: `fi.isLittleEndian`
+- `FreeImage_LookupX11Color`: `fi.lookupX11Color`
+- `FreeImage_LookupSVGColor`: `fi.lookupSVGColor`
+
+### Metadata function reference
+
+#### Tag creation and destruction
+
+- `FreeImage_CreateTag`: `fi.createTag`
+- `FreeImage_DeleteTag`: `fi.deleteTag`
+- `FreeImage_CloneTag`: `fi.cloneTag`
+
+#### Tag accessors
+
+- `FreeImage_GetTagKey`: `fi.getTagKey`
+- `FreeImage_GetTagDescription`: `fi.getTagDescription`
+- `FreeImage_GetTagID`: `fi.getTagID`
+- `FreeImage_GetTagType`: `fi.getTagType`
+- `FreeImage_GetTagCount`: `fi.getTagCount`
+- `FreeImage_GetTagLength`: `fi.getTagLength`
+- `FreeImage_GetTagValue`: `fi.getTagValue`
+- `FreeImage_SetTagKey`: `fi.setTagKey`
+- `FreeImage_SetTagDescription`: `fi.setTagDescription`
+- `FreeImage_SetTagID`: `fi.setTagID`
+- `FreeImage_SetTagType`: `fi.setTagType`
+- `FreeImage_SetTagCount`: `fi.setTagCount`
+- `FreeImage_SetTagLength`: `fi.setTagLength`
+- `FreeImage_SetTagValue`: `fi.setTagValue`
+
+#### Metadata iterator
+
+- `FreeImage_FindFirstMetadata`: `fi.findFirstMetadata`
+- `FreeImage_FindNextMetadata`: `fi.findNextMetadata`
+- `FreeImage_FindCloseMetadata`: `fi.findCloseMetadata`
+
+#### Metadata accessors
+
+- `FreeImage_GetMetadata`: `fi.getMetadata`
+- `FreeImage_SetMetadata`: `fi.setMetadata`
+
+#### Metadata helper functions
+
+- `FreeImage_GetMetadataCount`: `fi.getMetadataCount`
+- `FreeImage_CloneMetadata`: `fi.cloneMetadata`
+- `FreeImage_TagToString`: `fi.tagToString`
+
+### Toolkit function reference
+
+#### Rotation and flipping
+
+- `FreeImage_Rotate`: `fi.rotate`
+- `FreeImage_RotateEx`: `fi.rotate`
+- `FreeImage_FlipHorizontal`: `fi.flipHorizontal`
+- `FreeImage_FlipVertical`: `fi.flipVertical`
+
+#### Upsampling / downsampling
+
+- `FreeImage_Rescale`: `fi.rescale`
+- `FreeImage_MakeThumbnail`: `fi.makeThumbnail`
+
+#### Color manipulation
+- `FreeImage_AdjustCurve`: `fi.adjustCurve`
+- `FreeImage_AdjustGamma`: `fi.adjustGamma`
+- `FreeImage_AdjustBrightness`: `fi.adjustBrightness`
+- `FreeImage_AdjustContrast`: `fi.adjustContrast`
+- `FreeImage_Invert`: `fi.invert`
+- `FreeImage_GetHistogram`: `fi.getHistogram`
+- `FreeImage_GetAdjustColorsLookupTable`: `fi.getAdjustColorsLookupTable`
+- `FreeImage_AdjustColors`: `fi.adjustColors`
+- `FreeImage_ApplyColorMapping`: `fi.applyColorMapping`
+- `FreeImage_SwapColors`: `fi.swapColors`
+- `FreeImage_ApplyPaletteIndexMapping`: `fi.applyPaletteIndexMapping`
+- `FreeImage_SwapPaletteIndices`: `fi.swapPaletteIndices`
+
+#### Channel processing
+
+- `FreeImage_GetChannel`: `fi.getChannel`
+- `FreeImage_SetChannel`: `fi.setChannel`
+- `FreeImage_GetComplexChannel`: `fi.getComplexChannel`
+- `FreeImage_SetComplexChannel`: `fi.setComplexChannel`
+
+#### Copy / Paste / Composite routines
+
+- `FreeImage_Copy`: `fi.copy`
+- `FreeImage_Paste`: `fi.paste`
+- `FreeImage_Composite`: `fi.composite`
+- `FreeImage_PreMultiplyWithAlpha`: `fi.preMultiplyWithAlpha`
+
+#### JPEG lossless transformations
+
+- `FreeImage_JPEGTransform`: `fi.jpegTransform`
+- `FreeImage_JPEGTransformU`: ---
+- `FreeImage_JPEGCrop`: `fi.jpegCrop`
+- `FreeImage_JPEGCrop`: ---
+- `FreeImage_JPEGTransformCombined`: `fi.jpegTransformCombined`
+- `FreeImage_JPEGTransformCombinedU`: ---
+- `FreeImage_JPEGTransformCombinedFromMemory`: ---
+- `FreeImage_JPEGTransformFromHandle`: ---
+
+#### Background filling
+
+- `FreeImage_FillBackground`: `fi.fillBackground`
+- `FreeImage_EnlargeCanvas`: `fi.enlargeCanvas`
+- `FreeImage_AllocateEx`: `fi.allocateEx`
+- `FreeImage_AllocateExT`: `fi.allocateExT`
+
+#### Miscellaneous algorithms
+
+- `FreeImage_MultigridPoissonSolver`: `fi.multigridPoissonSolver`

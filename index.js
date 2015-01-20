@@ -188,6 +188,7 @@ function assertImageFormat(arg, argName) {
 
 libraryName = os.platform().indexOf("win") >= 0 ? "FreeImage" : "libfreeimage";
 library = new ffi.Library(libraryName, {
+  // BITMAP FUNCTION REFERENCE
   // General functions
   "FreeImage_GetVersion": [STRING, []],
   "FreeImage_GetCopyrightMessage": [STRING, []],
@@ -196,44 +197,10 @@ library = new ffi.Library(libraryName, {
   "FreeImage_AllocateT": [PBITMAP, [LONG, LONG, LONG, LONG, DWORD, DWORD, DWORD]],
   "FreeImage_Save": [BOOL, [LONG, PBITMAP, STRING, LONG]],
   "FreeImage_Load": [PBITMAP, [LONG, STRING, LONG]],
-  "FreeImage_Unload": [VOID, [PBITMAP]],
-  
-  
   "FreeImage_Clone": [PBITMAP, [PBITMAP]],
-  "FreeImage_HasPixels": [BOOL, [PBITMAP]],
-  "FreeImage_OpenMemory": [PMEMORY, [PBYTE, DWORD]],
-  "FreeImage_CloseMemory": [VOID, [PMEMORY]],
-  "FreeImage_LoadFromMemory": [PBITMAP, [LONG, PMEMORY, LONG]],
-  "FreeImage_SaveToMemory": [BOOL, [LONG, PBITMAP, PMEMORY, LONG]],
-  "FreeImage_TellMemory": [LONG, [PMEMORY]],
-  "FreeImage_SeekMemory": [BOOL, [PMEMORY, LONG, LONG]],
-  "FreeImage_AcquireMemory": [BOOL, [PMEMORY, PPBYTE, PDWORD]],
-  "FreeImage_ReadMemory": [DWORD, [PVOID, DWORD, DWORD, PMEMORY]],
-  "FreeImage_WriteMemory": [DWORD, [PVOID, DWORD, DWORD, PMEMORY]],
-  "FreeImage_LoadMultiBitmapFromMemory": [PMULTIBITMAP, [LONG, PMEMORY, LONG]],
-  "FreeImage_SaveMultiBitmapToMemory": [BOOL, [LONG, PMULTIBITMAP, PMEMORY, LONG]],
-  "FreeImage_OpenMultiBitmap": [PMULTIBITMAP, [LONG, STRING, BOOL, BOOL, BOOL, LONG]],
-  "FreeImage_CloseMultiBitmap": [BOOL, [PMULTIBITMAP, LONG]],
-  "FreeImage_GetPageCount": [LONG, [PMULTIBITMAP]],
-  "FreeImage_AppendPage": [VOID, [PMULTIBITMAP, PBITMAP]],
-  "FreeImage_InsertPage": [VOID, [PMULTIBITMAP, LONG, PBITMAP]],
-  "FreeImage_DeletePage": [VOID, [PMULTIBITMAP, LONG]],
-  "FreeImage_LockPage": [PBITMAP, [PMULTIBITMAP, LONG]],
-  "FreeImage_UnlockPage": [VOID, [PMULTIBITMAP, PBITMAP, BOOL]],
-  "FreeImage_MovePage": [BOOL, [PMULTIBITMAP, LONG, LONG]],
-  "FreeImage_GetLockedPageNumbers": [BOOL, [PMULTIBITMAP, PLONG, PLONG]],
-  "FreeImage_GetFileType": [LONG, [STRING, LONG]],
-  "FreeImage_GetFileTypeFromMemory": [LONG, [PMEMORY, LONG]],
+  "FreeImage_Unload": [VOID, [PBITMAP]],
+  // Bitmap information functions
   "FreeImage_GetImageType": [LONG, [PBITMAP]],
-  "FreeImage_IsLittleEndian": [BOOL, []],
-  "FreeImage_LookupX11Color": [BOOL, [STRING, PBYTE, PBYTE, PBYTE]],
-  "FreeImage_LookupSVGColor": [BOOL, [STRING, PBYTE, PBYTE, PBYTE]],
-  "FreeImage_GetBits": [PBYTE, [PBITMAP]],
-  "FreeImage_GetScanLine": [PBYTE, [PBITMAP, LONG]],
-  "FreeImage_GetPixelIndex": [BOOL, [PBITMAP, DWORD, DWORD, PBYTE]],
-  "FreeImage_GetPixelColor": [BOOL, [PBITMAP, DWORD, DWORD, PRGBQUAD]],
-  "FreeImage_SetPixelIndex": [BOOL, [PBITMAP, DWORD, DWORD, PBYTE]],
-  "FreeImage_SetPixelColor": [BOOL, [PBITMAP, DWORD, DWORD, PRGBQUAD]],
   "FreeImage_GetColorsUsed": [DWORD, [PBITMAP]],
   "FreeImage_GetBPP": [DWORD, [PBITMAP]],
   "FreeImage_GetWidth": [DWORD, [PBITMAP]],
@@ -254,55 +221,27 @@ library = new ffi.Library(libraryName, {
   "FreeImage_GetBlueMask": [DWORD, [PBITMAP]],
   "FreeImage_GetTransparencyCount": [DWORD, [PBITMAP]],
   "FreeImage_GetTransparencyTable": [PBYTE, [PBITMAP]],
-  "FreeImage_SetTransparent": [VOID, [PBITMAP, BOOL]],
   "FreeImage_SetTransparencyTable": [VOID, [PBITMAP, PBYTE, LONG]],
+  "FreeImage_SetTransparent": [VOID, [PBITMAP, BOOL]],
   "FreeImage_IsTransparent": [BOOL, [PBITMAP]],
   "FreeImage_SetTransparentIndex": [VOID, [PBITMAP, LONG]],
   "FreeImage_GetTransparentIndex": [LONG, [PBITMAP]],
   "FreeImage_HasBackgroundColor": [BOOL, [PBITMAP]],
   "FreeImage_GetBackgroundColor": [BOOL, [PBITMAP, PRGBQUAD]],
   "FreeImage_SetBackgroundColor": [BOOL, [PBITMAP, PRGBQUAD]],
+  "FreeImage_HasPixels": [BOOL, [PBITMAP]],
   "FreeImage_GetThumbnail": [PBITMAP, [PBITMAP]],
   "FreeImage_SetThumbnail": [BOOL, [PBITMAP, PBITMAP]],
-  "FreeImage_GetICCProfile": [PICCPROFILE, [PBITMAP]],
-  "FreeImage_CreateICCProfile": [PICCPROFILE, [PBITMAP, PVOID, LONG]],
-  "FreeImage_DestroyICCProfile": [VOID, [PBITMAP]],
-  "FreeImage_ConvertLine1To4": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine8To4": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine16To4_555": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine16To4_565": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine24To4": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine32To4": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine1To8": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine4To8": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine16To8_555": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine16To8_565": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine24To8": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine32To8": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine1To16_555": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine4To16_555": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine8To16_555": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine16_565_To16_555": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine24To16_555": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine32To16_555": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine1To16_565": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine4To16_565": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine8To16_565": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine16_555_To16_565": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine24To16_565": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine32To16_565": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine1To24": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine4To24": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine8To24": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine16To24_555": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine16To24_565": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine32To24": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine1To32": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine4To32": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine8To32": [VOID, [PBYTE, PBYTE, LONG, PRGBQUAD]],
-  "FreeImage_ConvertLine16To32_555": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine16To32_565": [VOID, [PBYTE, PBYTE, LONG]],
-  "FreeImage_ConvertLine24To32": [VOID, [PBYTE, PBYTE, LONG]],
+  // Filetype functions
+  "FreeImage_GetFileType": [LONG, [STRING, LONG]],
+  // Pixel access functions
+  "FreeImage_GetBits": [PBYTE, [PBITMAP]],
+  "FreeImage_GetScanLine": [PBYTE, [PBITMAP, LONG]],
+  "FreeImage_GetPixelIndex": [BOOL, [PBITMAP, DWORD, DWORD, PBYTE]],
+  "FreeImage_GetPixelColor": [BOOL, [PBITMAP, DWORD, DWORD, PRGBQUAD]],
+  "FreeImage_SetPixelIndex": [BOOL, [PBITMAP, DWORD, DWORD, PBYTE]],
+  "FreeImage_SetPixelColor": [BOOL, [PBITMAP, DWORD, DWORD, PRGBQUAD]],
+  // Conversion functions
   "FreeImage_ConvertTo4Bits": [PBITMAP, [PBITMAP]],
   "FreeImage_ConvertTo8Bits": [PBITMAP, [PBITMAP]],
   "FreeImage_ConvertToGreyscale": [PBITMAP, [PBITMAP]],
@@ -316,25 +255,49 @@ library = new ffi.Library(libraryName, {
   "FreeImage_Dither": [PBITMAP, [PBITMAP, LONG]],
   "FreeImage_ConvertFromRawBits": [PBITMAP, [PBYTE, LONG, LONG, LONG, DWORD, DWORD, DWORD, DWORD, BOOL]],
   "FreeImage_ConvertToRawBits": [VOID, [PBYTE, PBITMAP, LONG, DWORD, DWORD, DWORD, DWORD, BOOL]],
+  "FreeImage_ConvertToStandardType": [PBITMAP, [PBITMAP, BOOL]],
+  "FreeImage_ConvertToType": [PBITMAP, [PBITMAP, LONG, BOOL]],
   "FreeImage_ConvertToFloat": [PBITMAP, [PBITMAP]],
   "FreeImage_ConvertToRGBF": [PBITMAP, [PBITMAP]],
   "FreeImage_ConvertToUINT16": [PBITMAP, [PBITMAP]],
   "FreeImage_ConvertToRGB16": [PBITMAP, [PBITMAP]],
-  "FreeImage_ConvertToStandardType": [PBITMAP, [PBITMAP, BOOL]],
-  "FreeImage_ConvertToType": [PBITMAP, [PBITMAP, LONG, BOOL]],
+  // Tone mapping operators
   "FreeImage_ToneMapping": [PBITMAP, [PBITMAP, LONG, DOUBLE, DOUBLE]],
   "FreeImage_TmoDrago03": [PBITMAP, [PBITMAP, DOUBLE, DOUBLE]],
   "FreeImage_TmoReinhard05": [PBITMAP, [PBITMAP, DOUBLE, DOUBLE]],
   "FreeImage_TmoReinhard05Ex": [PBITMAP, [PBITMAP, DOUBLE, DOUBLE, DOUBLE, DOUBLE]],
   "FreeImage_TmoFattal02": [PBITMAP, [PBITMAP, DOUBLE, DOUBLE]],
+  // ICC profile functions
+  "FreeImage_GetICCProfile": [PICCPROFILE, [PBITMAP]],
+  "FreeImage_CreateICCProfile": [PICCPROFILE, [PBITMAP, PVOID, LONG]],
+  "FreeImage_DestroyICCProfile": [VOID, [PBITMAP]],
+  // Multipage functions
+  "FreeImage_OpenMultiBitmap": [PMULTIBITMAP, [LONG, STRING, BOOL, BOOL, BOOL, LONG]],
+  "FreeImage_CloseMultiBitmap": [BOOL, [PMULTIBITMAP, LONG]],
+  "FreeImage_GetPageCount": [LONG, [PMULTIBITMAP]],
+  "FreeImage_AppendPage": [VOID, [PMULTIBITMAP, PBITMAP]],
+  "FreeImage_InsertPage": [VOID, [PMULTIBITMAP, LONG, PBITMAP]],
+  "FreeImage_DeletePage": [VOID, [PMULTIBITMAP, LONG]],
+  "FreeImage_LockPage": [PBITMAP, [PMULTIBITMAP, LONG]],
+  "FreeImage_UnlockPage": [VOID, [PMULTIBITMAP, PBITMAP, BOOL]],
+  "FreeImage_MovePage": [BOOL, [PMULTIBITMAP, LONG, LONG]],
+  "FreeImage_GetLockedPageNumbers": [BOOL, [PMULTIBITMAP, PLONG, PLONG]],
+  // Compression functions
   "FreeImage_ZLibCompress": [DWORD, [PBYTE, DWORD, PBYTE, DWORD]],
   "FreeImage_ZLibUncompress": [DWORD, [PBYTE, DWORD, PBYTE, DWORD]],
   "FreeImage_ZLibGZip": [DWORD, [PBYTE, DWORD, PBYTE, DWORD]],
   "FreeImage_ZLibGUnzip": [DWORD, [PBYTE, DWORD, PBYTE, DWORD]],
   "FreeImage_ZLibCRC32": [DWORD, [DWORD, PBYTE, DWORD]],
+  // Helper functions
+  "FreeImage_IsLittleEndian": [BOOL, []],
+  "FreeImage_LookupX11Color": [BOOL, [STRING, PBYTE, PBYTE, PBYTE]],
+  "FreeImage_LookupSVGColor": [BOOL, [STRING, PBYTE, PBYTE, PBYTE]],
+  // METADATA FUNCTION REFERENCE
+  // Tag creation and destruction
   "FreeImage_CreateTag": [PTAG, []],
   "FreeImage_DeleteTag": [VOID, [PTAG]],
   "FreeImage_CloneTag": [PTAG, [PTAG]],
+  // Tag accessors
   "FreeImage_GetTagKey": [STRING, [PTAG]],
   "FreeImage_GetTagDescription": [STRING, [PTAG]],
   "FreeImage_GetTagID": [WORD, [PTAG]],
@@ -349,23 +312,27 @@ library = new ffi.Library(libraryName, {
   "FreeImage_SetTagCount": [BOOL, [PTAG, DWORD]],
   "FreeImage_SetTagLength": [BOOL, [PTAG, DWORD]],
   "FreeImage_SetTagValue": [BOOL, [PTAG, PVOID]],
+  // Metadata iterator
   "FreeImage_FindFirstMetadata": [PMETADATA, [LONG, PBITMAP, PPTAG]],
   "FreeImage_FindNextMetadata": [BOOL, [PMETADATA, PPTAG]],
   "FreeImage_FindCloseMetadata": [VOID, [PMETADATA]],
-  "FreeImage_SetMetadata": [BOOL, [LONG, PBITMAP, STRING, PTAG]],
+  // Metadata accessors
   "FreeImage_GetMetadata": [BOOL, [LONG, PBITMAP, STRING, PPTAG]],
+  "FreeImage_SetMetadata": [BOOL, [LONG, PBITMAP, STRING, PTAG]],
+  // Metadata helper functions
   "FreeImage_GetMetadataCount": [DWORD, [LONG, PBITMAP]],
   "FreeImage_CloneMetadata": [BOOL, [PBITMAP, PBITMAP]],
   "FreeImage_TagToString": [STRING, [LONG, PTAG, STRING]],
-  "FreeImage_JPEGTransform": [BOOL, [STRING, STRING, LONG, BOOL]],
-  "FreeImage_JPEGCrop": [BOOL, [STRING, STRING, LONG, LONG, LONG, LONG]],
-  "FreeImage_RotateClassic": [PBITMAP, [PBITMAP, DOUBLE]],
+  // TOOLKIT FUNCTION REFERENCE
+  // Rotation and flipping
   "FreeImage_Rotate": [PBITMAP, [PBITMAP, DOUBLE, PVOID]],
   "FreeImage_RotateEx": [PBITMAP, [PBITMAP, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, BOOL]],
   "FreeImage_FlipHorizontal": [BOOL, [PBITMAP]],
   "FreeImage_FlipVertical": [BOOL, [PBITMAP]],
+  // Upsampling / downsampling
   "FreeImage_Rescale": [PBITMAP, [PBITMAP, LONG, LONG, LONG]],
   "FreeImage_MakeThumbnail": [PBITMAP, [PBITMAP, LONG, BOOL]],
+  // Color manipulation
   "FreeImage_AdjustCurve": [BOOL, [PBITMAP, PBYTE, LONG]],
   "FreeImage_AdjustGamma": [BOOL, [PBITMAP, DOUBLE]],
   "FreeImage_AdjustBrightness": [BOOL, [PBITMAP, DOUBLE]],
@@ -378,18 +345,25 @@ library = new ffi.Library(libraryName, {
   "FreeImage_SwapColors": [DWORD, [PBITMAP, PRGBQUAD, PRGBQUAD, BOOL]],
   "FreeImage_ApplyPaletteIndexMapping": [DWORD, [PBITMAP, PBYTE, PBYTE, DWORD, BOOL]],
   "FreeImage_SwapPaletteIndices": [DWORD, [PBITMAP, PBYTE, PBYTE]],
+  // Channel processing
   "FreeImage_GetChannel": [PBITMAP, [PBITMAP, LONG]],
   "FreeImage_SetChannel": [BOOL, [PBITMAP, PBITMAP, LONG]],
   "FreeImage_GetComplexChannel": [PBITMAP, [PBITMAP, LONG]],
   "FreeImage_SetComplexChannel": [BOOL, [PBITMAP, PBITMAP, LONG]],
+  // Copy / Paste / Composite routines
   "FreeImage_Copy": [PBITMAP, [PBITMAP, LONG, LONG, LONG, LONG]],
   "FreeImage_Paste": [BOOL, [PBITMAP, PBITMAP, LONG, LONG, LONG]],
   "FreeImage_Composite": [PBITMAP, [PBITMAP, BOOL, PRGBQUAD, PBITMAP]],
   "FreeImage_PreMultiplyWithAlpha": [BOOL, [PBITMAP]],
+  // JPEG lossless transformations
+  "FreeImage_JPEGTransform": [BOOL, [STRING, STRING, LONG, BOOL]],
+  "FreeImage_JPEGCrop": [BOOL, [STRING, STRING, LONG, LONG, LONG, LONG]],
+  // Background filling
   "FreeImage_FillBackground": [BOOL, [PBITMAP, PVOID, LONG]],
   "FreeImage_EnlargeCanvas": [PBITMAP, [PBITMAP, LONG, LONG, LONG, LONG, PVOID, LONG]],
   "FreeImage_AllocateEx": [PBITMAP, [LONG, LONG, LONG, PRGBQUAD, LONG, PRGBQUAD, DWORD, DWORD, DWORD]],
   "FreeImage_AllocateExT": [PBITMAP, [LONG, LONG, LONG, LONG, PVOID, LONG, PRGBQUAD, DWORD, DWORD, DWORD]],
+  // Miscellaneous algorithms
   "FreeImage_MultigridPoissonSolver": [PBITMAP, [PBITMAP, LONG]]
 });
   
@@ -747,6 +721,7 @@ module.exports = {
     ALPHA_IS_INDEX: 0x04,
     PALETTE_SEARCH_MASK: 0x06
   },
+  // BITMAP FUNCTION REFERENCE
   // General functions
   getVersion: function () {
     return library.FreeImage_GetVersion();
@@ -803,64 +778,21 @@ module.exports = {
     assertInteger(flags, "flags");
     return library.FreeImage_Load(format, fileName, flags);
   },
+  clone: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_Clone(bitmap);
+  },
   unload: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_Unload(bitmap);
   },
+  // Bitmap information functions
+  
 
 
-
-  // FIBITMAP * FreeImage_Clone(FIBITMAP *dib);
-  clone: function (dib) {
-    return library.FreeImage_Clone(dib);
-  },
   // BOOL FreeImage_HasPixels(FIBITMAP *dib);
   hasPixels: function (dib) {
     return library.FreeImage_HasPixels(dib);
-  },
-  // FIMEMORY *FreeImage_OpenMemory(BYTE *data FI_DEFAULT(0), DWORD size_in_bytes FI_DEFAULT(0));
-  openMemory: function (data, size_in_bytes) {
-    return library.FreeImage_OpenMemory(data, size_in_bytes);
-  },
-  // void FreeImage_CloseMemory(FIMEMORY *stream);
-  closeMemory: function (stream) {
-    return library.FreeImage_CloseMemory(stream);
-  },
-  // FIBITMAP *FreeImage_LoadFromMemory(FREE_IMAGE_FORMAT fif, FIMEMORY *stream, int flags FI_DEFAULT(0));
-  loadFromMemory: function (fif, stream, flags) {
-    return library.FreeImage_LoadFromMemory(fif, stream, flags);
-  },
-  // BOOL FreeImage_SaveToMemory(FREE_IMAGE_FORMAT fif, FIBITMAP *dib, FIMEMORY *stream, int flags FI_DEFAULT(0));
-  saveToMemory: function (fif, dib, stream, flags) {
-    return library.FreeImage_SaveToMemory(fif, dib, stream, flags);
-  },
-  // long FreeImage_TellMemory(FIMEMORY *stream);
-  tellMemory: function (stream) {
-    return library.FreeImage_TellMemory(stream);
-  },
-  // BOOL FreeImage_SeekMemory(FIMEMORY *stream, long offset, int origin);
-  seekMemory: function (stream, offset, origin) {
-    return library.FreeImage_SeekMemory(stream, offset, origin);
-  },
-  // BOOL FreeImage_AcquireMemory(FIMEMORY *stream, BYTE **data, DWORD *size_in_bytes);
-  acquireMemory: function (stream, data, size_in_bytes) {
-    return library.FreeImage_AcquireMemory(stream, data, size_in_bytes);
-  },
-  // unsigned FreeImage_ReadMemory(void *buffer, unsigned size, unsigned count, FIMEMORY *stream);
-  readMemory: function (buffer, size, count, stream) {
-    return library.FreeImage_ReadMemory(buffer, size, count, stream);
-  },
-  // unsigned FreeImage_WriteMemory(const void *buffer, unsigned size, unsigned count, FIMEMORY *stream);
-  writeMemory: function (buffer, size, count, stream) {
-    return library.FreeImage_WriteMemory(buffer, size, count, stream);
-  },
-  // FIMULTIBITMAP *FreeImage_LoadMultiBitmapFromMemory(FREE_IMAGE_FORMAT fif, FIMEMORY *stream, int flags FI_DEFAULT(0));
-  loadMultiBitmapFromMemory: function (fif, stream, flags) {
-    return library.FreeImage_LoadMultiBitmapFromMemory(fif, stream, flags);
-  },
-  // BOOL FreeImage_SaveMultiBitmapToMemory(FREE_IMAGE_FORMAT fif, FIMULTIBITMAP *bitmap, FIMEMORY *stream, int flags);
-  saveMultiBitmapToMemory: function (fif, bitmap, stream, flags) {
-    return library.FreeImage_SaveMultiBitmapToMemory(fif, bitmap, stream, flags);
   },
   // FIMULTIBITMAP * FreeImage_OpenMultiBitmap(FREE_IMAGE_FORMAT fif, const char *filename, BOOL create_new, BOOL read_only, BOOL keep_cache_in_memory FI_DEFAULT(FALSE), int flags FI_DEFAULT(0));
   openMultiBitmap: function (fif, filename, create_new, read_only, keep_cache_in_memory, flags) {
@@ -905,10 +837,6 @@ module.exports = {
   // FREE_IMAGE_FORMAT FreeImage_GetFileType(const char *filename, int size FI_DEFAULT(0));
   getFileType: function (filename, size) {
     return library.FreeImage_GetFileType(filename, size);
-  },
-  // FREE_IMAGE_FORMAT FreeImage_GetFileTypeFromMemory(FIMEMORY *stream, int size FI_DEFAULT(0));
-  getFileTypeFromMemory: function (stream, size) {
-    return library.FreeImage_GetFileTypeFromMemory(stream, size);
   },
   // FREE_IMAGE_TYPE FreeImage_GetImageType(FIBITMAP *dib);
   getImageType: function (dib) {
@@ -1587,4 +1515,4 @@ module.exports = {
     return library.FreeImage_MultigridPoissonSolver(Laplacian, ncycle);
   }
 }
-
+ 
