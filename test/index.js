@@ -1,5 +1,8 @@
 var should = require("chai").should(),
     fs = require('fs'),
+    ref = require("ref"),
+    RefArray = require("ref-array"),
+    RefStruct = require("ref-struct"),
     fi = require("../index"),
     // General constants
     BYTES_TO_BITS = 8,
@@ -31,6 +34,14 @@ var should = require("chai").should(),
     TEST_BITMAP_01_DPI_Y = 96,
     TEST_BITMAP_01_DPM_X = Math.round(TEST_BITMAP_01_DPI_X / INCHES_TO_METERS),
     TEST_BITMAP_01_DPM_Y = Math.round(TEST_BITMAP_01_DPI_Y / INCHES_TO_METERS);
+    TEST_BITMAP_01_COLOR_TYPE = fi.COLOR_TYPE.RGBALPHA;
+    TEST_BITMAP_01_RED_MASK = fi.RGBA_MASK.RED;
+    TEST_BITMAP_01_GREEN_MASK = fi.RGBA_MASK.GREEN;
+    TEST_BITMAP_01_BLUE_MASK = fi.RGBA_MASK.BLUE;
+    // Properties of test bitmap #2
+    TEST_BITMAP_02_FILENAME = __dirname + "/test-02.png",
+    TEST_BITMAP_02_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
+    TEST_BITMAP_02_TRANSPARENCY_COUNT = 16;
     
 describe("Bitmap function reference", function () {    
   describe("General functions", function () {
@@ -286,6 +297,126 @@ describe("Bitmap function reference", function () {
         info.bmiHeader.biClrUsed.should.equal(0);
         info.bmiHeader.biClrImportant.should.equal(0);
         info.bmiColors.length.should.equal(0);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.getColorType", function () {
+      it ("should be able to get the color type of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            colorType = -1;
+        bitmap.isNull().should.be.false();
+        colorType = fi.getColorType(bitmap);
+        colorType.should.equal(TEST_BITMAP_01_COLOR_TYPE);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.getRedMask", function () {
+      it ("should be able to get the red mask of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            redMask = -1;
+        bitmap.isNull().should.be.false();
+        redMask = fi.getRedMask(bitmap);
+        redMask.should.equal(TEST_BITMAP_01_RED_MASK);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.getGreenMask", function () {
+      it ("should be able to get the green mask of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            greenMask = -1;
+        bitmap.isNull().should.be.false();
+        greenMask = fi.getGreenMask(bitmap);
+        greenMask.should.equal(TEST_BITMAP_01_GREEN_MASK);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.getBlueMask", function () {
+      it ("should be able to get the blue mask of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            blueMask = -1;
+        bitmap.isNull().should.be.false();
+        blueMask = fi.getBlueMask(bitmap);
+        blueMask.should.equal(TEST_BITMAP_01_BLUE_MASK);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.getTransparencyCount", function () {
+      it ("should be able to get the transparency count of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+            count = -1;
+        bitmap.isNull().should.be.false();
+        count = fi.getTransparencyCount(bitmap);
+        count.should.equal(TEST_BITMAP_02_TRANSPARENCY_COUNT);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.getTransparencyTable", function () {
+      it ("should be able to get the transparency table of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+            table = null,
+            Table = RefArray(ref.types.uint8),
+            table2 = null;
+        bitmap.isNull().should.be.false();
+        table = fi.getTransparencyTable(bitmap);
+        table.isNull().should.be.false();
+        table2 = new Table(ref.reinterpret(table, 16, 0));
+        table2[13].should.equal(0);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("setting transparency", function () {
+      it ("should work", function () {
+        var bitmap = fi.load(fi.IMAGE_FORMAT.PNG, __dirname + "/test-03.png"),
+            bitmap2 = null,
+            BYTE = ref.types.uint8,
+            RGBQUAD = RefStruct({
+              rgbBlue: BYTE,
+              rgbGreen: BYTE,
+              rgbRed: BYTE,
+              rgbReserved: BYTE
+            }),
+            Palette = RefArray(RGBQUAD),
+            palette = null,
+            Table = RefArray(BYTE),
+            table = null,
+            table2 = null,
+            i = -1;
+        bitmap.isNull().should.be.false();
+        fi.getBPP(bitmap).should.equal(24);
+        bitmap2 = fi.colorQuantize(bitmap, fi.QUANTIZATION_ALGORITHM.WUQUANT);
+        bitmap2.isNull().should.be.false();
+        palette = fi.getPalette(bitmap2);
+        palette.isNull().should.be.false();
+        palette = new Palette(ref.reinterpret(palette, 256 * 4, 0));
+        palette.length.should.equal(256);
+        palette[0].rgbRed.should.equal(0);
+        palette[0].rgbGreen.should.equal(0);
+        palette[0].rgbBlue.should.equal(0);
+        palette[1].rgbRed.should.equal(255);
+        palette[1].rgbGreen.should.equal(0);
+        palette[1].rgbBlue.should.equal(0);
+        palette[2].rgbRed.should.equal(0);
+        palette[2].rgbGreen.should.equal(255);
+        palette[2].rgbBlue.should.equal(0);
+        palette[3].rgbRed.should.equal(0);
+        palette[3].rgbGreen.should.equal(0);
+        palette[3].rgbBlue.should.equal(255);
+        table = fi.getTransparencyTable(bitmap2);
+        table.isNull().should.be.false();
+        table2 = new Table(ref.reinterpret(table, 256, 0));
+        table2.length.should.equal(256);
+        table2[0] = 128;
+        fi.setTransparencyTable(bitmap2, table, 256);
+        bitmap2.isNull().should.be.false();
+        fi.save(fi.IMAGE_FORMAT.PNG, bitmap2, __dirname + "/test-03-mod.png");
+        fi.unload(bitmap2);
         fi.unload(bitmap);
       });
     });

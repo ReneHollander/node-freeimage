@@ -849,45 +849,39 @@ module.exports = {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetInfo(bitmap);
   },
-  // FREE_IMAGE_COLOR_TYPE FreeImage_GetColorType(FIBITMAP *bitmap);
   getColorType: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetColorType(bitmap);
   },
-  // unsigned FreeImage_GetRedMask(FIBITMAP *bitmap);
   getRedMask: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetRedMask(bitmap);
   },
-  // unsigned FreeImage_GetGreenMask(FIBITMAP *bitmap);
   getGreenMask: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetGreenMask(bitmap);
   },
-  // unsigned FreeImage_GetBlueMask(FIBITMAP *bitmap);
   getBlueMask: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetBlueMask(bitmap);
   },
-  // unsigned FreeImage_GetTransparencyCount(FIBITMAP *bitmap);
   getTransparencyCount: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetTransparencyCount(bitmap);
   },
-  // BYTE * FreeImage_GetTransparencyTable(FIBITMAP *bitmap);
   getTransparencyTable: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetTransparencyTable(bitmap);
-  },
-  // void FreeImage_SetTransparent(FIBITMAP *bitmap, BOOL enabled);
-  setTransparent: function (bitmap, enabled) {
-    assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_SetTransparent(bitmap, enabled);
   },
   // void FreeImage_SetTransparencyTable(FIBITMAP *bitmap, BYTE *table, int count);
   setTransparencyTable: function (bitmap, table, count) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_SetTransparencyTable(bitmap, table, count);
+  },
+  // void FreeImage_SetTransparent(FIBITMAP *bitmap, BOOL enabled);
+  setTransparent: function (bitmap, enabled) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_SetTransparent(bitmap, enabled);
   },
   // BOOL FreeImage_IsTransparent(FIBITMAP *bitmap);
   isTransparent: function (bitmap) {
