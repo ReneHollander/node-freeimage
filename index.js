@@ -119,6 +119,15 @@ function setToDefaultIfUndefined(arg, argDefault) {
   return typeof arg === "undefined" ? argDefault : arg;
 }
 
+function assertBoolean(arg, argName) {
+  if (typeof arg !== "boolean") {
+    throw new Error(
+      "Argument \"" + argName + "\" " + 
+      "must be a boolean (" + arg + ")."
+    );
+  }
+}    
+
 function assertInteger(arg, argName) {
   if (typeof arg !== "number" || arg % 1 !== 0) {
     throw new Error(
@@ -142,6 +151,15 @@ function assertNonEmptyString(arg, argName) {
     throw new Error(
       "Argument \"" + argName + "\" " + 
       "must be a non-empty string (" + arg + ")."
+    );
+  }
+}
+
+function assertObject(arg, argName) {
+  if (typeof arg !== "object") {
+    throw new Error(
+      "Argument \"" + argName + "\" " + 
+      "must be an object (" + arg + ")."
     );
   }
 }
@@ -873,60 +891,56 @@ module.exports = {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetTransparencyTable(bitmap);
   },
-  // void FreeImage_SetTransparencyTable(FIBITMAP *bitmap, BYTE *table, int count);
   setTransparencyTable: function (bitmap, table, count) {
     assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_SetTransparencyTable(bitmap, table, count);
+    assertNonNullObject(table, "table");
+    assertInteger(count, "count");
+    library.FreeImage_SetTransparencyTable(bitmap, table, count);
   },
-  // void FreeImage_SetTransparent(FIBITMAP *bitmap, BOOL enabled);
   setTransparent: function (bitmap, enabled) {
     assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_SetTransparent(bitmap, enabled);
+    assertBoolean(enabled, "enabled");
+    library.FreeImage_SetTransparent(bitmap, enabled);
   },
-  // BOOL FreeImage_IsTransparent(FIBITMAP *bitmap);
   isTransparent: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_IsTransparent(bitmap);
+    return library.FreeImage_IsTransparent(bitmap) === TRUE;
   },
-  // void FreeImage_SetTransparentIndex(FIBITMAP *bitmap, int index);
   setTransparentIndex: function (bitmap, index) {
     assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_SetTransparentIndex(bitmap, index);
+    assertInteger(index, "index");
+    library.FreeImage_SetTransparentIndex(bitmap, index);
   },
-  // int FreeImage_GetTransparentIndex(FIBITMAP *bitmap);
   getTransparentIndex: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetTransparentIndex(bitmap);
   },
-  // BOOL FreeImage_HasBackgroundColor(FIBITMAP *bitmap);
   hasBackgroundColor: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_HasBackgroundColor(bitmap);
+    return library.FreeImage_HasBackgroundColor(bitmap) === TRUE;
   },
-  // BOOL FreeImage_GetBackgroundColor(FIBITMAP *bitmap, RGBQUAD *bkcolor);
-  getBackgroundColor: function (bitmap, bkcolor) {
+  getBackgroundColor: function (bitmap, color) {
     assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_GetBackgroundColor(bitmap, bkcolor);
+    assertNonNullObject(color, "color");
+    return library.FreeImage_GetBackgroundColor(bitmap, color) === TRUE;
   },
-  // BOOL FreeImage_SetBackgroundColor(FIBITMAP *bitmap, RGBQUAD *bkcolor);
-  setBackgroundColor: function (bitmap, bkcolor) {
+  setBackgroundColor: function (bitmap, color) {
     assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_SetBackgroundColor(bitmap, bkcolor);
+    assertObject(color, "color");
+    return library.FreeImage_SetBackgroundColor(bitmap, color) === TRUE;
   },
-  // BOOL FreeImage_HasPixels(FIBITMAP *bitmap);
   hasPixels: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_HasPixels(bitmap);
+    return library.FreeImage_HasPixels(bitmap) === TRUE;
   },
-  // FIBITMAP *FreeImage_GetThumbnail(FIBITMAP *bitmap);
   getThumbnail: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetThumbnail(bitmap);
   },
-  // BOOL FreeImage_SetThumbnail(FIBITMAP *bitmap, FIBITMAP *thumbnail);
   setThumbnail: function (bitmap, thumbnail) {
     assertNonNullObject(bitmap, "bitmap");
-    return library.FreeImage_SetThumbnail(bitmap, thumbnail);
+    assertObject(thumbnail, "thumbnail");
+    return library.FreeImage_SetThumbnail(bitmap, thumbnail) === TRUE;
   },
 
 

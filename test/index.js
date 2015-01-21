@@ -462,6 +462,83 @@ describe("Bitmap function reference", function () {
         fi.unload(bitmap);
       });
     });
+
+    describe("fi.(is|set)Transparent", function () {
+      it ("should be able to get/set the transparency state of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+            isTransparent = false,
+            i = -1;
+        bitmap.isNull().should.be.false();
+        for (i = 0; i < 5; i += 1) {
+          isTransparent = i % 2 === 0;
+          fi.setTransparent(bitmap, isTransparent); 
+          fi.isTransparent(bitmap).should.equal(isTransparent);
+        }
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.(get|set)TransparentIndex", function () {
+      it ("should be able to get/set the palette index of the transparent color of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+            i = -1;
+        bitmap.isNull().should.be.false();
+        for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
+          fi.setTransparentIndex(bitmap, i); 
+          fi.getTransparentIndex(bitmap).should.equal(i);
+        }
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.(has|get|set)BackgroundColor", function () {
+      it ("should be able to get/set the background color of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            color = new RGBA(AQUA);
+        bitmap.isNull().should.be.false();
+        fi.hasBackgroundColor(bitmap).should.be.false();
+        fi.getBackgroundColor(bitmap, color.ref()).should.be.false();
+        fi.setBackgroundColor(bitmap, color.ref()).should.be.true();
+        fi.hasBackgroundColor(bitmap).should.be.true();
+        fi.getBackgroundColor(bitmap, color.ref()).should.be.true();
+        color.rgbBlue.should.equal(AQUA.rgbBlue);
+        color.rgbGreen.should.equal(AQUA.rgbGreen);
+        color.rgbRed.should.equal(AQUA.rgbRed);
+        color.rgbReserved.should.equal(AQUA.rgbReserved);
+        fi.setBackgroundColor(bitmap, ref.NULL).should.be.true();
+        fi.hasBackgroundColor(bitmap).should.be.false();
+        fi.getBackgroundColor(bitmap, color.ref()).should.be.false();
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.hasPixels", function () {
+      it ("should be able to determine if a bitmap has pixels", function () {
+        var bitmap1 = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME, fi.LOAD_SAVE_OPTION.LOAD_NOPIXELS);
+        bitmap1.isNull().should.be.false();
+        bitmap2.isNull().should.be.false();
+        fi.hasPixels(bitmap1).should.be.true();
+        fi.hasPixels(bitmap2).should.be.false();
+        fi.unload(bitmap2);
+        fi.unload(bitmap1);
+      });
+    });
+    
+    describe("fi.(get|set)Thumbnail", function () {
+      it ("should be able to get/set the thumbnail of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            thumbnail = null;
+        bitmap.isNull().should.be.false();
+        fi.getThumbnail(bitmap).isNull().should.be.true();
+        thumbnail = fi.clone(bitmap);
+        thumbnail.isNull().should.be.false();
+        fi.setThumbnail(bitmap, thumbnail).should.be.true();
+        fi.getThumbnail(bitmap).isNull().should.be.false();
+        fi.save(fi.IMAGE_FORMAT.TIFF, bitmap, __dirname + "/temp.tiff");
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("Filetype functions", function () {
