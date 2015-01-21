@@ -4,21 +4,66 @@ var should = require("chai").should(),
     RefArray = require("ref-array"),
     RefStruct = require("ref-struct"),
     fi = require("../index"),
-    // General constants
+    // Types
+    BYTE = ref.types.uint8;
+    RGBA = RefStruct({
+      rgbBlue: BYTE,
+      rgbGreen: BYTE,
+      rgbRed: BYTE,
+      rgbReserved: BYTE
+    });
+    Palette = RefArray(RGBA),
+    TransparencyTable = RefArray(BYTE),
+    // Constants
     BYTES_TO_BITS = 8,
     INCHES_TO_METERS = 0.0254,
     BITMAPINFOHEADER_SIZE = 40,
-    // Properties of temporary bitmaps
-    TEMP_BITMAP_FILENAME = __dirname + "/temp.png",
-    TEMP_BITMAP_IMAGE_TYPE = fi.IMAGE_TYPE.BITMAP,
-    TEMP_BITMAP_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
-    TEMP_BITMAP_WIDTH = 16,
-    TEMP_BITMAP_HEIGHT = 16,
-    TEMP_BITMAP_BPP = 24,
-    TEMP_BITMAP_DPI_X = 96,
-    TEMP_BITMAP_DPI_Y = 96,
-    TEMP_BITMAP_DPM_X = Math.round(TEMP_BITMAP_DPI_X / INCHES_TO_METERS),
-    TEMP_BITMAP_DPM_Y = Math.round(TEMP_BITMAP_DPI_Y / INCHES_TO_METERS),
+    RGBA_SIZE = 4,
+    BLACK = new RGBA({ rgbBlue: 0, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
+    WHITE = new RGBA({ rgbBlue: 255, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
+    GRAY = new RGBA({ rgbBlue: 128, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
+    SILVER = new RGBA({ rgbBlue: 192, rgbGreen: 192, rgbRed: 192, rgbReserved: 0 }),
+    RED = new RGBA({ rgbBlue: 0, rgbGreen: 0, rgbRed: 255, rgbReserved: 0 }),
+    LIME = new RGBA({ rgbBlue: 0, rgbGreen: 255, rgbRed: 0, rgbReserved: 0 }),
+    BLUE = new RGBA({ rgbBlue: 255, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
+    AQUA = new RGBA({ rgbBlue: 255, rgbGreen: 255, rgbRed: 0, rgbReserved: 0 }),
+    FUCHSIA = new RGBA({ rgbBlue: 255, rgbGreen: 0, rgbRed: 255, rgbReserved: 0 }),
+    YELLOW = new RGBA({ rgbBlue: 0, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
+    MAROON = new RGBA({ rgbBlue: 0, rgbGreen: 0, rgbRed: 128, rgbReserved: 0 }),
+    GREEN = new RGBA({ rgbBlue: 0, rgbGreen: 128, rgbRed: 0, rgbReserved: 0 }),
+    NAVY = new RGBA({ rgbBlue: 128, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
+    TEAL = new RGBA({ rgbBlue: 128, rgbGreen: 128, rgbRed: 0, rgbReserved: 0 }),
+    PURPLE = new RGBA({ rgbBlue: 128, rgbGreen: 0, rgbRed: 128, rgbReserved: 0 }),
+    OLIVE = new RGBA({ rgbBlue: 0, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
+    // Properties of temporary bitmap #1
+    TEMP_BITMAP_01_FILENAME = __dirname + "/temp-01.png",
+    TEMP_BITMAP_01_IMAGE_TYPE = fi.IMAGE_TYPE.BITMAP,
+    TEMP_BITMAP_01_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
+    TEMP_BITMAP_01_WIDTH = 16,
+    TEMP_BITMAP_01_HEIGHT = 16,
+    TEMP_BITMAP_01_BPP = 24,
+    TEMP_BITMAP_01_DPI_X = 96,
+    TEMP_BITMAP_01_DPI_Y = 96,
+    TEMP_BITMAP_01_DPM_X = Math.round(TEMP_BITMAP_01_DPI_X / INCHES_TO_METERS),
+    TEMP_BITMAP_01_DPM_Y = Math.round(TEMP_BITMAP_01_DPI_Y / INCHES_TO_METERS),
+    // Properties of temporary bitmap #2
+    TEMP_BITMAP_02_FILENAME = __dirname + "/temp-02.png",
+    TEMP_BITMAP_02_IMAGE_TYPE = fi.IMAGE_TYPE.BITMAP,
+    TEMP_BITMAP_02_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
+    TEMP_BITMAP_02_WIDTH = 16,
+    TEMP_BITMAP_02_HEIGHT = 16,
+    TEMP_BITMAP_02_BPP = 4,
+    TEMP_BITMAP_02_COLOR_COUNT = Math.pow(2, TEMP_BITMAP_02_BPP);
+    TEMP_BITMAP_02_PALETTE = [
+      BLACK, WHITE, GRAY, SILVER, 
+      RED, LIME, BLUE, AQUA, FUCHSIA, YELLOW,
+      MAROON, GREEN, NAVY, TEAL, PURPLE, OLIVE
+    ];
+    TEMP_BITMAP_02_TRANSPARENCY_TABLE = [
+      255, 255, 255, 255, 
+      255, 255, 255, 255, 0, 255,
+      255, 255, 255, 255, 255, 255
+    ];
     // Properties of test bitmap #1
     TEST_BITMAP_01_FILENAME = __dirname + "/test-01.png",
     TEST_BITMAP_01_IMAGE_TYPE = fi.IMAGE_TYPE.BITMAP,
@@ -41,7 +86,16 @@ var should = require("chai").should(),
     // Properties of test bitmap #2
     TEST_BITMAP_02_FILENAME = __dirname + "/test-02.png",
     TEST_BITMAP_02_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
-    TEST_BITMAP_02_TRANSPARENCY_COUNT = 16;
+    TEST_BITMAP_02_BPP = 4;
+    TEST_BITMAP_02_COLOR_COUNT = Math.pow(2, TEST_BITMAP_02_BPP);
+    TEST_BITMAP_02_PALETTE = [
+      BLACK, MAROON, GREEN, OLIVE, NAVY, PURPLE, TEAL, GRAY,
+      SILVER, RED, LIME, YELLOW, BLUE, FUCHSIA, AQUA, WHITE
+    ];
+    TEST_BITMAP_02_TRANSPARENCY_TABLE = [
+      255, 255, 255, 255, 255, 255, 255, 255, 
+      255, 255, 255, 255, 255, 0, 255, 255
+    ];
     
 describe("Bitmap function reference", function () {    
   describe("General functions", function () {
@@ -61,7 +115,7 @@ describe("Bitmap function reference", function () {
   describe("Bitmap management functions", function () {
     describe("fi.allocate", function () {
       it ("should be able to create a bitmap", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_WIDTH, TEMP_BITMAP_HEIGHT, TEMP_BITMAP_BPP);
+        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
         bitmap.isNull().should.be.false();
         fi.unload(bitmap);
       });
@@ -69,7 +123,7 @@ describe("Bitmap function reference", function () {
     
     describe("fi.allocateT", function () {
       it ("should be able to create a bitmap", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_IMAGE_TYPE, TEMP_BITMAP_WIDTH, TEMP_BITMAP_HEIGHT, TEMP_BITMAP_BPP);
+        var bitmap = fi.allocate(TEMP_BITMAP_01_IMAGE_TYPE, TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
         bitmap.isNull().should.be.false();
         fi.unload(bitmap);
       });
@@ -85,19 +139,19 @@ describe("Bitmap function reference", function () {
 
     describe("fi.save", function () {
       it ("should be able to save a bitmap", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_WIDTH, TEMP_BITMAP_HEIGHT, TEMP_BITMAP_BPP),
+        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
             success = false;
         bitmap.isNull().should.be.false();
-        success = fi.save(TEMP_BITMAP_IMAGE_FORMAT, bitmap, TEMP_BITMAP_FILENAME);
+        success = fi.save(TEMP_BITMAP_01_IMAGE_FORMAT, bitmap, TEMP_BITMAP_01_FILENAME);
         success.should.be.true();
         fi.unload(bitmap);
-        fs.unlinkSync(TEMP_BITMAP_FILENAME);
+        fs.unlinkSync(TEMP_BITMAP_01_FILENAME);
       });
     });
     
     describe("fi.clone", function () {
       it ("should be able to clone a bitmap", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_WIDTH, TEMP_BITMAP_HEIGHT, TEMP_BITMAP_BPP),
+        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
             bitmap2 = null;
         bitmap.isNull().should.be.false();
         bitmap2 = fi.clone(bitmap);
@@ -198,12 +252,30 @@ describe("Bitmap function reference", function () {
     });
 
     describe("fi.getPalette", function () {
-      it ("should be able to get the palette of a bitmap", function () {
+      it ("should return null for a non-palettized bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             palette = null;
         bitmap.isNull().should.be.false();
         palette = fi.getPalette(bitmap);
         palette.isNull().should.be.true();
+        fi.unload(bitmap);
+      });
+      
+      it ("should be able to get the palette of a palettized bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+            palette = null,
+            palette2 = null,
+            i = -1;
+        bitmap.isNull().should.be.false();
+        palette = fi.getPalette(bitmap);
+        palette.isNull().should.be.false();
+        palette2 = new Palette(ref.reinterpret(palette, TEST_BITMAP_02_COLOR_COUNT * RGBA_SIZE, 0));
+        for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
+          palette2[i].rgbBlue.should.equal(TEST_BITMAP_02_PALETTE[i].rgbBlue);
+          palette2[i].rgbGreen.should.equal(TEST_BITMAP_02_PALETTE[i].rgbGreen);
+          palette2[i].rgbRed.should.equal(TEST_BITMAP_02_PALETTE[i].rgbRed);
+          palette2[i].rgbReserved.should.equal(TEST_BITMAP_02_PALETTE[i].rgbReserved);
+        }
         fi.unload(bitmap);
       });
     });
@@ -232,8 +304,8 @@ describe("Bitmap function reference", function () {
 
     describe("fi.setDotsPerMeterX", function () {
       it ("should be able to set the X-resolution of a bitmap in dpm", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_WIDTH, TEMP_BITMAP_HEIGHT, TEMP_BITMAP_BPP),
-            dpmX = TEMP_BITMAP_DPM_X;
+        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
+            dpmX = TEMP_BITMAP_01_DPM_X;
         bitmap.isNull().should.be.false();
         fi.setDotsPerMeterX(bitmap, dpmX);
         dpmX = fi.getDotsPerMeterX(bitmap);
@@ -244,8 +316,8 @@ describe("Bitmap function reference", function () {
 
     describe("fi.setDotsPerMeterY", function () {
       it ("should be able to set the Y-resolution of a bitmap in dpm", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_WIDTH, TEMP_BITMAP_HEIGHT, TEMP_BITMAP_BPP),
-            dpmY = TEMP_BITMAP_DPM_Y;
+        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
+            dpmY = TEMP_BITMAP_01_DPM_Y;
         bitmap.isNull().should.be.false();
         fi.setDotsPerMeterY(bitmap, dpmY);
         dpmY = fi.getDotsPerMeterY(bitmap);
@@ -351,7 +423,7 @@ describe("Bitmap function reference", function () {
             count = -1;
         bitmap.isNull().should.be.false();
         count = fi.getTransparencyCount(bitmap);
-        count.should.equal(TEST_BITMAP_02_TRANSPARENCY_COUNT);
+        count.should.equal(TEST_BITMAP_02_COLOR_COUNT);
         fi.unload(bitmap);
       });
     });
@@ -360,63 +432,33 @@ describe("Bitmap function reference", function () {
       it ("should be able to get the transparency table of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
             table = null,
-            Table = RefArray(ref.types.uint8),
-            table2 = null;
-        bitmap.isNull().should.be.false();
-        table = fi.getTransparencyTable(bitmap);
-        table.isNull().should.be.false();
-        table2 = new Table(ref.reinterpret(table, 16, 0));
-        table2[13].should.equal(0);
-        fi.unload(bitmap);
-      });
-    });
-    
-    describe("setting transparency", function () {
-      it ("should work", function () {
-        var bitmap = fi.load(fi.IMAGE_FORMAT.PNG, __dirname + "/test-03.png"),
-            bitmap2 = null,
-            BYTE = ref.types.uint8,
-            RGBQUAD = RefStruct({
-              rgbBlue: BYTE,
-              rgbGreen: BYTE,
-              rgbRed: BYTE,
-              rgbReserved: BYTE
-            }),
-            Palette = RefArray(RGBQUAD),
-            palette = null,
-            Table = RefArray(BYTE),
-            table = null,
             table2 = null,
             i = -1;
         bitmap.isNull().should.be.false();
-        fi.getBPP(bitmap).should.equal(24);
-        bitmap2 = fi.colorQuantize(bitmap, fi.QUANTIZATION_ALGORITHM.WUQUANT);
-        bitmap2.isNull().should.be.false();
-        palette = fi.getPalette(bitmap2);
-        palette.isNull().should.be.false();
-        palette = new Palette(ref.reinterpret(palette, 256 * 4, 0));
-        palette.length.should.equal(256);
-        palette[0].rgbRed.should.equal(0);
-        palette[0].rgbGreen.should.equal(0);
-        palette[0].rgbBlue.should.equal(0);
-        palette[1].rgbRed.should.equal(255);
-        palette[1].rgbGreen.should.equal(0);
-        palette[1].rgbBlue.should.equal(0);
-        palette[2].rgbRed.should.equal(0);
-        palette[2].rgbGreen.should.equal(255);
-        palette[2].rgbBlue.should.equal(0);
-        palette[3].rgbRed.should.equal(0);
-        palette[3].rgbGreen.should.equal(0);
-        palette[3].rgbBlue.should.equal(255);
-        table = fi.getTransparencyTable(bitmap2);
+        table = fi.getTransparencyTable(bitmap);
         table.isNull().should.be.false();
-        table2 = new Table(ref.reinterpret(table, 256, 0));
-        table2.length.should.equal(256);
-        table2[0] = 128;
-        fi.setTransparencyTable(bitmap2, table, 256);
-        bitmap2.isNull().should.be.false();
-        fi.save(fi.IMAGE_FORMAT.PNG, bitmap2, __dirname + "/test-03-mod.png");
-        fi.unload(bitmap2);
+        table2 = new TransparencyTable(ref.reinterpret(table, TEST_BITMAP_02_COLOR_COUNT, 0));
+        for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
+          table2[i].should.equal(TEST_BITMAP_02_TRANSPARENCY_TABLE[i]);
+        }
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.setTransparencyTable", function () {
+      it ("should be able to set the transparency table of a bitmap", function () {
+        var bitmap = fi.allocate(TEMP_BITMAP_02_WIDTH, TEMP_BITMAP_02_HEIGHT, TEMP_BITMAP_02_BPP),
+            table = new Buffer(TEMP_BITMAP_02_TRANSPARENCY_TABLE),
+            table2 = null;
+        bitmap.isNull().should.be.false();
+        fi.setTransparencyTable(bitmap, table, TEMP_BITMAP_02_COLOR_COUNT);
+        bitmap.isNull().should.be.false();
+        table = fi.getTransparencyTable(bitmap);
+        table.isNull().should.be.false();
+        table2 = new TransparencyTable(ref.reinterpret(table, TEMP_BITMAP_02_COLOR_COUNT, 0));
+        for (i = 0; i < TEMP_BITMAP_02_COLOR_COUNT; i += 1) {
+          table2[i].should.equal(TEMP_BITMAP_02_TRANSPARENCY_TABLE[i]);
+        }
         fi.unload(bitmap);
       });
     });
