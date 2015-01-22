@@ -542,6 +542,12 @@ describe("Bitmap function reference", function () {
   });
 
   describe("Filetype functions", function () {
+    describe("fi.getFileType", function () {
+      it ("should be able to get the image format of a bitmap", function () {
+        var format = fi.getFileType(TEST_BITMAP_01_FILENAME);
+        format.should.equal(TEST_BITMAP_01_IMAGE_FORMAT);
+      });
+    });
   });
 
   describe("Pixel access functions", function () {

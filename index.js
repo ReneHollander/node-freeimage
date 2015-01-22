@@ -942,7 +942,13 @@ module.exports = {
     assertObject(thumbnail, "thumbnail");
     return library.FreeImage_SetThumbnail(bitmap, thumbnail) === TRUE;
   },
-
+  // Filetype functions
+  getFileType: function (fileName, size) {
+    size = setToDefaultIfUndefined(size, 0);
+    assertNonEmptyString(fileName, "fileName");
+    assertInteger(size, "size");
+    return library.FreeImage_GetFileType(fileName, size);
+  },
 
   
   
@@ -986,10 +992,6 @@ module.exports = {
   // BOOL FreeImage_GetLockedPageNumbers(FIMULTIBITMAP *bitmap, int *pages, int *count);
   getLockedPageNumbers: function (bitmap, pages, count) {
     return library.FreeImage_GetLockedPageNumbers(bitmap, pages, count);
-  },
-  // FREE_IMAGE_FORMAT FreeImage_GetFileType(const char *filename, int size FI_DEFAULT(0));
-  getFileType: function (filename, size) {
-    return library.FreeImage_GetFileType(filename, size);
   },
   // BOOL FreeImage_IsLittleEndian(void);
   isLittleEndian: function () {
