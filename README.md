@@ -69,6 +69,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 0.1.0 Initial release
 * 0.2.0 Added the desciption of installation steps
 * 0.3.0 Added assertions and unit tests for bitmap information functions
+* 0.4.0 Added assertions and unit tests for file type functions
 
 
 ## JavaScript version of supported FreeImage functions
