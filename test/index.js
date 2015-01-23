@@ -5,13 +5,13 @@ var should = require("chai").should(),
     RefStruct = require("ref-struct"),
     fi = require("../index"),
     // Types
-    BYTE = ref.types.uint8;
+    BYTE = ref.types.uint8,
     RGBA = RefStruct({
       rgbBlue: BYTE,
       rgbGreen: BYTE,
       rgbRed: BYTE,
       rgbReserved: BYTE
-    });
+    }),
     Palette = RefArray(RGBA),
     TransparencyTable = RefArray(BYTE),
     // Constants
@@ -53,45 +53,45 @@ var should = require("chai").should(),
     TEMP_BITMAP_02_WIDTH = 16,
     TEMP_BITMAP_02_HEIGHT = 16,
     TEMP_BITMAP_02_BPP = 4,
-    TEMP_BITMAP_02_COLOR_COUNT = Math.pow(2, TEMP_BITMAP_02_BPP);
+    TEMP_BITMAP_02_COLOR_COUNT = Math.pow(2, TEMP_BITMAP_02_BPP),
     TEMP_BITMAP_02_PALETTE = [
       BLACK, WHITE, GRAY, SILVER, 
       RED, LIME, BLUE, AQUA, FUCHSIA, YELLOW,
       MAROON, GREEN, NAVY, TEAL, PURPLE, OLIVE
-    ];
+    ],
     TEMP_BITMAP_02_TRANSPARENCY_TABLE = [
       255, 255, 255, 255, 
       255, 255, 255, 255, 0, 255,
       255, 255, 255, 255, 255, 255
-    ];
+    ],
     // Properties of test bitmap #1
     TEST_BITMAP_01_FILENAME = __dirname + "/test-01.png",
     TEST_BITMAP_01_IMAGE_TYPE = fi.IMAGE_TYPE.BITMAP,
     TEST_BITMAP_01_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
     TEST_BITMAP_01_WIDTH = 16,
     TEST_BITMAP_01_HEIGHT = 16,
-    TEST_BITMAP_01_BPP = 32;
-    TEST_BITMAP_01_PALETTE_SIZE = 0;
+    TEST_BITMAP_01_BPP = 32,
+    TEST_BITMAP_01_PALETTE_SIZE = 0,
     TEST_BITMAP_01_LINE = TEST_BITMAP_01_WIDTH * TEST_BITMAP_01_BPP / BYTES_TO_BITS,
     TEST_BITMAP_01_PITCH = TEST_BITMAP_01_WIDTH * TEST_BITMAP_01_BPP / BYTES_TO_BITS,
     TEST_BITMAP_01_DIB_SIZE = BITMAPINFOHEADER_SIZE + TEST_BITMAP_01_PALETTE_SIZE + TEST_BITMAP_01_PITCH * TEST_BITMAP_01_HEIGHT,
     TEST_BITMAP_01_DPI_X = 96,
     TEST_BITMAP_01_DPI_Y = 96,
     TEST_BITMAP_01_DPM_X = Math.round(TEST_BITMAP_01_DPI_X / INCHES_TO_METERS),
-    TEST_BITMAP_01_DPM_Y = Math.round(TEST_BITMAP_01_DPI_Y / INCHES_TO_METERS);
-    TEST_BITMAP_01_COLOR_TYPE = fi.COLOR_TYPE.RGBALPHA;
-    TEST_BITMAP_01_RED_MASK = fi.RGBA_MASK.RED;
-    TEST_BITMAP_01_GREEN_MASK = fi.RGBA_MASK.GREEN;
-    TEST_BITMAP_01_BLUE_MASK = fi.RGBA_MASK.BLUE;
+    TEST_BITMAP_01_DPM_Y = Math.round(TEST_BITMAP_01_DPI_Y / INCHES_TO_METERS),
+    TEST_BITMAP_01_COLOR_TYPE = fi.COLOR_TYPE.RGBALPHA,
+    TEST_BITMAP_01_RED_MASK = fi.RGBA_MASK.RED,
+    TEST_BITMAP_01_GREEN_MASK = fi.RGBA_MASK.GREEN,
+    TEST_BITMAP_01_BLUE_MASK = fi.RGBA_MASK.BLUE,
     // Properties of test bitmap #2
     TEST_BITMAP_02_FILENAME = __dirname + "/test-02.png",
     TEST_BITMAP_02_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
-    TEST_BITMAP_02_BPP = 4;
-    TEST_BITMAP_02_COLOR_COUNT = Math.pow(2, TEST_BITMAP_02_BPP);
+    TEST_BITMAP_02_BPP = 4,
+    TEST_BITMAP_02_COLOR_COUNT = Math.pow(2, TEST_BITMAP_02_BPP),
     TEST_BITMAP_02_PALETTE = [
       BLACK, MAROON, GREEN, OLIVE, NAVY, PURPLE, TEAL, GRAY,
       SILVER, RED, LIME, YELLOW, BLUE, FUCHSIA, AQUA, WHITE
-    ];
+    ],
     TEST_BITMAP_02_TRANSPARENCY_TABLE = [
       255, 255, 255, 255, 255, 255, 255, 255, 
       255, 255, 255, 255, 255, 0, 255, 255
@@ -535,7 +535,6 @@ describe("Bitmap function reference", function () {
         thumbnail.isNull().should.be.false();
         fi.setThumbnail(bitmap, thumbnail).should.be.true();
         fi.getThumbnail(bitmap).isNull().should.be.false();
-        fi.save(fi.IMAGE_FORMAT.TIFF, bitmap, __dirname + "/temp.tiff");
         fi.unload(bitmap);
       });
     });
