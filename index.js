@@ -949,7 +949,45 @@ module.exports = {
     assertInteger(size, "size");
     return library.FreeImage_GetFileType(fileName, size);
   },
-
+  // Pixel access functions
+  getBits: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_GetBits(bitmap);
+  },
+  getScanLine: function (bitmap, scanLine) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertInteger(scanLine, "scanLine");
+    return library.FreeImage_GetScanLine(bitmap, scanLine);
+  },
+  getPixelIndex: function (bitmap, x, y, value) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertUnsignedInteger(x, "x");
+    assertUnsignedInteger(y, "y");
+    assertNonNullObject(value, "value");
+    return library.FreeImage_GetPixelIndex(bitmap, x, y, value) === TRUE;
+  },
+  getPixelColor: function (bitmap, x, y, value) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertUnsignedInteger(x, "x");
+    assertUnsignedInteger(y, "y");
+    assertNonNullObject(value, "value");
+    return library.FreeImage_GetPixelColor(bitmap, x, y, value) === TRUE;
+  },
+  setPixelIndex: function (bitmap, x, y, value) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertUnsignedInteger(x, "x");
+    assertUnsignedInteger(y, "y");
+    assertNonNullObject(value, "value");
+    return library.FreeImage_SetPixelIndex(bitmap, x, y, value) === TRUE;
+  },
+  setPixelColor: function (bitmap, x, y, value) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertUnsignedInteger(x, "x");
+    assertUnsignedInteger(y, "y");
+    assertNonNullObject(value, "value");
+    return library.FreeImage_SetPixelColor(bitmap, x, y, value) === TRUE;
+  },
+  
   
   
   
@@ -1004,30 +1042,6 @@ module.exports = {
   // BOOL FreeImage_LookupSVGColor(const char *szColor, BYTE *nRed, BYTE *nGreen, BYTE *nBlue);
   lookupSVGColor: function (szColor, nRed, nGreen, nBlue) {
     return library.FreeImage_LookupSVGColor(szColor, nRed, nGreen, nBlue);
-  },
-  // BYTE *FreeImage_GetBits(FIBITMAP *bitmap);
-  getBits: function (bitmap) {
-    return library.FreeImage_GetBits(bitmap);
-  },
-  // BYTE *FreeImage_GetScanLine(FIBITMAP *bitmap, int scanline);
-  getScanLine: function (bitmap, scanline) {
-    return library.FreeImage_GetScanLine(bitmap, scanline);
-  },
-  // BOOL FreeImage_GetPixelIndex(FIBITMAP *bitmap, unsigned x, unsigned y, BYTE *value);
-  getPixelIndex: function (bitmap, x, y, value) {
-    return library.FreeImage_GetPixelIndex(bitmap, x, y, value);
-  },
-  // BOOL FreeImage_GetPixelColor(FIBITMAP *bitmap, unsigned x, unsigned y, RGBQUAD *value);
-  getPixelColor: function (bitmap, x, y, value) {
-    return library.FreeImage_GetPixelColor(bitmap, x, y, value);
-  },
-  // BOOL FreeImage_SetPixelIndex(FIBITMAP *bitmap, unsigned x, unsigned y, BYTE *value);
-  setPixelIndex: function (bitmap, x, y, value) {
-    return library.FreeImage_SetPixelIndex(bitmap, x, y, value);
-  },
-  // BOOL FreeImage_SetPixelColor(FIBITMAP *bitmap, unsigned x, unsigned y, RGBQUAD *value);
-  setPixelColor: function (bitmap, x, y, value) {
-    return library.FreeImage_SetPixelColor(bitmap, x, y, value);
   },
   // FIICCPROFILE *FreeImage_GetICCProfile(FIBITMAP *bitmap);
   getICCProfile: function (bitmap) {

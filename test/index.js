@@ -6,35 +6,37 @@ var should = require("chai").should(),
     fi = require("../index"),
     // Types
     BYTE = ref.types.uint8,
-    RGBA = RefStruct({
+    RGBQUAD = RefStruct({
       rgbBlue: BYTE,
       rgbGreen: BYTE,
       rgbRed: BYTE,
       rgbReserved: BYTE
     }),
-    Palette = RefArray(RGBA),
+    Palette = RefArray(RGBQUAD),
     TransparencyTable = RefArray(BYTE),
+    ByteArray = RefArray(BYTE),
     // Constants
     BYTES_TO_BITS = 8,
     INCHES_TO_METERS = 0.0254,
     BITMAPINFOHEADER_SIZE = 40,
-    RGBA_SIZE = 4,
-    BLACK = new RGBA({ rgbBlue: 0, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
-    WHITE = new RGBA({ rgbBlue: 255, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
-    GRAY = new RGBA({ rgbBlue: 128, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
-    SILVER = new RGBA({ rgbBlue: 192, rgbGreen: 192, rgbRed: 192, rgbReserved: 0 }),
-    RED = new RGBA({ rgbBlue: 0, rgbGreen: 0, rgbRed: 255, rgbReserved: 0 }),
-    LIME = new RGBA({ rgbBlue: 0, rgbGreen: 255, rgbRed: 0, rgbReserved: 0 }),
-    BLUE = new RGBA({ rgbBlue: 255, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
-    AQUA = new RGBA({ rgbBlue: 255, rgbGreen: 255, rgbRed: 0, rgbReserved: 0 }),
-    FUCHSIA = new RGBA({ rgbBlue: 255, rgbGreen: 0, rgbRed: 255, rgbReserved: 0 }),
-    YELLOW = new RGBA({ rgbBlue: 0, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
-    MAROON = new RGBA({ rgbBlue: 0, rgbGreen: 0, rgbRed: 128, rgbReserved: 0 }),
-    GREEN = new RGBA({ rgbBlue: 0, rgbGreen: 128, rgbRed: 0, rgbReserved: 0 }),
-    NAVY = new RGBA({ rgbBlue: 128, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
-    TEAL = new RGBA({ rgbBlue: 128, rgbGreen: 128, rgbRed: 0, rgbReserved: 0 }),
-    PURPLE = new RGBA({ rgbBlue: 128, rgbGreen: 0, rgbRed: 128, rgbReserved: 0 }),
-    OLIVE = new RGBA({ rgbBlue: 0, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
+    RGBQUAD_SIZE = 4,
+    DWORD_SIZE = 4,
+    BLACK = new RGBQUAD({ rgbBlue: 0, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
+    WHITE = new RGBQUAD({ rgbBlue: 255, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
+    GRAY = new RGBQUAD({ rgbBlue: 128, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
+    SILVER = new RGBQUAD({ rgbBlue: 192, rgbGreen: 192, rgbRed: 192, rgbReserved: 0 }),
+    RED = new RGBQUAD({ rgbBlue: 0, rgbGreen: 0, rgbRed: 255, rgbReserved: 0 }),
+    LIME = new RGBQUAD({ rgbBlue: 0, rgbGreen: 255, rgbRed: 0, rgbReserved: 0 }),
+    BLUE = new RGBQUAD({ rgbBlue: 255, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
+    AQUA = new RGBQUAD({ rgbBlue: 255, rgbGreen: 255, rgbRed: 0, rgbReserved: 0 }),
+    FUCHSIA = new RGBQUAD({ rgbBlue: 255, rgbGreen: 0, rgbRed: 255, rgbReserved: 0 }),
+    YELLOW = new RGBQUAD({ rgbBlue: 0, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
+    MAROON = new RGBQUAD({ rgbBlue: 0, rgbGreen: 0, rgbRed: 128, rgbReserved: 0 }),
+    GREEN = new RGBQUAD({ rgbBlue: 0, rgbGreen: 128, rgbRed: 0, rgbReserved: 0 }),
+    NAVY = new RGBQUAD({ rgbBlue: 128, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
+    TEAL = new RGBQUAD({ rgbBlue: 128, rgbGreen: 128, rgbRed: 0, rgbReserved: 0 }),
+    PURPLE = new RGBQUAD({ rgbBlue: 128, rgbGreen: 0, rgbRed: 128, rgbReserved: 0 }),
+    OLIVE = new RGBQUAD({ rgbBlue: 0, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
     // Properties of temporary bitmap #1
     TEMP_BITMAP_01_FILENAME = __dirname + "/temp-01.png",
     TEMP_BITMAP_01_IMAGE_TYPE = fi.IMAGE_TYPE.BITMAP,
@@ -95,7 +97,19 @@ var should = require("chai").should(),
     TEST_BITMAP_02_TRANSPARENCY_TABLE = [
       255, 255, 255, 255, 255, 255, 255, 255, 
       255, 255, 255, 255, 255, 0, 255, 255
-    ];
+    ],
+    // Properties of test bitmap #3
+    TEST_BITMAP_03_FILENAME = __dirname + "/test-03.png",
+    TEST_BITMAP_03_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
+    TEST_BITMAP_03_WIDTH = 2,
+    TEST_BITMAP_03_HEIGHT = 2,
+    TEST_BITMAP_03_BPP = 24,
+    TEST_BITMAP_03_PITCH = Math.ceil((TEST_BITMAP_03_WIDTH * TEST_BITMAP_03_BPP / BYTES_TO_BITS) / DWORD_SIZE) * DWORD_SIZE,
+    TEST_BITMAP_03_PIXEL_COLORS = [ 
+      BLUE, BLACK,
+      RED, LIME
+    ],
+    TEST_BITMAP_03_TEST_PIXEL_COLOR = MAROON;
     
 describe("Bitmap function reference", function () {    
   describe("General functions", function () {
@@ -269,7 +283,7 @@ describe("Bitmap function reference", function () {
         bitmap.isNull().should.be.false();
         palette = fi.getPalette(bitmap);
         palette.isNull().should.be.false();
-        palette2 = new Palette(ref.reinterpret(palette, TEST_BITMAP_02_COLOR_COUNT * RGBA_SIZE, 0));
+        palette2 = new Palette(ref.reinterpret(palette, TEST_BITMAP_02_COLOR_COUNT * RGBQUAD_SIZE, 0));
         for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
           palette2[i].rgbBlue.should.equal(TEST_BITMAP_02_PALETTE[i].rgbBlue);
           palette2[i].rgbGreen.should.equal(TEST_BITMAP_02_PALETTE[i].rgbGreen);
@@ -494,7 +508,7 @@ describe("Bitmap function reference", function () {
     describe("fi.(has|get|set)BackgroundColor", function () {
       it ("should be able to get/set the background color of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            color = new RGBA(AQUA);
+            color = new RGBQUAD(AQUA);
         bitmap.isNull().should.be.false();
         fi.hasBackgroundColor(bitmap).should.be.false();
         fi.getBackgroundColor(bitmap, color.ref()).should.be.false();
@@ -550,6 +564,112 @@ describe("Bitmap function reference", function () {
   });
 
   describe("Pixel access functions", function () {
+    describe("fi.getBits", function () {
+      it ("should be able to get the bits of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            bits = null,
+            bits2 = null;
+        bitmap.isNull().should.be.false();
+        bits = fi.getBits(bitmap);
+        bits.isNull().should.be.false();
+        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);        
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.getScanLine", function () {
+      it ("should be able to get the scan lines of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            scanLine = null,
+            scanLine2 = null;
+        bitmap.isNull().should.be.false();
+        scanLine = fi.getScanLine(bitmap, 0);
+        scanLine.isNull().should.be.false();
+        scanLine2 = new ByteArray(ref.reinterpret(scanLine, TEST_BITMAP_03_PITCH, 0));
+        scanLine2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+        scanLine2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+        scanLine2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+        scanLine2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+        scanLine2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+        scanLine2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+        scanLine = fi.getScanLine(bitmap, 1);
+        scanLine.isNull().should.be.false();
+        scanLine2 = new ByteArray(ref.reinterpret(scanLine, TEST_BITMAP_03_PITCH, 0));
+        scanLine2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+        scanLine2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+        scanLine2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+        scanLine2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+        scanLine2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+        scanLine2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.getPixelIndex", function () {
+      it ("should return false for a non-palettized bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            pixelIndex = ref.alloc(BYTE, 0),
+            success = false;
+        success = fi.getPixelIndex(bitmap, 0, 0, pixelIndex);
+        success.should.be.false();
+        pixelIndex.deref().should.equal(0);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.getPixelColor", function () {
+      it ("should be able to get the pixel colors of a non-palettized bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            pixelColor = ref.alloc(RGBQUAD, BLACK),
+            success = false;
+        success = fi.getPixelColor(bitmap, 0, 0, pixelColor);
+        success.should.be.true();
+        pixelColor.deref().rgbBlue.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+        pixelColor.deref().rgbGreen.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+        pixelColor.deref().rgbRed.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.setPixelIndex", function () {
+      it ("should return false for a non-palettized bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            pixelIndex = ref.alloc(BYTE, 0),
+            success = false;
+        success = fi.setPixelIndex(bitmap, 0, 0, pixelIndex);
+        success.should.be.false();
+        pixelIndex.deref().should.equal(0);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.setPixelColor", function () {
+      it ("should be able to set the pixel colors of a non-palettized bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            pixelColor = ref.alloc(RGBQUAD, TEST_BITMAP_03_TEST_PIXEL_COLOR),
+            success = false;
+        success = fi.setPixelColor(bitmap, 0, 0, pixelColor);
+        success.should.be.true();
+        success = fi.getPixelColor(bitmap, 0, 0, pixelColor);
+        success.should.be.true();
+        pixelColor.deref().rgbBlue.should.equal(TEST_BITMAP_03_TEST_PIXEL_COLOR.rgbBlue);
+        pixelColor.deref().rgbGreen.should.equal(TEST_BITMAP_03_TEST_PIXEL_COLOR.rgbGreen);
+        pixelColor.deref().rgbRed.should.equal(TEST_BITMAP_03_TEST_PIXEL_COLOR.rgbRed);
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("Conversion functions", function () {
