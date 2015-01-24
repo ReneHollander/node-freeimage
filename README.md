@@ -66,13 +66,14 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Release History
 
-* 0.1.0 Initial release
-* 0.2.0 Added the desciption of installation steps
-* 0.3.0 Added assertions and unit tests for bitmap information functions
-* 0.4.0 Added assertions and unit tests for file type functions
-* 0.5.0 Added assertions and unit tests for pixel access functions
-* 0.6.0 Added assertions and unit tests for conversion functions
-* 0.7.0 Added assertions and unit tests for tone mapping operators
+* 0.1.0 Initial release.
+* 0.2.0 Added the desciption of installation steps.
+* 0.3.0 Added assertions and unit tests for bitmap information functions.
+* 0.4.0 Added assertions and unit tests for file type functions.
+* 0.5.0 Added assertions and unit tests for pixel access functions.
+* 0.6.0 Added assertions and unit tests for conversion functions.
+* 0.7.0 Added assertions and unit tests for tone mapping operators.
+* 0.8.0 Added assertions and unit tests for ICC profile functions.
 
 
 ## JavaScript version of supported FreeImage functions
