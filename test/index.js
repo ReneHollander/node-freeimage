@@ -114,13 +114,13 @@ var should = require("chai").should(),
 describe("BITMAP FUNCTION REFERENCE", function () {    
   describe("General functions", function () {
     describe("fi.getVersion", function () {
-      it ("should return major, minor and patch version", function () {
+      it("should return major, minor and patch version", function () {
         fi.getVersion().should.match(/^\d+\.\d+\.\d+$/);
       });
     });
     
     describe("fi.getCopyrightMessage", function () {
-      it ("should return a string containing \"FreeImage\"", function () {
+      it("should return a string containing \"FreeImage\"", function () {
         fi.getCopyrightMessage().should.have.string("FreeImage");
       });
     });
@@ -128,7 +128,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
 
   describe("Bitmap management functions", function () {
     describe("fi.allocate", function () {
-      it ("should be able to create a bitmap", function () {
+      it("should be able to create a bitmap", function () {
         var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
         bitmap.isNull().should.be.false();
         fi.unload(bitmap);
@@ -136,7 +136,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     }); 
     
     describe("fi.allocateT", function () {
-      it ("should be able to create a bitmap", function () {
+      it("should be able to create a bitmap", function () {
         var bitmap = fi.allocate(TEMP_BITMAP_01_IMAGE_TYPE, TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
         bitmap.isNull().should.be.false();
         fi.unload(bitmap);
@@ -144,7 +144,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
     
     describe("fi.load", function () {
-      it ("should be able to load a bitmap", function () {
+      it("should be able to load a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
         bitmap.isNull().should.be.false();
         fi.unload(bitmap);
@@ -152,7 +152,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.save", function () {
-      it ("should be able to save a bitmap", function () {
+      it("should be able to save a bitmap", function () {
         var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
             success = false;
         bitmap.isNull().should.be.false();
@@ -164,7 +164,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
     
     describe("fi.clone", function () {
-      it ("should be able to clone a bitmap", function () {
+      it("should be able to clone a bitmap", function () {
         var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
             bitmap2 = null;
         bitmap.isNull().should.be.false();
@@ -178,7 +178,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
 
   describe("Bitmap information functions", function () {
     describe("fi.getImageType", function () {
-      it ("should be able to get the type of a bitmap", function () {
+      it("should be able to get the type of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             type = -1;
         bitmap.isNull().should.be.false();
@@ -189,7 +189,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getColorsUsed", function () {
-      it ("should be able to get the palette size (!) of a bitmap", function () {
+      it("should be able to get the palette size (!) of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             paletteSize = -1;
         bitmap.isNull().should.be.false();
@@ -200,7 +200,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getBPP", function () {
-      it ("should be able to get the size of one pixel in the bitmap in bits", function () {
+      it("should be able to get the size of one pixel in the bitmap in bits", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             bpp = -1;
         bitmap.isNull().should.be.false();
@@ -211,7 +211,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getWidth", function () {
-      it ("should be able to get the width of a bitmap in pixels", function () {
+      it("should be able to get the width of a bitmap in pixels", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             width = -1;
         bitmap.isNull().should.be.false();
@@ -222,7 +222,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getHeight", function () {
-      it ("should be able to get the height of a bitmap in pixels", function () {
+      it("should be able to get the height of a bitmap in pixels", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             height = -1;
         bitmap.isNull().should.be.false();
@@ -233,7 +233,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getLine", function () {
-      it ("should be able to get the width of a bitmap in bytes", function () {
+      it("should be able to get the width of a bitmap in bytes", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             line = -1;
         bitmap.isNull().should.be.false();
@@ -244,7 +244,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getPitch", function () {
-      it ("should be able to get the pitch (scan width) of a bitmap in bytes", function () {
+      it("should be able to get the pitch (scan width) of a bitmap in bytes", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             pitch = -1;
         bitmap.isNull().should.be.false();
@@ -255,7 +255,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getDIBSize", function () {
-      it ("should be able to get the DIB size of a bitmap in bytes", function () {
+      it("should be able to get the DIB size of a bitmap in bytes", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             dibSize = -1;
         bitmap.isNull().should.be.false();
@@ -266,7 +266,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getPalette", function () {
-      it ("should return null for a non-palettized bitmap", function () {
+      it("should return null for a non-palettized bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             palette = null;
         bitmap.isNull().should.be.false();
@@ -275,7 +275,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
         fi.unload(bitmap);
       });
       
-      it ("should be able to get the palette of a palettized bitmap", function () {
+      it("should be able to get the palette of a palettized bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
             palette = null,
             palette2 = null,
@@ -295,7 +295,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getDotsPerMeterX", function () {
-      it ("should be able to get the X-resolution of a bitmap in dpm", function () {
+      it("should be able to get the X-resolution of a bitmap in dpm", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             dpmX = -1;
         bitmap.isNull().should.be.false();
@@ -306,7 +306,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getDotsPerMeterY", function () {
-      it ("should be able to get the Y-resolution of a bitmap in dpm", function () {
+      it("should be able to get the Y-resolution of a bitmap in dpm", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             dpmY = -1;
         bitmap.isNull().should.be.false();
@@ -317,7 +317,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.setDotsPerMeterX", function () {
-      it ("should be able to set the X-resolution of a bitmap in dpm", function () {
+      it("should be able to set the X-resolution of a bitmap in dpm", function () {
         var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
             dpmX = TEMP_BITMAP_01_DPM_X;
         bitmap.isNull().should.be.false();
@@ -329,7 +329,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.setDotsPerMeterY", function () {
-      it ("should be able to set the Y-resolution of a bitmap in dpm", function () {
+      it("should be able to set the Y-resolution of a bitmap in dpm", function () {
         var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
             dpmY = TEMP_BITMAP_01_DPM_Y;
         bitmap.isNull().should.be.false();
@@ -341,7 +341,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getInfoHeader", function () {
-      it ("should be able to get the BITMAPINFOHEADER of a bitmap", function () {
+      it("should be able to get the BITMAPINFOHEADER of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             infoHeader = null;
         bitmap.isNull().should.be.false();
@@ -364,7 +364,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getInfo", function () {
-      it ("should be able to get the BITMAPINFO of a bitmap", function () {
+      it("should be able to get the BITMAPINFO of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             info = null;
         bitmap.isNull().should.be.false();
@@ -388,7 +388,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getColorType", function () {
-      it ("should be able to get the color type of a bitmap", function () {
+      it("should be able to get the color type of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             colorType = -1;
         bitmap.isNull().should.be.false();
@@ -399,7 +399,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getRedMask", function () {
-      it ("should be able to get the red mask of a bitmap", function () {
+      it("should be able to get the red mask of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             redMask = -1;
         bitmap.isNull().should.be.false();
@@ -410,7 +410,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getGreenMask", function () {
-      it ("should be able to get the green mask of a bitmap", function () {
+      it("should be able to get the green mask of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             greenMask = -1;
         bitmap.isNull().should.be.false();
@@ -421,7 +421,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getBlueMask", function () {
-      it ("should be able to get the blue mask of a bitmap", function () {
+      it("should be able to get the blue mask of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             blueMask = -1;
         bitmap.isNull().should.be.false();
@@ -432,7 +432,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getTransparencyCount", function () {
-      it ("should be able to get the transparency count of a bitmap", function () {
+      it("should be able to get the transparency count of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
             count = -1;
         bitmap.isNull().should.be.false();
@@ -443,7 +443,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getTransparencyTable", function () {
-      it ("should be able to get the transparency table of a bitmap", function () {
+      it("should be able to get the transparency table of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
             table = null,
             table2 = null,
@@ -460,7 +460,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.setTransparencyTable", function () {
-      it ("should be able to set the transparency table of a bitmap", function () {
+      it("should be able to set the transparency table of a bitmap", function () {
         var bitmap = fi.allocate(TEMP_BITMAP_02_WIDTH, TEMP_BITMAP_02_HEIGHT, TEMP_BITMAP_02_BPP),
             table = new Buffer(TEMP_BITMAP_02_TRANSPARENCY_TABLE),
             table2 = null;
@@ -478,7 +478,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.(is|set)Transparent", function () {
-      it ("should be able to get/set the transparency state of a bitmap", function () {
+      it("should be able to get/set the transparency state of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
             isTransparent = false,
             i = -1;
@@ -493,7 +493,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.(get|set)TransparentIndex", function () {
-      it ("should be able to get/set the palette index of the transparent color of a bitmap", function () {
+      it("should be able to get/set the palette index of the transparent color of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
             i = -1;
         bitmap.isNull().should.be.false();
@@ -506,7 +506,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.(has|get|set)BackgroundColor", function () {
-      it ("should be able to get/set the background color of a bitmap", function () {
+      it("should be able to get/set the background color of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             color = new RGBQUAD(AQUA);
         bitmap.isNull().should.be.false();
@@ -527,7 +527,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
     
     describe("fi.hasPixels", function () {
-      it ("should be able to determine if a bitmap has pixels", function () {
+      it("should be able to determine if a bitmap has pixels", function () {
         var bitmap1 = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             bitmap2 = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME, fi.LOAD_SAVE_OPTION.LOAD_NOPIXELS);
         bitmap1.isNull().should.be.false();
@@ -540,7 +540,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
     
     describe("fi.(get|set)Thumbnail", function () {
-      it ("should be able to get/set the thumbnail of a bitmap", function () {
+      it("should be able to get/set the thumbnail of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             thumbnail = null;
         bitmap.isNull().should.be.false();
@@ -556,7 +556,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
 
   describe("Filetype functions", function () {
     describe("fi.getFileType", function () {
-      it ("should be able to get the image format of a bitmap", function () {
+      it("should be able to get the image format of a bitmap", function () {
         var format = fi.getFileType(TEST_BITMAP_01_FILENAME);
         format.should.equal(TEST_BITMAP_01_IMAGE_FORMAT);
       });
@@ -565,7 +565,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
 
   describe("Pixel access functions", function () {
     describe("fi.getBits", function () {
-      it ("should be able to get the bits of a bitmap", function () {
+      it("should be able to get the bits of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
             bits = null,
             bits2 = null;
@@ -590,7 +590,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
 
     describe("fi.getScanLine", function () {
-      it ("should be able to get the scan lines of a bitmap", function () {
+      it("should be able to get the scan lines of a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
             scanLine = null,
             scanLine2 = null;
@@ -618,10 +618,11 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
     
     describe("fi.getPixelIndex", function () {
-      it ("should return false for a non-palettized bitmap", function () {
+      it("should return false for a non-palettized bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
             pixelIndex = ref.alloc(BYTE, 0),
             success = false;
+        bitmap.isNull().should.be.false();
         success = fi.getPixelIndex(bitmap, 0, 0, pixelIndex);
         success.should.be.false();
         pixelIndex.deref().should.equal(0);
@@ -630,10 +631,11 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
     
     describe("fi.getPixelColor", function () {
-      it ("should be able to get the pixel colors of a non-palettized bitmap", function () {
+      it("should be able to get the pixel colors of a non-palettized bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
             pixelColor = ref.alloc(RGBQUAD, BLACK),
             success = false;
+        bitmap.isNull().should.be.false();
         success = fi.getPixelColor(bitmap, 0, 0, pixelColor);
         success.should.be.true();
         pixelColor.deref().rgbBlue.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
@@ -644,10 +646,11 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
     
     describe("fi.setPixelIndex", function () {
-      it ("should return false for a non-palettized bitmap", function () {
+      it("should return false for a non-palettized bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
             pixelIndex = ref.alloc(BYTE, 0),
             success = false;
+        bitmap.isNull().should.be.false();
         success = fi.setPixelIndex(bitmap, 0, 0, pixelIndex);
         success.should.be.false();
         pixelIndex.deref().should.equal(0);
@@ -656,10 +659,11 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
     
     describe("fi.setPixelColor", function () {
-      it ("should be able to set the pixel colors of a non-palettized bitmap", function () {
+      it("should be able to set the pixel colors of a non-palettized bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
             pixelColor = ref.alloc(RGBQUAD, TEST_BITMAP_03_TEST_PIXEL_COLOR),
             success = false;
+        bitmap.isNull().should.be.false();
         success = fi.setPixelColor(bitmap, 0, 0, pixelColor);
         success.should.be.true();
         success = fi.getPixelColor(bitmap, 0, 0, pixelColor);
@@ -673,6 +677,311 @@ describe("BITMAP FUNCTION REFERENCE", function () {
   });
 
   describe("Conversion functions", function () {
+    describe("fi.convertTo4Bits", function () {
+      it("should be able to convert a 32-bit bitmap to a 4-bit one", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertTo4Bits(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(4);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertTo8Bits", function () {
+      it("should be able to convert a 32-bit bitmap to an 8-bit one", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertTo8Bits(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(8);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertToGreyscale", function () {
+      it("should be able to convert a 32-bit bitmap to a greyscale one", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertToGreyscale(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(8);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertTo16Bits555", function () {
+      it("should be able to convert a 32-bit bitmap to a 16-bit one (555)", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertTo16Bits555(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(16);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertTo16Bits565", function () {
+      it("should be able to convert a 32-bit bitmap to a 16-bit one (565)", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertTo16Bits565(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(16);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertTo24Bits", function () {
+      it("should be able to convert a 32-bit bitmap to a 24-bit one", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertTo24Bits(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(24);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertTo32Bits", function () {
+      it("should be able to convert a 4-bit bitmap to a 32-bit one", function () {
+        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertTo32Bits(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(32);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.colorQuantize", function () {
+      it("should be able to quantize a 24-bit bitmap (Wu)", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.colorQuantize(bitmap, fi.QUANTIZATION.WUQUANT);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(8);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.colorQuantizeEx", function () {
+      it("should be able to quantize a 24-bit bitmap (Wu)", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.colorQuantizeEx(bitmap, fi.QUANTIZATION.WUQUANT);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(8);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.threshold", function () {
+      it("should be able to convert a 32-bit bitmap to a 1-bit one using a threshold", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.threshold(bitmap, 150);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(1);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.dither", function () {
+      it("should be able to convert a 32-bit bitmap to a 1-bit one using dithering", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.dither(bitmap, fi.DITHERING.FS);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(1);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.convertFromRawBits", function () {
+      it("should be able to create a bitmap from a pixel color array", function () {
+        var width = 2,
+            height = 2,
+            bpp = 24,
+            pitch = width * bpp / BYTES_TO_BITS,
+            bits = ref.reinterpret(new Buffer([
+              0, 255, 255,
+              0, 0, 0,
+              255, 255, 0,
+              255, 0, 255
+            ]), height * pitch, 0),
+            bitmap = null;
+        bitmap = fi.convertFromRawBits(
+          bits,
+          width, height, pitch, bpp,
+          fi.RGBA_MASK.RED, fi.RGBA_MASK.GREEN, fi.RGBA_MASK.BLUE
+        );
+        bitmap.isNull().should.be.false();
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertToRawBits", function () {
+      it("should be able to convert a bitmap to a pixel color array", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            pitch = TEST_BITMAP_03_WIDTH * TEST_BITMAP_03_BPP / BYTES_TO_BITS,
+            bits = new Buffer(TEST_BITMAP_03_HEIGHT * pitch);
+        bitmap.isNull().should.be.false();
+        fi.convertToRawBits(
+          bits, bitmap,
+          pitch, TEST_BITMAP_03_BPP,
+          fi.RGBA_MASK.RED, fi.RGBA_MASK.GREEN, fi.RGBA_MASK.BLUE,
+          true
+        );
+        bits[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+        bits[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+        bits[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+        bits[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+        bits[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+        bits[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+        bits[pitch + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+        bits[pitch + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+        bits[pitch + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+        bits[pitch + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+        bits[pitch + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+        bits[pitch + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);        
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.convertToStandardType", function () {
+      it("should return the clone of a standard bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertToStandardType(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(32);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertToType", function () {
+      it("should be able to convert a bitmap to another type", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            type2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertToType(bitmap, fi.IMAGE_TYPE.FLOAT);
+        bitmap2.isNull().should.be.false();
+        type2 = fi.getImageType(bitmap2);
+        type2.should.equal(fi.IMAGE_TYPE.FLOAT);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertToFloat", function () {
+      it("should be able to convert a bitmap to float type", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            type2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertToFloat(bitmap);
+        bitmap2.isNull().should.be.false();
+        type2 = fi.getImageType(bitmap2);
+        type2.should.equal(fi.IMAGE_TYPE.FLOAT);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertToRGBF", function () {
+      it("should be able to convert a bitmap to RGBF type", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            type2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertToRGBF(bitmap);
+        bitmap2.isNull().should.be.false();
+        type2 = fi.getImageType(bitmap2);
+        type2.should.equal(fi.IMAGE_TYPE.RGBF);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertToUINT16", function () {
+      it("should be able to convert a bitmap to UINT16 type", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            type2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertToUINT16(bitmap);
+        bitmap2.isNull().should.be.false();
+        type2 = fi.getImageType(bitmap2);
+        type2.should.equal(fi.IMAGE_TYPE.UINT16);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.convertToRGB16", function () {
+      it("should be able to convert a bitmap to RGB16 type", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null,
+            type2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.convertToRGB16(bitmap);
+        bitmap2.isNull().should.be.false();
+        type2 = fi.getImageType(bitmap2);
+        type2.should.equal(fi.IMAGE_TYPE.RGB16);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("Tone mapping operators", function () {

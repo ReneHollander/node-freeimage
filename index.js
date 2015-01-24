@@ -128,6 +128,15 @@ function assertBoolean(arg, argName) {
   }
 }    
 
+function assertByte(arg, argName) {
+  if (typeof arg !== "number" || arg % 1 !== 0 || arg < 0 || 255 < arg) {
+    throw new Error(
+      "Argument \"" + argName + "\" " + 
+      "must be a byte (" + arg + ")."
+    );
+  }
+}    
+
 function assertInteger(arg, argName) {
   if (typeof arg !== "number" || arg % 1 !== 0) {
     throw new Error(
@@ -201,6 +210,32 @@ function assertImageFormat(arg, argName) {
   throw new Error(
     "Argument \"" + argName + "\" " + 
     "must be an image format (" + arg + ")."
+  );
+}
+
+function assertQuantization(arg, argName) {
+  var p;
+  for (p in module.exports.QUANTIZATION) {
+    if (arg === module.exports.QUANTIZATION[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be a quantization algorithm (" + arg + ")."
+  );
+}
+
+function assertDithering(arg, argName) {
+  var p;
+  for (p in module.exports.DITHERING) {
+    if (arg === module.exports.DITHERING[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be a dithering algorithm (" + arg + ")."
   );
 }
 
@@ -491,11 +526,11 @@ module.exports = {
     RGBALPHA: 4,
     CMYK: 5
   },
-  QUANTIZATION_ALGORITHM: {
+  QUANTIZATION: {
     WUQUANT: 0,
     NNQUANT: 1
   },
-  DITHERING_ALGORITHM: {
+  DITHERING: {
     FS: 0,
     BAYER4x4: 1,
     BAYER8x8: 2,
@@ -900,7 +935,7 @@ module.exports = {
   setTransparent: function (bitmap, enabled) {
     assertNonNullObject(bitmap, "bitmap");
     assertBoolean(enabled, "enabled");
-    library.FreeImage_SetTransparent(bitmap, enabled);
+    library.FreeImage_SetTransparent(bitmap, enabled ? TRUE : FALSE);
   },
   isTransparent: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
@@ -988,80 +1023,113 @@ module.exports = {
     return library.FreeImage_SetPixelColor(bitmap, x, y, value) === TRUE;
   },
   // Conversion functions
-  // FIBITMAP *FreeImage_ConvertTo4Bits(FIBITMAP *bitmap);
   convertTo4Bits: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertTo4Bits(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo8Bits(FIBITMAP *bitmap);
   convertTo8Bits: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertTo8Bits(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertToGreyscale(FIBITMAP *bitmap);
   convertToGreyscale: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertToGreyscale(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo16Bits555(FIBITMAP *bitmap);
   convertTo16Bits555: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertTo16Bits555(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo16Bits565(FIBITMAP *bitmap);
   convertTo16Bits565: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertTo16Bits565(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo24Bits(FIBITMAP *bitmap);
   convertTo24Bits: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertTo24Bits(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertTo32Bits(FIBITMAP *bitmap);
   convertTo32Bits: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertTo32Bits(bitmap);
   },
-  // FIBITMAP *FreeImage_ColorQuantize(FIBITMAP *bitmap, FREE_IMAGE_QUANTIZE quantize);
   colorQuantize: function (bitmap, quantize) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertQuantization(quantize, "quantize");
     return library.FreeImage_ColorQuantize(bitmap, quantize);
   },
-  // FIBITMAP *FreeImage_ColorQuantizeEx(FIBITMAP *bitmap, FREE_IMAGE_QUANTIZE quantize FI_DEFAULT(FIQ_WUQUANT), int PaletteSize FI_DEFAULT(256), int ReserveSize FI_DEFAULT(0), RGBQUAD *ReservePalette FI_DEFAULT(NULL));
-  colorQuantizeEx: function (bitmap, quantize, PaletteSize, ReserveSize, ReservePalette) {
-    return library.FreeImage_ColorQuantizeEx(bitmap, quantize, PaletteSize, ReserveSize, ReservePalette);
+  colorQuantizeEx: function (bitmap, quantize, paletteSize, reserveSize, reservePalette) {
+    quantize = setToDefaultIfUndefined(quantize, this.QUANTIZATION.WUQUANT);
+    paletteSize = setToDefaultIfUndefined(paletteSize, 256);
+    reserveSize = setToDefaultIfUndefined(reserveSize, 0);
+    reservePalette = setToDefaultIfUndefined(reservePalette, ref.NULL);
+    assertNonNullObject(bitmap, "bitmap");
+    assertQuantization(quantize, "quantize");
+    assertInteger(paletteSize, "paletteSize");
+    assertInteger(reserveSize, "reserveSize");
+    assertObject(reservePalette, "reservePalette");
+    return library.FreeImage_ColorQuantizeEx(bitmap, quantize, paletteSize, reserveSize, reservePalette);
   },
-  // FIBITMAP *FreeImage_Threshold(FIBITMAP *bitmap, BYTE T);
-  threshold: function (bitmap, T) {
-    return library.FreeImage_Threshold(bitmap, T);
+  threshold: function (bitmap, t) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertByte(t, "t");
+    return library.FreeImage_Threshold(bitmap, t);
   },
-  // FIBITMAP *FreeImage_Dither(FIBITMAP *bitmap, FREE_IMAGE_DITHER algorithm);
   dither: function (bitmap, algorithm) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertDithering(algorithm, "algorithm");
     return library.FreeImage_Dither(bitmap, algorithm);
   },
-  // FIBITMAP *FreeImage_ConvertFromRawBits(BYTE *bits, int width, int height, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown FI_DEFAULT(FALSE));
-  convertFromRawBits: function (bits, width, height, pitch, bpp, red_mask, green_mask, blue_mask, topdown) {
-    return library.FreeImage_ConvertFromRawBits(bits, width, height, pitch, bpp, red_mask, green_mask, blue_mask, topdown);
+  convertFromRawBits: function (bits, width, height, pitch, bpp, redMask, greenMask, blueMask, topDown) {
+    topDown = setToDefaultIfUndefined(topDown, false);
+    assertNonNullObject(bits, "bits");
+    assertInteger(width, "width");
+    assertInteger(height, "height");
+    assertInteger(pitch, "pitch");
+    assertUnsignedInteger(bpp, "bpp");
+    assertUnsignedInteger(redMask, "redMask");
+    assertUnsignedInteger(greenMask, "greenMask");
+    assertUnsignedInteger(blueMask, "blueMask");
+    assertBoolean(topDown, "topDown");
+    return library.FreeImage_ConvertFromRawBits(bits, width, height, pitch, bpp, redMask, greenMask, blueMask, topDown ? TRUE : FALSE);
   },
-  // void FreeImage_ConvertToRawBits(BYTE *bits, FIBITMAP *bitmap, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown FI_DEFAULT(FALSE));
-  convertToRawBits: function (bits, bitmap, pitch, bpp, red_mask, green_mask, blue_mask, topdown) {
-    return library.FreeImage_ConvertToRawBits(bits, bitmap, pitch, bpp, red_mask, green_mask, blue_mask, topdown);
+  convertToRawBits: function (bits, bitmap, pitch, bpp, redMask, greenMask, blueMask, topDown) {
+    topDown = setToDefaultIfUndefined(topDown, false);
+    assertNonNullObject(bits, "bits");
+    assertNonNullObject(bitmap, "bitmap");
+    assertInteger(pitch, "pitch");
+    assertUnsignedInteger(bpp, "bpp");
+    assertUnsignedInteger(redMask, "redMask");
+    assertUnsignedInteger(greenMask, "greenMask");
+    assertUnsignedInteger(blueMask, "blueMask");
+    assertBoolean(topDown, "topDown");
+    library.FreeImage_ConvertToRawBits(bits, bitmap, pitch, bpp, redMask, greenMask, blueMask, topDown);
   },
-  // FIBITMAP *FreeImage_ConvertToStandardType(FIBITMAP *src, BOOL scale_linear FI_DEFAULT(TRUE));
-  convertToStandardType: function (src, scale_linear) {
-    return library.FreeImage_ConvertToStandardType(src, scale_linear);
+  convertToStandardType: function (bitmap, scaleLinear) {
+    scaleLinear = setToDefaultIfUndefined(scaleLinear, true);
+    assertNonNullObject(bitmap, "bitmap");
+    assertBoolean(scaleLinear, "scaleLinear");
+    return library.FreeImage_ConvertToStandardType(bitmap, scaleLinear);
   },
-  // FIBITMAP *FreeImage_ConvertToType(FIBITMAP *src, FREE_IMAGE_TYPE dst_type, BOOL scale_linear FI_DEFAULT(TRUE));
-  convertToType: function (src, dst_type, scale_linear) {
-    return library.FreeImage_ConvertToType(src, dst_type, scale_linear);
+  convertToType: function (bitmap, type, scaleLinear) {
+    scaleLinear = setToDefaultIfUndefined(scaleLinear, true);
+    assertNonNullObject(bitmap, "bitmap");
+    assertImageType(type, "type");
+    assertBoolean(scaleLinear, "scaleLinear");
+    return library.FreeImage_ConvertToType(bitmap, type, scaleLinear);
   },
-  // FIBITMAP *FreeImage_ConvertToFloat(FIBITMAP *bitmap);
   convertToFloat: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertToFloat(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertToRGBF(FIBITMAP *bitmap);
   convertToRGBF: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertToRGBF(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertToUINT16(FIBITMAP *bitmap);
   convertToUINT16: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertToUINT16(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertToRGB16(FIBITMAP *bitmap);
   convertToRGB16: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_ConvertToRGB16(bitmap);
   },
   // Tone mapping operators
