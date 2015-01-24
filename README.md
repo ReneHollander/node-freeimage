@@ -191,6 +191,30 @@ It is assumed that `node-freeimage` has been loaded as follows:
 - `FreeImage_CreateICCProfile`: `fi.createICCProfile`
 - `FreeImage_DestroyICCProfile`: `fi.destroyICCProfile`
 
+#### Plugin functions
+
+- `FreeImage_GetFIFCount`: ---
+- `FreeImage_SetPluginEnabled`: ---
+- `FreeImage_IsPluginEnabled`: ---
+- `FreeImage_GetFIFFromFormat`: ---
+- `FreeImage_GetFIFFromMime`: ---
+- `FreeImage_GetFIFMimeType`: ---
+- `FreeImage_GetFormatFromFIF`: ---
+- `FreeImage_GetFIFExtensionList`: ---
+- `FreeImage_GetFIFDescription`: ---
+- `FreeImage_GetFIFRegExpr`: ---
+- `FreeImage_GetFIFFromFilename`: ---
+- `FreeImage_GetFIFFromFilenameU`: ---
+- `FreeImage_FIFSupportsReading`: ---
+- `FreeImage_FIFSupportsWriting`: ---
+- `FreeImage_FIFSupportsExportType`: ---
+- `FreeImage_FIFSupportsExportBPP`: ---
+- `FreeImage_FIFSupportsICCProfiles`: ---
+- `FreeImage_FIFSupportsNoPixels`: ---
+- `FreeImage_RegisterLocalPlugin`: ---
+- `FreeImage_RegisterExternalPlugin`: ---
+
+
 #### Multipage functions
 
 - `FreeImage_OpenMultiBitmap`: `fi.openMultiBitmap`
