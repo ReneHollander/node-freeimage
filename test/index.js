@@ -1065,6 +1065,35 @@ describe("BITMAP FUNCTION REFERENCE", function () {
   });
 
   describe("ICC profile functions", function () {
+    describe("fi.(get|create|destroy)ICCProfile", function () {
+      it("should be able to get/create/destroy the ICC profile of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            profile = null,
+            data = null,
+            data2 = null;
+        bitmap.isNull().should.be.false();
+        profile = fi.getICCProfile(bitmap);
+        profile.isNull().should.be.false();
+        profile.deref().flags.should.equal(0);
+        profile.deref().size.should.equal(0);
+        profile.deref().data.isNull().should.be.true();
+        data = new Buffer([1, 2, 3, 4, 5]);
+        fi.createICCProfile(bitmap, data, data.length);
+        profile = fi.getICCProfile(bitmap);
+        profile.deref().flags.should.equal(0);
+        profile.deref().size.should.equal(data.length);
+        profile.deref().data.isNull().should.be.false();
+        data2 = ref.reinterpret(profile.deref().data, profile.deref().size, 0);
+        data2.should.deep.equal(data);
+        fi.destroyICCProfile(bitmap);
+        profile = fi.getICCProfile(bitmap);
+        profile.isNull().should.be.false();
+        profile.deref().flags.should.equal(0);
+        profile.deref().size.should.equal(0);
+        profile.deref().data.isNull().should.be.true();
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("Multipage functions", function () {

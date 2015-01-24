@@ -1201,17 +1201,19 @@ module.exports = {
     return library.FreeImage_TmoFattal02(bitmap, colorSaturation, attenuation);
   },
   // ICC profile functions
-  // FIICCPROFILE *FreeImage_GetICCProfile(FIBITMAP *bitmap);
   getICCProfile: function (bitmap) {
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetICCProfile(bitmap);
   },
-  // FIICCPROFILE *FreeImage_CreateICCProfile(FIBITMAP *bitmap, void *data, long size);
   createICCProfile: function (bitmap, data, size) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(data, "data");
+    assertInteger(size, "size");
     return library.FreeImage_CreateICCProfile(bitmap, data, size);
   },
-  // void FreeImage_DestroyICCProfile(FIBITMAP *bitmap);
   destroyICCProfile: function (bitmap) {
-    return library.FreeImage_DestroyICCProfile(bitmap);
+    assertNonNullObject(bitmap, "bitmap");
+    library.FreeImage_DestroyICCProfile(bitmap);
   },
   // Multipage functions
   // FIMULTIBITMAP * FreeImage_OpenMultiBitmap(FREE_IMAGE_FORMAT fif, const char *filename, BOOL create_new, BOOL read_only, BOOL keep_cache_in_memory FI_DEFAULT(FALSE), int flags FI_DEFAULT(0));
