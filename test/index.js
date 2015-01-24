@@ -111,7 +111,7 @@ var should = require("chai").should(),
     ],
     TEST_BITMAP_03_TEST_PIXEL_COLOR = MAROON;
     
-describe("Bitmap function reference", function () {    
+describe("BITMAP FUNCTION REFERENCE", function () {    
   describe("General functions", function () {
     describe("fi.getVersion", function () {
       it ("should return major, minor and patch version", function () {
@@ -691,7 +691,7 @@ describe("Bitmap function reference", function () {
   });
 });
 
-describe("Metadata function reference", function () {
+describe("METADATA FUNCTION REFERENCE", function () {
   describe("Tag creation and destruction", function () {
   });
   
@@ -708,7 +708,7 @@ describe("Metadata function reference", function () {
   });
 });
 
-describe("Toolkit function reference", function () {
+describe("TOOLKIT FUNCTION REFERENCE", function () {
   describe("Rotation and flipping", function () {
   });
 

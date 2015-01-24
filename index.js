@@ -987,218 +987,7 @@ module.exports = {
     assertNonNullObject(value, "value");
     return library.FreeImage_SetPixelColor(bitmap, x, y, value) === TRUE;
   },
-  
-  
-  
-  
-  // FIMULTIBITMAP * FreeImage_OpenMultiBitmap(FREE_IMAGE_FORMAT fif, const char *filename, BOOL create_new, BOOL read_only, BOOL keep_cache_in_memory FI_DEFAULT(FALSE), int flags FI_DEFAULT(0));
-  openMultiBitmap: function (fif, filename, create_new, read_only, keep_cache_in_memory, flags) {
-    return library.FreeImage_OpenMultiBitmap(fif, filename, create_new, read_only, keep_cache_in_memory, flags);
-  },
-  // BOOL FreeImage_CloseMultiBitmap(FIMULTIBITMAP *bitmap, int flags FI_DEFAULT(0));
-  closeMultiBitmap: function (bitmap, flags) {
-    return library.FreeImage_CloseMultiBitmap(bitmap, flags);
-  },
-  // int FreeImage_GetPageCount(FIMULTIBITMAP *bitmap);
-  getPageCount: function (bitmap) {
-    return library.FreeImage_GetPageCount(bitmap);
-  },
-  // void FreeImage_AppendPage(FIMULTIBITMAP *bitmap, FIBITMAP *data);
-  appendPage: function (bitmap, data) {
-    return library.FreeImage_AppendPage(bitmap, data);
-  },
-  // void FreeImage_InsertPage(FIMULTIBITMAP *bitmap, int page, FIBITMAP *data);
-  insertPage: function (bitmap, page, data) {
-    return library.FreeImage_InsertPage(bitmap, page, data);
-  },
-  // void FreeImage_DeletePage(FIMULTIBITMAP *bitmap, int page);
-  deletePage: function (bitmap, page) {
-    return library.FreeImage_DeletePage(bitmap, page);
-  },
-  // FIBITMAP * FreeImage_LockPage(FIMULTIBITMAP *bitmap, int page);
-  lockPage: function (bitmap, page) {
-    return library.FreeImage_LockPage(bitmap, page);
-  },
-  // void FreeImage_UnlockPage(FIMULTIBITMAP *bitmap, FIBITMAP *data, BOOL changed);
-  unlockPage: function (bitmap, data, changed) {
-    return library.FreeImage_UnlockPage(bitmap, data, changed);
-  },
-  // BOOL FreeImage_MovePage(FIMULTIBITMAP *bitmap, int target, int source);
-  movePage: function (bitmap, target, source) {
-    return library.FreeImage_MovePage(bitmap, target, source);
-  },
-  // BOOL FreeImage_GetLockedPageNumbers(FIMULTIBITMAP *bitmap, int *pages, int *count);
-  getLockedPageNumbers: function (bitmap, pages, count) {
-    return library.FreeImage_GetLockedPageNumbers(bitmap, pages, count);
-  },
-  // BOOL FreeImage_IsLittleEndian(void);
-  isLittleEndian: function () {
-    return library.FreeImage_IsLittleEndian();
-  },
-  // BOOL FreeImage_LookupX11Color(const char *szColor, BYTE *nRed, BYTE *nGreen, BYTE *nBlue);
-  lookupX11Color: function (szColor, nRed, nGreen, nBlue) {
-    return library.FreeImage_LookupX11Color(szColor, nRed, nGreen, nBlue);
-  },
-  // BOOL FreeImage_LookupSVGColor(const char *szColor, BYTE *nRed, BYTE *nGreen, BYTE *nBlue);
-  lookupSVGColor: function (szColor, nRed, nGreen, nBlue) {
-    return library.FreeImage_LookupSVGColor(szColor, nRed, nGreen, nBlue);
-  },
-  // FIICCPROFILE *FreeImage_GetICCProfile(FIBITMAP *bitmap);
-  getICCProfile: function (bitmap) {
-    return library.FreeImage_GetICCProfile(bitmap);
-  },
-  // FIICCPROFILE *FreeImage_CreateICCProfile(FIBITMAP *bitmap, void *data, long size);
-  createICCProfile: function (bitmap, data, size) {
-    return library.FreeImage_CreateICCProfile(bitmap, data, size);
-  },
-  // void FreeImage_DestroyICCProfile(FIBITMAP *bitmap);
-  destroyICCProfile: function (bitmap) {
-    return library.FreeImage_DestroyICCProfile(bitmap);
-  },
-  // void FreeImage_ConvertLine1To4(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine1To4: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine1To4(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine8To4(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine8To4: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine8To4(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine16To4_555(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16To4_555: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16To4_555(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine16To4_565(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16To4_565: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16To4_565(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine24To4(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine24To4: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine24To4(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine32To4(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine32To4: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine32To4(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine1To8(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine1To8: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine1To8(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine4To8(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine4To8: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine4To8(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine16To8_555(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16To8_555: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16To8_555(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine16To8_565(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16To8_565: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16To8_565(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine24To8(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine24To8: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine24To8(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine32To8(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine32To8: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine32To8(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine1To16_555(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine1To16_555: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine1To16_555(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine4To16_555(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine4To16_555: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine4To16_555(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine8To16_555(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine8To16_555: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine8To16_555(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine16_565_To16_555(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16_565_To16_555: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16_565_To16_555(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine24To16_555(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine24To16_555: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine24To16_555(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine32To16_555(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine32To16_555: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine32To16_555(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine1To16_565(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine1To16_565: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine1To16_565(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine4To16_565(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine4To16_565: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine4To16_565(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine8To16_565(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine8To16_565: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine8To16_565(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine16_555_To16_565(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16_555_To16_565: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16_555_To16_565(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine24To16_565(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine24To16_565: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine24To16_565(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine32To16_565(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine32To16_565: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine32To16_565(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine1To24(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine1To24: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine1To24(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine4To24(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine4To24: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine4To24(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine8To24(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine8To24: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine8To24(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine16To24_555(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16To24_555: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16To24_555(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine16To24_565(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16To24_565: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16To24_565(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine32To24(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine32To24: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine32To24(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine1To32(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine1To32: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine1To32(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine4To32(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine4To32: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine4To32(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine8To32(BYTE *target, BYTE *source, int width_in_pixels, RGBQUAD *palette);
-  convertLine8To32: function (target, source, width_in_pixels, palette) {
-    return library.FreeImage_ConvertLine8To32(target, source, width_in_pixels, palette);
-  },
-  // void FreeImage_ConvertLine16To32_555(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16To32_555: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16To32_555(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine16To32_565(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine16To32_565: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine16To32_565(target, source, width_in_pixels);
-  },
-  // void FreeImage_ConvertLine24To32(BYTE *target, BYTE *source, int width_in_pixels);
-  convertLine24To32: function (target, source, width_in_pixels) {
-    return library.FreeImage_ConvertLine24To32(target, source, width_in_pixels);
-  },
+  // Conversion functions
   // FIBITMAP *FreeImage_ConvertTo4Bits(FIBITMAP *bitmap);
   convertTo4Bits: function (bitmap) {
     return library.FreeImage_ConvertTo4Bits(bitmap);
@@ -1251,6 +1040,14 @@ module.exports = {
   convertToRawBits: function (bits, bitmap, pitch, bpp, red_mask, green_mask, blue_mask, topdown) {
     return library.FreeImage_ConvertToRawBits(bits, bitmap, pitch, bpp, red_mask, green_mask, blue_mask, topdown);
   },
+  // FIBITMAP *FreeImage_ConvertToStandardType(FIBITMAP *src, BOOL scale_linear FI_DEFAULT(TRUE));
+  convertToStandardType: function (src, scale_linear) {
+    return library.FreeImage_ConvertToStandardType(src, scale_linear);
+  },
+  // FIBITMAP *FreeImage_ConvertToType(FIBITMAP *src, FREE_IMAGE_TYPE dst_type, BOOL scale_linear FI_DEFAULT(TRUE));
+  convertToType: function (src, dst_type, scale_linear) {
+    return library.FreeImage_ConvertToType(src, dst_type, scale_linear);
+  },
   // FIBITMAP *FreeImage_ConvertToFloat(FIBITMAP *bitmap);
   convertToFloat: function (bitmap) {
     return library.FreeImage_ConvertToFloat(bitmap);
@@ -1267,14 +1064,7 @@ module.exports = {
   convertToRGB16: function (bitmap) {
     return library.FreeImage_ConvertToRGB16(bitmap);
   },
-  // FIBITMAP *FreeImage_ConvertToStandardType(FIBITMAP *src, BOOL scale_linear FI_DEFAULT(TRUE));
-  convertToStandardType: function (src, scale_linear) {
-    return library.FreeImage_ConvertToStandardType(src, scale_linear);
-  },
-  // FIBITMAP *FreeImage_ConvertToType(FIBITMAP *src, FREE_IMAGE_TYPE dst_type, BOOL scale_linear FI_DEFAULT(TRUE));
-  convertToType: function (src, dst_type, scale_linear) {
-    return library.FreeImage_ConvertToType(src, dst_type, scale_linear);
-  },
+  // Tone mapping operators
   // FIBITMAP *FreeImage_ToneMapping(FIBITMAP *bitmap, FREE_IMAGE_TMO tmo, double first_param FI_DEFAULT(0), double second_param FI_DEFAULT(0));
   toneMapping: function (bitmap, tmo, first_param, second_param) {
     return library.FreeImage_ToneMapping(bitmap, tmo, first_param, second_param);
@@ -1295,6 +1085,61 @@ module.exports = {
   tmoFattal02: function (src, color_saturation, attenuation) {
     return library.FreeImage_TmoFattal02(src, color_saturation, attenuation);
   },
+  // ICC profile functions
+  // FIICCPROFILE *FreeImage_GetICCProfile(FIBITMAP *bitmap);
+  getICCProfile: function (bitmap) {
+    return library.FreeImage_GetICCProfile(bitmap);
+  },
+  // FIICCPROFILE *FreeImage_CreateICCProfile(FIBITMAP *bitmap, void *data, long size);
+  createICCProfile: function (bitmap, data, size) {
+    return library.FreeImage_CreateICCProfile(bitmap, data, size);
+  },
+  // void FreeImage_DestroyICCProfile(FIBITMAP *bitmap);
+  destroyICCProfile: function (bitmap) {
+    return library.FreeImage_DestroyICCProfile(bitmap);
+  },
+  // Multipage functions
+  // FIMULTIBITMAP * FreeImage_OpenMultiBitmap(FREE_IMAGE_FORMAT fif, const char *filename, BOOL create_new, BOOL read_only, BOOL keep_cache_in_memory FI_DEFAULT(FALSE), int flags FI_DEFAULT(0));
+  openMultiBitmap: function (fif, filename, create_new, read_only, keep_cache_in_memory, flags) {
+    return library.FreeImage_OpenMultiBitmap(fif, filename, create_new, read_only, keep_cache_in_memory, flags);
+  },
+  // BOOL FreeImage_CloseMultiBitmap(FIMULTIBITMAP *bitmap, int flags FI_DEFAULT(0));
+  closeMultiBitmap: function (bitmap, flags) {
+    return library.FreeImage_CloseMultiBitmap(bitmap, flags);
+  },
+  // int FreeImage_GetPageCount(FIMULTIBITMAP *bitmap);
+  getPageCount: function (bitmap) {
+    return library.FreeImage_GetPageCount(bitmap);
+  },
+  // void FreeImage_AppendPage(FIMULTIBITMAP *bitmap, FIBITMAP *data);
+  appendPage: function (bitmap, data) {
+    return library.FreeImage_AppendPage(bitmap, data);
+  },
+  // void FreeImage_InsertPage(FIMULTIBITMAP *bitmap, int page, FIBITMAP *data);
+  insertPage: function (bitmap, page, data) {
+    return library.FreeImage_InsertPage(bitmap, page, data);
+  },
+  // void FreeImage_DeletePage(FIMULTIBITMAP *bitmap, int page);
+  deletePage: function (bitmap, page) {
+    return library.FreeImage_DeletePage(bitmap, page);
+  },
+  // FIBITMAP * FreeImage_LockPage(FIMULTIBITMAP *bitmap, int page);
+  lockPage: function (bitmap, page) {
+    return library.FreeImage_LockPage(bitmap, page);
+  },
+  // void FreeImage_UnlockPage(FIMULTIBITMAP *bitmap, FIBITMAP *data, BOOL changed);
+  unlockPage: function (bitmap, data, changed) {
+    return library.FreeImage_UnlockPage(bitmap, data, changed);
+  },
+  // BOOL FreeImage_MovePage(FIMULTIBITMAP *bitmap, int target, int source);
+  movePage: function (bitmap, target, source) {
+    return library.FreeImage_MovePage(bitmap, target, source);
+  },
+  // BOOL FreeImage_GetLockedPageNumbers(FIMULTIBITMAP *bitmap, int *pages, int *count);
+  getLockedPageNumbers: function (bitmap, pages, count) {
+    return library.FreeImage_GetLockedPageNumbers(bitmap, pages, count);
+  },
+  // Compression functions
   // DWORD FreeImage_ZLibCompress(BYTE *target, DWORD target_size, BYTE *source, DWORD source_size);
   zLibCompress: function (target, target_size, source, source_size) {
     return library.FreeImage_ZLibCompress(target, target_size, source, source_size);
@@ -1315,6 +1160,21 @@ module.exports = {
   zLibCRC32: function (crc, source, source_size) {
     return library.FreeImage_ZLibCRC32(crc, source, source_size);
   },
+  // Helper functions  
+  // BOOL FreeImage_IsLittleEndian(void);
+  isLittleEndian: function () {
+    return library.FreeImage_IsLittleEndian();
+  },
+  // BOOL FreeImage_LookupX11Color(const char *szColor, BYTE *nRed, BYTE *nGreen, BYTE *nBlue);
+  lookupX11Color: function (szColor, nRed, nGreen, nBlue) {
+    return library.FreeImage_LookupX11Color(szColor, nRed, nGreen, nBlue);
+  },
+  // BOOL FreeImage_LookupSVGColor(const char *szColor, BYTE *nRed, BYTE *nGreen, BYTE *nBlue);
+  lookupSVGColor: function (szColor, nRed, nGreen, nBlue) {
+    return library.FreeImage_LookupSVGColor(szColor, nRed, nGreen, nBlue);
+  },
+  // METADATA FUNCTION REFERENCE
+  // Tag creation and destruction
   // FITAG *FreeImage_CreateTag(void);
   createTag: function () {
     return library.FreeImage_CreateTag();
@@ -1327,6 +1187,7 @@ module.exports = {
   cloneTag: function (tag) {
     return library.FreeImage_CloneTag(tag);
   },
+  // Tag accessors
   // const char *FreeImage_GetTagKey(FITAG *tag);
   getTagKey: function (tag) {
     return library.FreeImage_GetTagKey(tag);
@@ -1383,6 +1244,7 @@ module.exports = {
   setTagValue: function (tag, value) {
     return library.FreeImage_SetTagValue(tag, value);
   },
+  // Metadata iterator
   // FIMETADATA *FreeImage_FindFirstMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, FITAG **tag);
   findFirstMetadata: function (model, bitmap, tag) {
     return library.FreeImage_FindFirstMetadata(model, bitmap, tag);
@@ -1395,14 +1257,16 @@ module.exports = {
   findCloseMetadata: function (mdhandle) {
     return library.FreeImage_FindCloseMetadata(mdhandle);
   },
-  // BOOL FreeImage_SetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, const char *key, FITAG *tag);
-  setMetadata: function (model, bitmap, key, tag) {
-    return library.FreeImage_SetMetadata(model, bitmap, key, tag);
-  },
+  // Metadata accessors
   // BOOL FreeImage_GetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, const char *key, FITAG **tag);
   getMetadata: function (model, bitmap, key, tag) {
     return library.FreeImage_GetMetadata(model, bitmap, key, tag);
   },
+  // BOOL FreeImage_SetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, const char *key, FITAG *tag);
+  setMetadata: function (model, bitmap, key, tag) {
+    return library.FreeImage_SetMetadata(model, bitmap, key, tag);
+  },
+  // Metadata helper functions
   // unsigned FreeImage_GetMetadataCount(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap);
   getMetadataCount: function (model, bitmap) {
     return library.FreeImage_GetMetadataCount(model, bitmap);
@@ -1415,26 +1279,8 @@ module.exports = {
   tagToString: function (model, tag, Make) {
     return library.FreeImage_TagToString(model, tag, Make);
   },
-  // BOOL FreeImage_JPEGTransform(const char *src_file, const char *dst_file, FREE_IMAGE_OPERATION operation, BOOL perfect FI_DEFAULT(TRUE));
-  jpegTransform: function (src_file, dst_file, operation, perfect) {
-    return library.FreeImage_JPEGTransform(src_file, dst_file, operation, perfect);
-  },
-  // BOOL FreeImage_JPEGCrop(const char *src_file, const char *dst_file, int left, int top, int right, int bottom);
-  jpegCrop: function (src_file, dst_file, left, top, right, bottom) {
-    return library.FreeImage_JPEGCrop(src_file, dst_file, left, top, right, bottom);
-  },
-  // BOOL FreeImage_JPEGTransformCombined(const char *src_file, const char *dst_file, FREE_IMAGE_OPERATION operation, int* left, int* top, int* right, int* bottom, BOOL perfect FI_DEFAULT(TRUE));
-  jpegTransformCombined: function (src_file, dst_file, operation, left, top, right, bottom, perfect) {
-    return library.FreeImage_JPEGTransformCombined(src_file, dst_file, operation, left, top, right, bottom, perfect);
-  },
-  // BOOL FreeImage_JPEGTransformCombinedFromMemory(FIMEMORY* src_stream, FIMEMORY* dst_stream, FREE_IMAGE_OPERATION operation, int* left, int* top, int* right, int* bottom, BOOL perfect FI_DEFAULT(TRUE));
-  jpegTransformCombinedFromMemory: function (src_stream, dst_stream, operation, left, top, right, bottom, perfect) {
-    return library.FreeImage_JPEGTransformCombinedFromMemory(src_stream, dst_stream, operation, left, top, right, bottom, perfect);
-  },
-  // FIBITMAP *FreeImage_RotateClassic(FIBITMAP *bitmap, double angle);
-  rotateClassic: function (bitmap, angle) {
-    return library.FreeImage_RotateClassic(bitmap, angle);
-  },
+  // TOOLKIT FUNCTION REFERENCE
+  // Rotation and flipping
   // FIBITMAP *FreeImage_Rotate(FIBITMAP *bitmap, double angle, const void *bkcolor FI_DEFAULT(NULL));
   rotate: function (bitmap, angle, bkcolor) {
     return library.FreeImage_Rotate(bitmap, angle, bkcolor);
@@ -1451,6 +1297,7 @@ module.exports = {
   flipVertical: function (bitmap) {
     return library.FreeImage_FlipVertical(bitmap);
   },
+  // Upsampling / downsampling
   // FIBITMAP *FreeImage_Rescale(FIBITMAP *bitmap, int dst_width, int dst_height, FREE_IMAGE_FILTER filter FI_DEFAULT(FILTER_CATMULLROM));
   rescale: function (bitmap, dst_width, dst_height, filter) {
     return library.FreeImage_Rescale(bitmap, dst_width, dst_height, filter);
@@ -1459,6 +1306,7 @@ module.exports = {
   makeThumbnail: function (bitmap, max_pixel_size, convert) {
     return library.FreeImage_MakeThumbnail(bitmap, max_pixel_size, convert);
   },
+  // Color manipulation
   // BOOL FreeImage_AdjustCurve(FIBITMAP *bitmap, BYTE *LUT, FREE_IMAGE_COLOR_CHANNEL channel);
   adjustCurve: function (bitmap, LUT, channel) {
     return library.FreeImage_AdjustCurve(bitmap, LUT, channel);
@@ -1507,6 +1355,7 @@ module.exports = {
   swapPaletteIndices: function (bitmap, index_a, index_b) {
     return library.FreeImage_SwapPaletteIndices(bitmap, index_a, index_b);
   },
+  // Channel processing
   // FIBITMAP *FreeImage_GetChannel(FIBITMAP *bitmap, FREE_IMAGE_COLOR_CHANNEL channel);
   getChannel: function (bitmap, channel) {
     return library.FreeImage_GetChannel(bitmap, channel);
@@ -1523,6 +1372,7 @@ module.exports = {
   setComplexChannel: function (dst, src, channel) {
     return library.FreeImage_SetComplexChannel(dst, src, channel);
   },
+  // Copy / Paste / Composite routines
   // FIBITMAP *FreeImage_Copy(FIBITMAP *bitmap, int left, int top, int right, int bottom);
   copy: function (bitmap, left, top, right, bottom) {
     return library.FreeImage_Copy(bitmap, left, top, right, bottom);
@@ -1539,6 +1389,20 @@ module.exports = {
   preMultiplyWithAlpha: function (bitmap) {
     return library.FreeImage_PreMultiplyWithAlpha(bitmap);
   },
+  // JPEG lossless transformations
+  // BOOL FreeImage_JPEGTransform(const char *src_file, const char *dst_file, FREE_IMAGE_OPERATION operation, BOOL perfect FI_DEFAULT(TRUE));
+  jpegTransform: function (src_file, dst_file, operation, perfect) {
+    return library.FreeImage_JPEGTransform(src_file, dst_file, operation, perfect);
+  },
+  // BOOL FreeImage_JPEGCrop(const char *src_file, const char *dst_file, int left, int top, int right, int bottom);
+  jpegCrop: function (src_file, dst_file, left, top, right, bottom) {
+    return library.FreeImage_JPEGCrop(src_file, dst_file, left, top, right, bottom);
+  },
+  // BOOL FreeImage_JPEGTransformCombined(const char *src_file, const char *dst_file, FREE_IMAGE_OPERATION operation, int* left, int* top, int* right, int* bottom, BOOL perfect FI_DEFAULT(TRUE));
+  jpegTransformCombined: function (src_file, dst_file, operation, left, top, right, bottom, perfect) {
+    return library.FreeImage_JPEGTransformCombined(src_file, dst_file, operation, left, top, right, bottom, perfect);
+  },
+  // Background filling
   // BOOL FreeImage_FillBackground(FIBITMAP *bitmap, const void *color, int options FI_DEFAULT(0));
   fillBackground: function (bitmap, color, options) {
     return library.FreeImage_FillBackground(bitmap, color, options);
@@ -1555,9 +1419,9 @@ module.exports = {
   allocateExT: function (type, width, height, bpp, color, options, palette, red_mask, green_mask, blue_mask) {
     return library.FreeImage_AllocateExT(type, width, height, bpp, color, options, palette, red_mask, green_mask, blue_mask);
   },
+  // Miscellaneous algorithms
   // FIBITMAP *FreeImage_MultigridPoissonSolver(FIBITMAP *Laplacian, int ncycle FI_DEFAULT(3));
   multigridPoissonSolver: function (Laplacian, ncycle) {
     return library.FreeImage_MultigridPoissonSolver(Laplacian, ncycle);
   }
 }
- 
