@@ -109,7 +109,10 @@ var should = require("chai").should(),
       BLUE, BLACK,
       RED, LIME
     ],
-    TEST_BITMAP_03_TEST_PIXEL_COLOR = MAROON;
+    TEST_BITMAP_03_TEST_PIXEL_COLOR = MAROON,
+    // Properties of test bitmap #4
+    TEST_BITMAP_04_FILENAME = __dirname + "/test-04.png",
+    TEST_BITMAP_04_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG;
     
 describe("BITMAP FUNCTION REFERENCE", function () {    
   describe("General functions", function () {
@@ -985,6 +988,80 @@ describe("BITMAP FUNCTION REFERENCE", function () {
   });
 
   describe("Tone mapping operators", function () {
+    describe("fi.toneMapping", function () {
+      it("should be able to convert a 48-bit bitmap to a 24-bit one", function () {
+        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.toneMapping(bitmap, fi.TONE_MAPPING_OPERATION.REINHARD05);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(24);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.tmoDrago03", function () {
+      it("should be able to convert a 48-bit bitmap to a 24-bit one", function () {
+        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.tmoDrago03(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(24);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.tmoReinhard05", function () {
+      it("should be able to convert a 48-bit bitmap to a 24-bit one", function () {
+        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.tmoReinhard05(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(24);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.tmoReinhard05Ex", function () {
+      it("should be able to convert a 48-bit bitmap to a 24-bit one", function () {
+        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.tmoReinhard05Ex(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(24);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.tmoFattal02", function () {
+      it("should be able to convert a 48-bit bitmap to a 24-bit one", function () {
+        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+            bitmap2 = null,
+            bpp2 = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.tmoFattal02(bitmap);
+        bitmap2.isNull().should.be.false();
+        bpp2 = fi.getBPP(bitmap2);
+        bpp2.should.equal(24);
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("ICC profile functions", function () {

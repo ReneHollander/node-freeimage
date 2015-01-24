@@ -155,6 +155,15 @@ function assertUnsignedInteger(arg, argName) {
   }
 }    
 
+function assertDouble(arg, argName) {
+  if (typeof arg !== "number") {
+    throw new Error(
+      "Argument \"" + argName + "\" " + 
+      "must be a double-precision floating-point number (" + arg + ")."
+    );
+  }
+}    
+
 function assertNonEmptyString(arg, argName) {
   if (typeof arg !== "string" || arg.length === 0) {
     throw new Error(
@@ -236,6 +245,19 @@ function assertDithering(arg, argName) {
   throw new Error(
     "Argument \"" + argName + "\" " + 
     "must be a dithering algorithm (" + arg + ")."
+  );
+}
+
+function assertToneMappingOperation(arg, argName) {
+  var p;
+  for (p in module.exports.TONE_MAPPING_OPERATION) {
+    if (arg === module.exports.TONE_MAPPING_OPERATION[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be a tone mapping operation (" + arg + ")."
   );
 }
 
@@ -1133,25 +1155,50 @@ module.exports = {
     return library.FreeImage_ConvertToRGB16(bitmap);
   },
   // Tone mapping operators
-  // FIBITMAP *FreeImage_ToneMapping(FIBITMAP *bitmap, FREE_IMAGE_TMO tmo, double first_param FI_DEFAULT(0), double second_param FI_DEFAULT(0));
-  toneMapping: function (bitmap, tmo, first_param, second_param) {
-    return library.FreeImage_ToneMapping(bitmap, tmo, first_param, second_param);
+  toneMapping: function (bitmap, tmo, firstParam, secondParam) {
+    firstParam = setToDefaultIfUndefined(firstParam, 0);
+    secondParam = setToDefaultIfUndefined(secondParam, 0);
+    assertNonNullObject(bitmap, "bitmap");
+    assertToneMappingOperation(tmo, "tmo");
+    assertDouble(firstParam, "firstParam");
+    assertDouble(secondParam, "secondParam");
+    return library.FreeImage_ToneMapping(bitmap, tmo, firstParam, secondParam);
   },
-  // FIBITMAP *FreeImage_TmoDrago03(FIBITMAP *src, double gamma FI_DEFAULT(2.2), double exposure FI_DEFAULT(0));
-  tmoDrago03: function (src, gamma, exposure) {
-    return library.FreeImage_TmoDrago03(src, gamma, exposure);
+  tmoDrago03: function (bitmap, gamma, exposure) {
+    gamma = setToDefaultIfUndefined(gamma, 2.2);
+    exposure = setToDefaultIfUndefined(exposure, 0);
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(gamma, "gamma");
+    assertDouble(exposure, "exposure");
+    return library.FreeImage_TmoDrago03(bitmap, gamma, exposure);
   },
-  // FIBITMAP *FreeImage_TmoReinhard05(FIBITMAP *src, double intensity FI_DEFAULT(0), double contrast FI_DEFAULT(0));
-  tmoReinhard05: function (src, intensity, contrast) {
-    return library.FreeImage_TmoReinhard05(src, intensity, contrast);
+  tmoReinhard05: function (bitmap, intensity, contrast) {
+    intensity = setToDefaultIfUndefined(intensity, 0);
+    contrast = setToDefaultIfUndefined(contrast, 0);
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(intensity, "intensity");
+    assertDouble(contrast, "contrast");
+    return library.FreeImage_TmoReinhard05(bitmap, intensity, contrast);
   },
-  // FIBITMAP *FreeImage_TmoReinhard05Ex(FIBITMAP *src, double intensity FI_DEFAULT(0), double contrast FI_DEFAULT(0), double adaptation FI_DEFAULT(1), double color_correction FI_DEFAULT(0));
-  tmoReinhard05Ex: function (src, intensity, contrast, adaptation, color_correction) {
-    return library.FreeImage_TmoReinhard05Ex(src, intensity, contrast, adaptation, color_correction);
+  tmoReinhard05Ex: function (bitmap, intensity, contrast, adaptation, colorCorrection) {
+    intensity = setToDefaultIfUndefined(intensity, 0);
+    contrast = setToDefaultIfUndefined(contrast, 0);
+    adaptation = setToDefaultIfUndefined(adaptation, 1);
+    colorCorrection = setToDefaultIfUndefined(colorCorrection, 0);
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(intensity, "intensity");
+    assertDouble(contrast, "contrast");
+    assertDouble(adaptation, "adaptation");
+    assertDouble(colorCorrection, "colorCorrection");
+    return library.FreeImage_TmoReinhard05Ex(bitmap, intensity, contrast, adaptation, colorCorrection);
   },
-  // FIBITMAP *FreeImage_TmoFattal02(FIBITMAP *src, double color_saturation FI_DEFAULT(0.5), double attenuation FI_DEFAULT(0.85));
-  tmoFattal02: function (src, color_saturation, attenuation) {
-    return library.FreeImage_TmoFattal02(src, color_saturation, attenuation);
+  tmoFattal02: function (bitmap, colorSaturation, attenuation) {
+    colorSaturation = setToDefaultIfUndefined(colorSaturation, 0.5);
+    attenuation = setToDefaultIfUndefined(attenuation, 0.85);
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(colorSaturation, "colorSaturation");
+    assertDouble(attenuation, "attenuation");
+    return library.FreeImage_TmoFattal02(bitmap, colorSaturation, attenuation);
   },
   // ICC profile functions
   // FIICCPROFILE *FreeImage_GetICCProfile(FIBITMAP *bitmap);
