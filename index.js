@@ -1123,20 +1123,20 @@ module.exports = {
     assertUnsignedInteger(greenMask, "greenMask");
     assertUnsignedInteger(blueMask, "blueMask");
     assertBoolean(topDown, "topDown");
-    library.FreeImage_ConvertToRawBits(bits, bitmap, pitch, bpp, redMask, greenMask, blueMask, topDown);
+    library.FreeImage_ConvertToRawBits(bits, bitmap, pitch, bpp, redMask, greenMask, blueMask, topDown ? TRUE : FALSE);
   },
   convertToStandardType: function (bitmap, scaleLinear) {
     scaleLinear = setToDefaultIfUndefined(scaleLinear, true);
     assertNonNullObject(bitmap, "bitmap");
     assertBoolean(scaleLinear, "scaleLinear");
-    return library.FreeImage_ConvertToStandardType(bitmap, scaleLinear);
+    return library.FreeImage_ConvertToStandardType(bitmap, scaleLinear ? TRUE : FALSE);
   },
   convertToType: function (bitmap, type, scaleLinear) {
     scaleLinear = setToDefaultIfUndefined(scaleLinear, true);
     assertNonNullObject(bitmap, "bitmap");
     assertImageType(type, "type");
     assertBoolean(scaleLinear, "scaleLinear");
-    return library.FreeImage_ConvertToType(bitmap, type, scaleLinear);
+    return library.FreeImage_ConvertToType(bitmap, type, scaleLinear ? TRUE : FALSE);
   },
   convertToFloat: function (bitmap) {
     assertNonNullObject(bitmap, "bitmap");
@@ -1216,45 +1216,65 @@ module.exports = {
     library.FreeImage_DestroyICCProfile(bitmap);
   },
   // Multipage functions
-  // FIMULTIBITMAP * FreeImage_OpenMultiBitmap(FREE_IMAGE_FORMAT fif, const char *filename, BOOL create_new, BOOL read_only, BOOL keep_cache_in_memory FI_DEFAULT(FALSE), int flags FI_DEFAULT(0));
-  openMultiBitmap: function (fif, filename, create_new, read_only, keep_cache_in_memory, flags) {
-    return library.FreeImage_OpenMultiBitmap(fif, filename, create_new, read_only, keep_cache_in_memory, flags);
+  openMultiBitmap: function (format, fileName, createNew, readOnly, keepCacheInMemory, flags) {
+    keepCacheInMemory = setToDefaultIfUndefined(keepCacheInMemory, false);
+    flags = setToDefaultIfUndefined(flags, 0);
+    assertImageFormat(format, "format");
+    assertNonEmptyString(fileName, "fileName");
+    assertBoolean(createNew, "createNew");
+    assertBoolean(readOnly, "readOnly");
+    assertBoolean(keepCacheInMemory, "keepCacheInMemory");
+    assertInteger(flags, "flags");
+    return library.FreeImage_OpenMultiBitmap(format, fileName, createNew ? TRUE : FALSE, readOnly ? TRUE : FALSE, keepCacheInMemory ? TRUE : FALSE, flags);
   },
-  // BOOL FreeImage_CloseMultiBitmap(FIMULTIBITMAP *bitmap, int flags FI_DEFAULT(0));
-  closeMultiBitmap: function (bitmap, flags) {
-    return library.FreeImage_CloseMultiBitmap(bitmap, flags);
+  closeMultiBitmap: function (multiBitmap, flags) {
+    flags = setToDefaultIfUndefined(flags, 0);
+    assertNonNullObject(multiBitmap, "multiBitmap");
+    assertInteger(flags, "flags");
+    return library.FreeImage_CloseMultiBitmap(multiBitmap, flags) === TRUE;
   },
-  // int FreeImage_GetPageCount(FIMULTIBITMAP *bitmap);
-  getPageCount: function (bitmap) {
-    return library.FreeImage_GetPageCount(bitmap);
+  getPageCount: function (multiBitmap) {
+    assertNonNullObject(multiBitmap, "multiBitmap");
+    return library.FreeImage_GetPageCount(multiBitmap);
   },
-  // void FreeImage_AppendPage(FIMULTIBITMAP *bitmap, FIBITMAP *data);
-  appendPage: function (bitmap, data) {
-    return library.FreeImage_AppendPage(bitmap, data);
+  appendPage: function (multiBitmap, pageBitmap) {
+    assertNonNullObject(multiBitmap, "multiBitmap");
+    assertNonNullObject(pageBitmap, "pageBitmap");
+    library.FreeImage_AppendPage(multiBitmap, pageBitmap);
   },
-  // void FreeImage_InsertPage(FIMULTIBITMAP *bitmap, int page, FIBITMAP *data);
-  insertPage: function (bitmap, page, data) {
-    return library.FreeImage_InsertPage(bitmap, page, data);
+  insertPage: function (multiBitmap, pageIndex, pageBitmap) {
+    assertNonNullObject(multiBitmap, "multiBitmap");
+    assertInteger(pageIndex, "pageIndex");
+    assertNonNullObject(pageBitmap, "pageBitmap");
+    library.FreeImage_InsertPage(multiBitmap, pageIndex, pageBitmap);
   },
-  // void FreeImage_DeletePage(FIMULTIBITMAP *bitmap, int page);
-  deletePage: function (bitmap, page) {
-    return library.FreeImage_DeletePage(bitmap, page);
+  deletePage: function (multiBitmap, pageIndex) {
+    assertNonNullObject(multiBitmap, "multiBitmap");
+    assertInteger(pageIndex, "pageIndex");
+    library.FreeImage_DeletePage(multiBitmap, pageIndex);
   },
-  // FIBITMAP * FreeImage_LockPage(FIMULTIBITMAP *bitmap, int page);
-  lockPage: function (bitmap, page) {
-    return library.FreeImage_LockPage(bitmap, page);
+  lockPage: function (multiBitmap, pageIndex) {
+    assertNonNullObject(multiBitmap, "multiBitmap");
+    assertInteger(pageIndex, "pageIndex");
+    return library.FreeImage_LockPage(multiBitmap, pageIndex);
   },
-  // void FreeImage_UnlockPage(FIMULTIBITMAP *bitmap, FIBITMAP *data, BOOL changed);
-  unlockPage: function (bitmap, data, changed) {
-    return library.FreeImage_UnlockPage(bitmap, data, changed);
+  unlockPage: function (multiBitmap, pageBitmap, changed) {
+    assertNonNullObject(multiBitmap, "multiBitmap");
+    assertNonNullObject(pageBitmap, "pageBitmap");
+    assertBoolean(changed, "changed");
+    library.FreeImage_UnlockPage(multiBitmap, pageBitmap, changed ? TRUE : FALSE);
   },
-  // BOOL FreeImage_MovePage(FIMULTIBITMAP *bitmap, int target, int source);
-  movePage: function (bitmap, target, source) {
-    return library.FreeImage_MovePage(bitmap, target, source);
+  movePage: function (multiBitmap, targetPageIndex, sourcePageIndex) {
+    assertNonNullObject(multiBitmap, "multiBitmap");
+    assertInteger(targetPageIndex, "targetPageIndex");
+    assertInteger(sourcePageIndex, "sourcePageIndex");
+    return library.FreeImage_MovePage(multiBitmap, targetPageIndex, sourcePageIndex) === TRUE;
   },
-  // BOOL FreeImage_GetLockedPageNumbers(FIMULTIBITMAP *bitmap, int *pages, int *count);
-  getLockedPageNumbers: function (bitmap, pages, count) {
-    return library.FreeImage_GetLockedPageNumbers(bitmap, pages, count);
+  getLockedPageNumbers: function (multiBitmap, lockedPageIndexes, lockedPageCount) {
+    assertNonNullObject(multiBitmap, "multiBitmap");
+    assertObject(lockedPageIndexes, "lockedPageIndexes");
+    assertObject(lockedPageCount, "lockedPageCount");  
+    return library.FreeImage_GetLockedPageNumbers(multiBitmap, lockedPageIndexes, lockedPageCount) === TRUE;
   },
   // Compression functions
   // DWORD FreeImage_ZLibCompress(BYTE *target, DWORD target_size, BYTE *source, DWORD source_size);

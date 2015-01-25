@@ -178,7 +178,7 @@ It is assumed that `node-freeimage` has been loaded as follows:
 - `FreeImage_ConvertToUINT16`: `fi.convertToUINT16`
 - `FreeImage_ConvertToRGB16`: `fi.convertToRGB16`
 
-##### Tone mapping operators
+#### Tone mapping operators
 
 - `FreeImage_ToneMapping`: `fi.toneMapping`
 - `FreeImage_TmoDrago03`: `fi.tmoDrago03`

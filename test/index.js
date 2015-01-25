@@ -6,6 +6,7 @@ var should = require("chai").should(),
     fi = require("../index"),
     // Types
     BYTE = ref.types.uint8,
+    INT = ref.types.int32,
     RGBQUAD = RefStruct({
       rgbBlue: BYTE,
       rgbGreen: BYTE,
@@ -15,12 +16,14 @@ var should = require("chai").should(),
     Palette = RefArray(RGBQUAD),
     TransparencyTable = RefArray(BYTE),
     ByteArray = RefArray(BYTE),
+    IntArray = RefArray(INT),
     // Constants
     BYTES_TO_BITS = 8,
     INCHES_TO_METERS = 0.0254,
     BITMAPINFOHEADER_SIZE = 40,
     RGBQUAD_SIZE = 4,
     DWORD_SIZE = 4,
+    INT_SIZE = 4,
     BLACK = new RGBQUAD({ rgbBlue: 0, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
     WHITE = new RGBQUAD({ rgbBlue: 255, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
     GRAY = new RGBQUAD({ rgbBlue: 128, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
@@ -112,7 +115,13 @@ var should = require("chai").should(),
     TEST_BITMAP_03_TEST_PIXEL_COLOR = MAROON,
     // Properties of test bitmap #4
     TEST_BITMAP_04_FILENAME = __dirname + "/test-04.png",
-    TEST_BITMAP_04_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG;
+    TEST_BITMAP_04_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
+    // Properties of test bitmap #5
+    TEST_BITMAP_05_FILENAME = __dirname + "/test-05.tif",
+    TEST_BITMAP_05_IMAGE_FORMAT = fi.IMAGE_FORMAT.TIFF,
+    TEST_BITMAP_05_PAGE_COUNT = 3;
+    TEST_BITMAP_05_PAGE_WIDTH = 6;
+    TEST_BITMAP_05_PAGE_HEIGHT = 7;
     
 describe("BITMAP FUNCTION REFERENCE", function () {    
   describe("General functions", function () {
@@ -1097,6 +1106,188 @@ describe("BITMAP FUNCTION REFERENCE", function () {
   });
 
   describe("Multipage functions", function () {
+    describe("fi.(open|close)MultiBitmap", function () {
+      it("should be able to open/close a multibitmap", function () {
+        var multiBitmap = null,
+            success = false;
+        multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_FILENAME, false, true);
+        multiBitmap.isNull().should.be.false();
+        success = fi.closeMultiBitmap(multiBitmap);
+        success.should.be.true();
+      });
+    });
+    
+    describe("fi.getPageCount", function () {
+      it("should return the page count of a multibitmap", function () {
+        var multiBitmap = null,
+            pageCount = -1;
+        multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_FILENAME, false, true);
+        multiBitmap.isNull().should.be.false();
+        pageCount = fi.getPageCount(multiBitmap);
+        pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT);
+        success = fi.closeMultiBitmap(multiBitmap);
+        success.should.be.true();
+      });
+    });
+    
+    describe("fi.appendPage", function () {
+      it("should be able to append a page to a multibitmap", function () {
+        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+            bitmap = null,
+            multiBitmap = null,
+            pageCount = -1;
+        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+        try {
+          bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+          bitmap.isNull().should.be.false();
+          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+          multiBitmap.isNull().should.be.false();
+          fi.appendPage(multiBitmap, bitmap);
+          pageCount = fi.getPageCount(multiBitmap);
+          pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT + 1);
+          success = fi.closeMultiBitmap(multiBitmap);
+          success.should.be.true();
+          fi.unload(bitmap);
+        } finally {
+          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+        }
+      });
+    });
+    
+    describe("fi.insertPage", function () {
+      it("should be able to insert a page into a multibitmap", function () {
+        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+            bitmap = null,
+            multiBitmap = null,
+            pageCount = -1;
+        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+        try {
+          bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+          bitmap.isNull().should.be.false();
+          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+          multiBitmap.isNull().should.be.false();
+          fi.insertPage(multiBitmap, 1, bitmap);
+          pageCount = fi.getPageCount(multiBitmap);
+          pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT + 1);
+          success = fi.closeMultiBitmap(multiBitmap);
+          success.should.be.true();
+          fi.unload(bitmap);
+        } finally {
+          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+        }
+      });
+    });
+    
+    describe("fi.deletePage", function () {
+      it("should be able to delete a page from a multibitmap", function () {
+        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+            bitmap = null,
+            multiBitmap = null,
+            pageCount = -1;
+        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+        try {
+          bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+          bitmap.isNull().should.be.false();
+          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+          multiBitmap.isNull().should.be.false();
+          fi.deletePage(multiBitmap, 1);
+          pageCount = fi.getPageCount(multiBitmap);
+          pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT - 1);
+          success = fi.closeMultiBitmap(multiBitmap);
+          success.should.be.true();
+          fi.unload(bitmap);
+        } finally {
+          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+        }
+      });
+    });
+    
+    describe("fi.(lock|unlock)Page", function () {
+      it("should be able to lock/unlock a page of a multibitmap", function () {
+        var multiBitmap = null,
+            pageCount = -1,
+            pageIndex = -1,
+            pageBitmap = null,
+            width = -1,
+            height = -1,
+            success = false;
+        multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_FILENAME, false, true);
+        multiBitmap.isNull().should.be.false();
+        pageCount = fi.getPageCount(multiBitmap);
+        pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT);
+        for (pageIndex = 0; pageIndex < pageCount; pageIndex += 1) {
+          pageBitmap = fi.lockPage(multiBitmap, pageIndex);
+          try {
+            width = fi.getWidth(pageBitmap);
+            width.should.equal(TEST_BITMAP_05_PAGE_WIDTH);
+            height = fi.getHeight(pageBitmap);
+            height.should.equal(TEST_BITMAP_05_PAGE_HEIGHT);
+          } finally {
+            fi.unlockPage(multiBitmap, pageBitmap, false);
+          }
+        }
+        success = fi.closeMultiBitmap(multiBitmap);
+        success.should.be.true();
+      });
+    });
+    
+    describe("fi.movePage", function () {
+      it("should be able to move a page inside a multibitmap", function () {
+        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+            multiBitmap = null,
+            success = false;
+        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+        try {
+          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+          multiBitmap.isNull().should.be.false();
+          success = fi.movePage(multiBitmap, 2, 0);
+          success.should.be.true();
+          success = fi.closeMultiBitmap(multiBitmap);
+          success.should.be.true();
+        } finally {
+          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+        }
+      });
+    });
+    
+    describe("fi.getLockedPageNumbers", function () {
+      it("should be able to get the indexes of locked pages of a multibitmap", function () {
+        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+            multiBitmap = null,
+            pageBitmap0 = null,
+            pageBitmap2 = null,
+            success = false,
+            lockedPageCount = ref.alloc(INT),
+            lockedPageIndexes = null,
+            lockedPageIndexes2 = null;
+        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+        try {
+          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+          multiBitmap.isNull().should.be.false();
+          pageBitmap0 = fi.lockPage(multiBitmap, 0);
+          pageBitmap2 = fi.lockPage(multiBitmap, 2);
+          try {
+            success = fi.getLockedPageNumbers(multiBitmap, ref.NULL, lockedPageCount);
+            success.should.be.true();
+            lockedPageCount.deref().should.equal(2);
+            lockedPageIndexes = new Buffer(lockedPageCount.deref() * INT_SIZE);
+            success = fi.getLockedPageNumbers(multiBitmap, lockedPageIndexes, lockedPageCount);
+            success.should.be.true();
+            lockedPageIndexes2 = new IntArray(lockedPageIndexes);
+            lockedPageIndexes2.length.should.equal(lockedPageCount.deref());
+            lockedPageIndexes2[0].should.equal(0);
+            lockedPageIndexes2[1].should.equal(2);
+          } finally {
+            fi.unlockPage(multiBitmap, pageBitmap2, false);
+            fi.unlockPage(multiBitmap, pageBitmap0, false);
+          }
+          success = fi.closeMultiBitmap(multiBitmap);
+          success.should.be.true();
+        } finally {
+          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+        }
+      });
+    });
   });
 
   describe("Memory I/O streams", function () {
