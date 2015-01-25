@@ -74,6 +74,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 0.6.0 Added assertions and unit tests for conversion functions.
 * 0.7.0 Added assertions and unit tests for tone mapping operators.
 * 0.8.0 Added assertions and unit tests for ICC profile functions.
+* 0.9.0 Added assertions and unit tests for multipage functions.
 
 
 ## JavaScript version of supported FreeImage functions
@@ -178,7 +179,7 @@ It is assumed that `node-freeimage` has been loaded as follows:
 - `FreeImage_ConvertToUINT16`: `fi.convertToUINT16`
 - `FreeImage_ConvertToRGB16`: `fi.convertToRGB16`
 
-#### Tone mapping operators
+####  Tone mapping operators
 
 - `FreeImage_ToneMapping`: `fi.toneMapping`
 - `FreeImage_TmoDrago03`: `fi.tmoDrago03`
