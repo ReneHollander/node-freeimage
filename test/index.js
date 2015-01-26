@@ -1,5 +1,6 @@
 var should = require("chai").should(),
-    fs = require('fs'),
+    fs = require("fs"),
+    os = require("os"),
     ref = require("ref"),
     RefArray = require("ref-array"),
     RefStruct = require("ref-struct"),
@@ -1348,6 +1349,39 @@ describe("BITMAP FUNCTION REFERENCE", function () {
   });
 
   describe("Helper functions", function () {
+    describe("fi.isLittleEndian", function () {
+      it("should be able to determine endianness", function () {
+        fi.isLittleEndian().should.equal(os.endianness() === "LE");
+      });
+    });
+    
+    describe("fi.lookupX11Color", function () {
+      it("should be able to convert an X11 color name into an RGB value", function () {
+        var success = false,
+            red = ref.alloc(BYTE, 0),
+            green = ref.alloc(BYTE, 0),
+            blue = ref.alloc(BYTE, 0);
+        success = fi.lookupX11Color("papayawhip", red, green, blue);
+        success.should.be.true();
+        red.deref().should.equal(255);
+        green.deref().should.equal(239);
+        blue.deref().should.equal(213);
+      });
+    });
+    
+    describe("fi.lookupSVGColor", function () {
+      it("should be able to convert an SVG color name into an RGB value", function () {
+        var success = false,
+            red = ref.alloc(BYTE, 0),
+            green = ref.alloc(BYTE, 0),
+            blue = ref.alloc(BYTE, 0);
+        success = fi.lookupSVGColor("lemonchiffon", red, green, blue);
+        success.should.be.true();
+        red.deref().should.equal(255);
+        green.deref().should.equal(250);
+        blue.deref().should.equal(205);
+      });
+    });
   });
 });
 

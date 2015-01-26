@@ -1312,17 +1312,22 @@ module.exports = {
     return library.FreeImage_ZLibCRC32(crc, source, sourceSize);
   },
   // Helper functions  
-  // BOOL FreeImage_IsLittleEndian(void);
   isLittleEndian: function () {
-    return library.FreeImage_IsLittleEndian();
+    return library.FreeImage_IsLittleEndian() === TRUE;
   },
-  // BOOL FreeImage_LookupX11Color(const char *szColor, BYTE *nRed, BYTE *nGreen, BYTE *nBlue);
-  lookupX11Color: function (szColor, nRed, nGreen, nBlue) {
-    return library.FreeImage_LookupX11Color(szColor, nRed, nGreen, nBlue);
+  lookupX11Color: function (colorName, red, green, blue) {
+    assertNonEmptyString(colorName, "colorName");
+    assertNonNullObject(red, "red");
+    assertNonNullObject(green, "green");
+    assertNonNullObject(blue, "blue");
+    return library.FreeImage_LookupX11Color(colorName, red, green, blue) === TRUE;
   },
-  // BOOL FreeImage_LookupSVGColor(const char *szColor, BYTE *nRed, BYTE *nGreen, BYTE *nBlue);
-  lookupSVGColor: function (szColor, nRed, nGreen, nBlue) {
-    return library.FreeImage_LookupSVGColor(szColor, nRed, nGreen, nBlue);
+  lookupSVGColor: function (colorName, red, green, blue) {
+    assertNonEmptyString(colorName, "colorName");
+    assertNonNullObject(red, "red");
+    assertNonNullObject(green, "green");
+    assertNonNullObject(blue, "blue");
+    return library.FreeImage_LookupSVGColor(colorName, red, green, blue) === TRUE;
   },
   // METADATA FUNCTION REFERENCE
   // Tag creation and destruction
