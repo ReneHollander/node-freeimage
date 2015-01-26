@@ -1289,10 +1289,65 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     });
   });
 
-  describe("Memory I/O streams", function () {
+  describe("Compression functions", function () {
+    describe("fi.zLib(Compress|Uncompress)", function () {
+      it("should be able to compress/uncompress a byte array", function () {
+        var data = null,
+            compressedSize = -1,
+            compressedData = null,
+            uncompressedSize = -1,
+            uncompressedData = null,
+            i = -1;
+        data = new Buffer([1, 2, 3, 4, 1, 2, 3, 4]);
+        compressedSize = Math.round(1.1 * data.length + 12);
+        compressedData = new Buffer(compressedSize);
+        compressedSize = fi.zLibCompress(compressedData, compressedSize, data, data.length);
+        compressedSize.should.not.equal(0);
+        uncompressedSize = 10 * data.length;
+        uncompressedData = new Buffer(uncompressedSize);
+        uncompressedSize = fi.zLibUncompress(uncompressedData, uncompressedSize, compressedData, compressedSize);
+        uncompressedSize.should.equal(data.length);
+        for (i = 0; i < data.length; i += 1) {
+          uncompressedData[i].should.equal(data[i]);
+        }
+      });
+    });
+
+    describe("fi.zLib(GZip|GUnzip)", function () {
+      it("should be able to compress/uncompress a byte array", function () {
+        var data = null,
+            compressedSize = -1,
+            compressedData = null,
+            uncompressedSize = -1,
+            uncompressedData = null,
+            i = -1;
+        data = new Buffer([1, 2, 3, 4, 1, 2, 3, 4]);
+        compressedSize = Math.round(1.1 * data.length + 24);
+        compressedData = new Buffer(compressedSize);
+        compressedSize = fi.zLibGZip(compressedData, compressedSize, data, data.length);
+        compressedSize.should.not.equal(0);
+        uncompressedSize = 10 * data.length;
+        uncompressedData = new Buffer(uncompressedSize);
+        uncompressedSize = fi.zLibGUnzip(uncompressedData, uncompressedSize, compressedData, compressedSize);
+        uncompressedSize.should.equal(data.length);
+        for (i = 0; i < data.length; i += 1) {
+          uncompressedData[i].should.equal(data[i]);
+        }
+      });
+    });
+    
+    describe("fi.zLibCRC32", function () {
+      it("should be able to calculate the CRC checksum of a byte array", function () {
+        var data = null,
+            crc = -1;
+        data = new Buffer([0xCA, 0xFE, 0xBA, 0xBE]);
+        crc = fi.zLibCRC32(0, data, data.length);
+        crc.should.equal(0xB51D571D);
+      });
+    });
   });
 
-  describe("Compression functions", function () {
+  describe("Helper functions", function () {
   });
 });
 

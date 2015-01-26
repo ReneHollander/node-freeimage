@@ -1277,25 +1277,39 @@ module.exports = {
     return library.FreeImage_GetLockedPageNumbers(multiBitmap, lockedPageIndexes, lockedPageCount) === TRUE;
   },
   // Compression functions
-  // DWORD FreeImage_ZLibCompress(BYTE *target, DWORD target_size, BYTE *source, DWORD source_size);
-  zLibCompress: function (target, target_size, source, source_size) {
-    return library.FreeImage_ZLibCompress(target, target_size, source, source_size);
+  zLibCompress: function (target, targetSize, source, sourceSize) {
+    assertNonNullObject(target, "target");
+    assertUnsignedInteger(targetSize, "targetSize");
+    assertNonNullObject(source, "source");
+    assertUnsignedInteger(sourceSize, "sourceSize");
+    return library.FreeImage_ZLibCompress(target, targetSize, source, sourceSize);
   },
-  // DWORD FreeImage_ZLibUncompress(BYTE *target, DWORD target_size, BYTE *source, DWORD source_size);
-  zLibUncompress: function (target, target_size, source, source_size) {
-    return library.FreeImage_ZLibUncompress(target, target_size, source, source_size);
+  zLibUncompress: function (target, targetSize, source, sourceSize) {
+    assertNonNullObject(target, "target");
+    assertUnsignedInteger(targetSize, "targetSize");
+    assertNonNullObject(source, "source");
+    assertUnsignedInteger(sourceSize, "sourceSize");
+    return library.FreeImage_ZLibUncompress(target, targetSize, source, sourceSize);
   },
-  // DWORD FreeImage_ZLibGZip(BYTE *target, DWORD target_size, BYTE *source, DWORD source_size);
-  zLibGZip: function (target, target_size, source, source_size) {
-    return library.FreeImage_ZLibGZip(target, target_size, source, source_size);
+  zLibGZip: function (target, targetSize, source, sourceSize) {
+    assertNonNullObject(target, "target");
+    assertUnsignedInteger(targetSize, "targetSize");
+    assertNonNullObject(source, "source");
+    assertUnsignedInteger(sourceSize, "sourceSize");
+    return library.FreeImage_ZLibGZip(target, targetSize, source, sourceSize);
   },
-  // DWORD FreeImage_ZLibGUnzip(BYTE *target, DWORD target_size, BYTE *source, DWORD source_size);
-  zLibGUnzip: function (target, target_size, source, source_size) {
-    return library.FreeImage_ZLibGUnzip(target, target_size, source, source_size);
+  zLibGUnzip: function (target, targetSize, source, sourceSize) {
+    assertNonNullObject(target, "target");
+    assertUnsignedInteger(targetSize, "targetSize");
+    assertNonNullObject(source, "source");
+    assertUnsignedInteger(sourceSize, "sourceSize");
+    return library.FreeImage_ZLibGUnzip(target, targetSize, source, sourceSize);
   },
-  // DWORD FreeImage_ZLibCRC32(DWORD crc, BYTE *source, DWORD source_size);
-  zLibCRC32: function (crc, source, source_size) {
-    return library.FreeImage_ZLibCRC32(crc, source, source_size);
+  zLibCRC32: function (crc, source, sourceSize) {
+    assertUnsignedInteger(crc, "crc");
+    assertObject(source, "source");
+    assertUnsignedInteger(sourceSize, "sourceSize");
+    return library.FreeImage_ZLibCRC32(crc, source, sourceSize);
   },
   // Helper functions  
   // BOOL FreeImage_IsLittleEndian(void);
