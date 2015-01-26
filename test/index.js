@@ -1275,8 +1275,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
             success.should.be.true();
             lockedPageIndexes2 = new IntArray(lockedPageIndexes);
             lockedPageIndexes2.length.should.equal(lockedPageCount.deref());
-            lockedPageIndexes2[0].should.equal(0);
-            lockedPageIndexes2[1].should.equal(2);
+            lockedPageIndexes2.toString().should.match(/^(0,2)|(2,0)$/);
           } finally {
             fi.unlockPage(multiBitmap, pageBitmap2, false);
             fi.unlockPage(multiBitmap, pageBitmap0, false);
