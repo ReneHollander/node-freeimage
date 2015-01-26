@@ -76,6 +76,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 0.8.0 Added assertions and unit tests for ICC profile functions.
 * 0.9.0 Added assertions and unit tests for multipage functions.
 * 0.10.0 Added assertions and unit tests for compression functions.
+* 0.11.0 Added assertions and unit tests for helper functions.
 
 
 ## JavaScript version of supported FreeImage functions
