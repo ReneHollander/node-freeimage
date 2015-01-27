@@ -1387,6 +1387,27 @@ describe("BITMAP FUNCTION REFERENCE", function () {
 
 describe("METADATA FUNCTION REFERENCE", function () {
   describe("Tag creation and destruction", function () {
+    describe("fi.(create|delete)Tag", function () {
+      it("should be able to create/delete a tag", function () {
+        var tag = null;
+        tag = fi.createTag();
+        tag.isNull().should.be.false();
+        fi.deleteTag(tag);
+      });
+    });
+    
+    describe("fi.cloneTag", function () {
+      it("should be able to clone a tag", function () {
+        var tag = null,
+            tag2 = null;
+        tag = fi.createTag();
+        tag.isNull().should.be.false();
+        tag2 = fi.cloneTag(tag);
+        tag2.isNull().should.be.false();
+        fi.deleteTag(tag2);
+        fi.deleteTag(tag);
+      });
+    });
   });
   
   describe("Tag accessors", function () {

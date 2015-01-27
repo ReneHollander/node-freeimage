@@ -1331,16 +1331,15 @@ module.exports = {
   },
   // METADATA FUNCTION REFERENCE
   // Tag creation and destruction
-  // FITAG *FreeImage_CreateTag(void);
   createTag: function () {
     return library.FreeImage_CreateTag();
   },
-  // void FreeImage_DeleteTag(FITAG *tag);
   deleteTag: function (tag) {
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_DeleteTag(tag);
   },
-  // FITAG *FreeImage_CloneTag(FITAG *tag);
   cloneTag: function (tag) {
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_CloneTag(tag);
   },
   // Tag accessors
