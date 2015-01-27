@@ -78,6 +78,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 0.10.0 Added assertions and unit tests for compression functions.
 * 0.11.0 Added assertions and unit tests for helper functions.
 * 0.12.0 Added assertions and unit tests for tag creation and destruction functions.
+* 0.13.0 Added assertions and unit tests for tag accessor functions.
 
 
 ## JavaScript version of supported FreeImage functions
