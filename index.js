@@ -261,6 +261,19 @@ function assertToneMappingOperation(arg, argName) {
   );
 }
 
+function assertMetadataType(arg, argName) {
+  var p;
+  for (p in module.exports.METADATA_TYPE) {
+    if (arg === module.exports.METADATA_TYPE[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be a metadata type (" + arg + ")."
+  );
+}
+
 libraryName = os.platform().indexOf("win") >= 0 ? "FreeImage" : "libfreeimage";
 library = new ffi.Library(libraryName, {
   // BITMAP FUNCTION REFERENCE
@@ -1343,61 +1356,68 @@ module.exports = {
     return library.FreeImage_CloneTag(tag);
   },
   // Tag accessors
-  // const char *FreeImage_GetTagKey(FITAG *tag);
   getTagKey: function (tag) {
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_GetTagKey(tag);
   },
-  // const char *FreeImage_GetTagDescription(FITAG *tag);
   getTagDescription: function (tag) {
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_GetTagDescription(tag);
   },
-  // WORD FreeImage_GetTagID(FITAG *tag);
   getTagID: function (tag) {
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_GetTagID(tag);
   },
-  // FREE_IMAGE_MDTYPE FreeImage_GetTagType(FITAG *tag);
   getTagType: function (tag) {
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_GetTagType(tag);
   },
-  // DWORD FreeImage_GetTagCount(FITAG *tag);
   getTagCount: function (tag) {
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_GetTagCount(tag);
   },
-  // DWORD FreeImage_GetTagLength(FITAG *tag);
   getTagLength: function (tag) {
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_GetTagLength(tag);
   },
-  // const void *FreeImage_GetTagValue(FITAG *tag);
   getTagValue: function (tag) {
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_GetTagValue(tag);
   },
-  // BOOL FreeImage_SetTagKey(FITAG *tag, const char *key);
   setTagKey: function (tag, key) {
-    return library.FreeImage_SetTagKey(tag, key);
+    assertNonNullObject(tag, "tag");
+    assertNonEmptyString(key, "key");
+    return library.FreeImage_SetTagKey(tag, key) === TRUE;
   },
-  // BOOL FreeImage_SetTagDescription(FITAG *tag, const char *description);
   setTagDescription: function (tag, description) {
-    return library.FreeImage_SetTagDescription(tag, description);
+    assertNonNullObject(tag, "tag");
+    assertNonEmptyString(description, "description");
+    return library.FreeImage_SetTagDescription(tag, description) === TRUE;
   },
-  // BOOL FreeImage_SetTagID(FITAG *tag, WORD id);
   setTagID: function (tag, id) {
-    return library.FreeImage_SetTagID(tag, id);
+    assertNonNullObject(tag, "tag");
+    assertUnsignedInteger(id, "id");
+    return library.FreeImage_SetTagID(tag, id) === TRUE;
   },
-  // BOOL FreeImage_SetTagType(FITAG *tag, FREE_IMAGE_MDTYPE type);
   setTagType: function (tag, type) {
-    return library.FreeImage_SetTagType(tag, type);
+    assertNonNullObject(tag, "tag");
+    assertMetadataType(type, "type");
+    return library.FreeImage_SetTagType(tag, type) === TRUE;
   },
-  // BOOL FreeImage_SetTagCount(FITAG *tag, DWORD count);
   setTagCount: function (tag, count) {
-    return library.FreeImage_SetTagCount(tag, count);
+    assertNonNullObject(tag, "tag");
+    assertUnsignedInteger(count, "count");
+    return library.FreeImage_SetTagCount(tag, count) === TRUE;
   },
-  // BOOL FreeImage_SetTagLength(FITAG *tag, DWORD length);
   setTagLength: function (tag, length) {
-    return library.FreeImage_SetTagLength(tag, length);
+    assertNonNullObject(tag, "tag");
+    assertUnsignedInteger(length, "length");
+    return library.FreeImage_SetTagLength(tag, length) === TRUE;
   },
-  // BOOL FreeImage_SetTagValue(FITAG *tag, const void *value);
   setTagValue: function (tag, value) {
-    return library.FreeImage_SetTagValue(tag, value);
+    assertNonNullObject(tag, "tag");
+    assertNonNullObject(value, "value");
+    return library.FreeImage_SetTagValue(tag, value) === TRUE;
   },
   // Metadata iterator
   // FIMETADATA *FreeImage_FindFirstMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, FITAG **tag);

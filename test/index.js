@@ -8,6 +8,7 @@ var should = require("chai").should(),
     // Types
     BYTE = ref.types.uint8,
     INT = ref.types.int32,
+    DOUBLE = ref.types.double,
     RGBQUAD = RefStruct({
       rgbBlue: BYTE,
       rgbGreen: BYTE,
@@ -18,6 +19,7 @@ var should = require("chai").should(),
     TransparencyTable = RefArray(BYTE),
     ByteArray = RefArray(BYTE),
     IntArray = RefArray(INT),
+    DoubleArray = RefArray(DOUBLE),
     // Constants
     BYTES_TO_BITS = 8,
     INCHES_TO_METERS = 0.0254,
@@ -25,6 +27,7 @@ var should = require("chai").should(),
     RGBQUAD_SIZE = 4,
     DWORD_SIZE = 4,
     INT_SIZE = 4,
+    DOUBLE_SIZE = 8,
     BLACK = new RGBQUAD({ rgbBlue: 0, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
     WHITE = new RGBQUAD({ rgbBlue: 255, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
     GRAY = new RGBQUAD({ rgbBlue: 128, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
@@ -120,9 +123,17 @@ var should = require("chai").should(),
     // Properties of test bitmap #5
     TEST_BITMAP_05_FILENAME = __dirname + "/test-05.tif",
     TEST_BITMAP_05_IMAGE_FORMAT = fi.IMAGE_FORMAT.TIFF,
-    TEST_BITMAP_05_PAGE_COUNT = 3;
-    TEST_BITMAP_05_PAGE_WIDTH = 6;
-    TEST_BITMAP_05_PAGE_HEIGHT = 7;
+    TEST_BITMAP_05_PAGE_COUNT = 3,
+    TEST_BITMAP_05_PAGE_WIDTH = 6,
+    TEST_BITMAP_05_PAGE_HEIGHT = 7,
+    // Tag properties
+    TAG_ID = 42,
+    TAG_KEY = "PI",
+    TAG_DESCRIPTION = "The mathematical constant π",
+    TAG_TYPE = fi.METADATA_TYPE.DOUBLE,
+    TAG_COUNT = 1,
+    TAG_LENGTH = DOUBLE_SIZE,
+    TAG_VALUE = 3.1415927;    
     
 describe("BITMAP FUNCTION REFERENCE", function () {    
   describe("General functions", function () {
@@ -1411,6 +1422,33 @@ describe("METADATA FUNCTION REFERENCE", function () {
   });
   
   describe("Tag accessors", function () {
+    describe("fi.(get|set)Tag(ID|Key|Description|Type|Count|Length|Value)", function () {
+      it("should be able to get/set the ID/key/description/type/count/length/value of a tag", function () {
+        var tag = null,
+            value = null;
+        tag = fi.createTag();
+        tag.isNull().should.be.false();
+        fi.setTagID(tag, TAG_ID).should.be.true();
+        fi.getTagID(tag).should.equal(TAG_ID);
+        fi.setTagKey(tag, TAG_KEY).should.be.true();
+        fi.getTagKey(tag).should.equal(TAG_KEY);
+        fi.setTagDescription(tag, TAG_DESCRIPTION).should.be.true();
+        fi.getTagDescription(tag).should.equal(TAG_DESCRIPTION);
+        fi.setTagType(tag, TAG_TYPE).should.be.true();
+        fi.getTagType(tag).should.equal(TAG_TYPE);
+        fi.setTagCount(tag, TAG_COUNT).should.be.true();
+        fi.getTagCount(tag).should.equal(TAG_COUNT);
+        fi.setTagLength(tag, TAG_LENGTH).should.be.true();
+        fi.getTagLength(tag).should.equal(TAG_LENGTH);
+        value = ref.alloc(DOUBLE, TAG_VALUE);
+        fi.setTagValue(tag, value).should.be.true();
+        value = fi.getTagValue(tag); 
+        value.isNull().should.be.false();
+        value = new DoubleArray(value)[0];
+        value.should.equal(TAG_VALUE);
+        fi.deleteTag(tag);
+      });
+    });
   });
   
   describe("Metadata iterator", function () {
