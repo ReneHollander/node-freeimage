@@ -1458,13 +1458,19 @@ module.exports = {
     library.FreeImage_FindCloseMetadata(metadataHandle);
   },
   // Metadata accessors
-  // BOOL FreeImage_GetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, const char *key, FITAG **tag);
   getMetadata: function (model, bitmap, key, tag) {
-    return library.FreeImage_GetMetadata(model, bitmap, key, tag);
+    assertMetadataModel(model, "model");
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonEmptyString(key, "key");
+    assertNonNullObject(tag, "tag");
+    return library.FreeImage_GetMetadata(model, bitmap, key, tag) === TRUE;
   },
-  // BOOL FreeImage_SetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, const char *key, FITAG *tag);
   setMetadata: function (model, bitmap, key, tag) {
-    return library.FreeImage_SetMetadata(model, bitmap, key, tag);
+    assertMetadataModel(model, "model");
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonEmptyString(key, "key");
+    assertNonNullObject(tag, "tag");
+    return library.FreeImage_SetMetadata(model, bitmap, key, tag) === TRUE;
   },
   // Metadata helper functions
   // unsigned FreeImage_GetMetadataCount(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap);

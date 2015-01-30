@@ -146,6 +146,15 @@ var should = require("chai").should(),
       Make: "SAMSUNG",
       Model: "GT-I8190",
       Software: "I8190XXANI4"
+    },
+    TEST_BITMAP_06_COMMENT_METADATA_MODEL = fi.METADATA_MODEL.COMMENTS,
+    TEST_BITMAP_06_COMMENT = "hello, world",
+    TEST_BITMAP_06_COMMENT_TAG = {
+      key: "Comment",
+      type: fi.METADATA_TYPE.ASCII,
+      count: TEST_BITMAP_06_COMMENT.length + 1,
+      length: TEST_BITMAP_06_COMMENT.length + 1,
+      value: TEST_BITMAP_06_COMMENT
     };
     
 describe("BITMAP FUNCTION REFERENCE", function () {    
@@ -1471,8 +1480,8 @@ describe("METADATA FUNCTION REFERENCE", function () {
             metadataHandle = null,
             tag = null,
             tagType = -1,
-            tagKey = null,
-            tagValue = null,
+            tagKey = "",
+            tagValue = "",
             tags = {};
         bitmap.isNull().should.be.false();
         tag = ref.alloc(PTAG);
@@ -1496,6 +1505,43 @@ describe("METADATA FUNCTION REFERENCE", function () {
   });
   
   describe("Metadata accessors", function () {
+    describe("fi.getMetadata", function () {
+      it("should be able to get a metadata tag of a bitmap by key", function () {
+        var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+            tag = null,
+            p = "",
+            tagValue = "";
+        bitmap.isNull().should.be.false();
+        tag = ref.alloc(PTAG);
+        for (p in TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS) {
+          fi.getMetadata(TEST_BITMAP_06_METADATA_MODEL, bitmap, p, tag).should.be.true();
+          tagValue = ref.readCString(fi.getTagValue(tag.deref()), 0);
+          tagValue.should.equal(TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS[p]);
+        }
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.setMetadata", function () {
+      it("should be able to set a metadata tag of a bitmap by key", function () {
+        var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+            tag = null,
+            value = null,
+            success = false;
+        bitmap.isNull().should.be.false();
+        tag = fi.createTag();
+        tag.isNull().should.be.false();
+        fi.setTagKey(tag, TEST_BITMAP_06_COMMENT_TAG.key).should.be.true();
+        fi.setTagType(tag, TEST_BITMAP_06_COMMENT_TAG.type).should.be.true();
+        fi.setTagCount(tag, TEST_BITMAP_06_COMMENT_TAG.count).should.be.true();
+        fi.setTagLength(tag, TEST_BITMAP_06_COMMENT_TAG.length).should.be.true();
+        value = ref.allocCString(TEST_BITMAP_06_COMMENT_TAG.value);
+        fi.setTagValue(tag, value).should.be.true();
+        fi.setMetadata(TEST_BITMAP_06_COMMENT_METADATA_MODEL, bitmap, TEST_BITMAP_06_COMMENT_TAG.key, tag).should.be.true();
+        fi.deleteTag(tag);
+        fi.unload(bitmap);
+      });
+    });
   });
   
   describe("Metadata helper functions", function () {
