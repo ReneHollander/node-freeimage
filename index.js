@@ -1473,17 +1473,20 @@ module.exports = {
     return library.FreeImage_SetMetadata(model, bitmap, key, tag) === TRUE;
   },
   // Metadata helper functions
-  // unsigned FreeImage_GetMetadataCount(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap);
   getMetadataCount: function (model, bitmap) {
+    assertMetadataModel(model, "model");
+    assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_GetMetadataCount(model, bitmap);
   },
-  // BOOL FreeImage_CloneMetadata(FIBITMAP *dst, FIBITMAP *src);
-  cloneMetadata: function (dst, src) {
-    return library.FreeImage_CloneMetadata(dst, src);
+  cloneMetadata: function (dstBitmap, srcBitmap) {
+    assertNonNullObject(dstBitmap, "dstBitmap");
+    assertNonNullObject(srcBitmap, "srcBitmap");
+    return library.FreeImage_CloneMetadata(dstBitmap, srcBitmap) === TRUE;
   },
-  // const char *FreeImage_TagToString(FREE_IMAGE_MDMODEL model, FITAG *tag, char *Make FI_DEFAULT(NULL));
-  tagToString: function (model, tag, Make) {
-    return library.FreeImage_TagToString(model, tag, Make);
+  tagToString: function (model, tag) {
+    assertMetadataModel(model, "model");
+    assertNonNullObject(tag, "tag");
+    return library.FreeImage_TagToString(model, tag, ref.NULL);
   },
   // TOOLKIT FUNCTION REFERENCE
   // Rotation and flipping

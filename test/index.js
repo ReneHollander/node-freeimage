@@ -141,6 +141,7 @@ var should = require("chai").should(),
     TEST_BITMAP_06_FILENAME = __dirname + "/test-06.jpg",
     TEST_BITMAP_06_IMAGE_FORMAT = fi.IMAGE_FORMAT.JPEG,
     TEST_BITMAP_06_METADATA_MODEL = fi.METADATA_MODEL.EXIF_MAIN,
+    TEST_BITMAP_06_METADATA_COUNT = 11,
     TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS = {
       DateTime: "2015:01:29 18:20:50",
       Make: "SAMSUNG",
@@ -1545,6 +1546,44 @@ describe("METADATA FUNCTION REFERENCE", function () {
   });
   
   describe("Metadata helper functions", function () {
+    describe("fi.getMetadataCount", function () {
+      it("should be able to get the number of metadata tags in a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+            count = -1;
+        bitmap.isNull().should.be.false();
+        count = fi.getMetadataCount(TEST_BITMAP_06_METADATA_MODEL, bitmap);
+        count.should.equal(TEST_BITMAP_06_METADATA_COUNT);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.cloneMetadata", function () {
+      it("should be able to copy all metadata tags of a bitmap into another", function () {
+        var srcBitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+            dstBitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
+        srcBitmap.isNull().should.be.false();
+        dstBitmap.isNull().should.be.false();
+        fi.cloneMetadata(dstBitmap, srcBitmap).should.be.true();
+        fi.unload(dstBitmap);
+        fi.unload(srcBitmap);
+      });
+    });
+
+    describe("fi.tagToString", function () {
+      it("should be able to convert a metadata tag to string", function () {
+        var tag = null;
+        tag = fi.createTag();
+        tag.isNull().should.be.false();
+        fi.setTagKey(tag, TEST_BITMAP_06_COMMENT_TAG.key).should.be.true();
+        fi.setTagType(tag, TEST_BITMAP_06_COMMENT_TAG.type).should.be.true();
+        fi.setTagCount(tag, TEST_BITMAP_06_COMMENT_TAG.count).should.be.true();
+        fi.setTagLength(tag, TEST_BITMAP_06_COMMENT_TAG.length).should.be.true();
+        value = ref.allocCString(TEST_BITMAP_06_COMMENT_TAG.value);
+        fi.setTagValue(tag, value).should.be.true();
+        fi.tagToString(TEST_BITMAP_06_COMMENT_METADATA_MODEL, tag).should.equal(TEST_BITMAP_06_COMMENT_TAG.value);
+        fi.deleteTag(tag);
+      });
+    });
   });
 });
 
