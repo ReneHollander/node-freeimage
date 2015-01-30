@@ -82,6 +82,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 0.14.0 Added assertions and unit tests for metadata iterator functions.
 * 0.15.0 Added assertions and unit tests for metadata accessor functions.
 * 0.16.0 Added assertions and unit tests for metadata helper functions.
+* 0.17.0 Added assertions and unit tests for rotation and flipping functions.
 
 
 ## JavaScript version of supported FreeImage functions
