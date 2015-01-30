@@ -196,6 +196,15 @@ function assertNonNullObject(arg, argName) {
   }
 }
 
+function assertNullObject(arg, argName) {
+  if (arg !== ref.NULL) {
+    throw new Error(
+      "Argument \"" + argName + "\" " + 
+      "must be a null object (" + arg + ")."
+    );
+  }
+}
+
 function assertImageType(arg, argName) {
   var p;
   for (p in module.exports.IMAGE_TYPE) {
@@ -271,6 +280,19 @@ function assertMetadataType(arg, argName) {
   throw new Error(
     "Argument \"" + argName + "\" " + 
     "must be a metadata type (" + arg + ")."
+  );
+}
+
+function assertMetadataModel(arg, argName) {
+  var p;
+  for (p in module.exports.METADATA_MODEL) {
+    if (arg === module.exports.METADATA_MODEL[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be a metadata model (" + arg + ")."
   );
 }
 
@@ -1420,17 +1442,20 @@ module.exports = {
     return library.FreeImage_SetTagValue(tag, value) === TRUE;
   },
   // Metadata iterator
-  // FIMETADATA *FreeImage_FindFirstMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, FITAG **tag);
   findFirstMetadata: function (model, bitmap, tag) {
+    assertMetadataModel(model, "model");
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(tag, "tag");
     return library.FreeImage_FindFirstMetadata(model, bitmap, tag);
   },
-  // BOOL FreeImage_FindNextMetadata(FIMETADATA *mdhandle, FITAG **tag);
-  findNextMetadata: function (mdhandle, tag) {
-    return library.FreeImage_FindNextMetadata(mdhandle, tag);
+  findNextMetadata: function (metadataHandle, tag) {
+    assertNonNullObject(metadataHandle, "metadataHandle");
+    assertNonNullObject(tag, "tag");
+    return library.FreeImage_FindNextMetadata(metadataHandle, tag) === TRUE;
   },
-  // void FreeImage_FindCloseMetadata(FIMETADATA *mdhandle);
-  findCloseMetadata: function (mdhandle) {
-    return library.FreeImage_FindCloseMetadata(mdhandle);
+  findCloseMetadata: function (metadataHandle) {
+    assertNonNullObject(metadataHandle, "metadataHandle");
+    library.FreeImage_FindCloseMetadata(metadataHandle);
   },
   // Metadata accessors
   // BOOL FreeImage_GetMetadata(FREE_IMAGE_MDMODEL model, FIBITMAP *bitmap, const char *key, FITAG **tag);

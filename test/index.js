@@ -6,9 +6,12 @@ var should = require("chai").should(),
     RefStruct = require("ref-struct"),
     fi = require("../index"),
     // Types
+    VOID = ref.types.void,
+    PVOID = ref.refType(VOID),
     BYTE = ref.types.uint8,
     INT = ref.types.int32,
     DOUBLE = ref.types.double,
+    PTAG = PVOID,
     RGBQUAD = RefStruct({
       rgbBlue: BYTE,
       rgbGreen: BYTE,
@@ -126,14 +129,24 @@ var should = require("chai").should(),
     TEST_BITMAP_05_PAGE_COUNT = 3,
     TEST_BITMAP_05_PAGE_WIDTH = 6,
     TEST_BITMAP_05_PAGE_HEIGHT = 7,
-    // Tag properties
+    // Test tag properties
     TAG_ID = 42,
     TAG_KEY = "PI",
     TAG_DESCRIPTION = "The mathematical constant π",
     TAG_TYPE = fi.METADATA_TYPE.DOUBLE,
     TAG_COUNT = 1,
     TAG_LENGTH = DOUBLE_SIZE,
-    TAG_VALUE = 3.1415927;    
+    TAG_VALUE = 3.1415927,    
+    // Properties of test bitmap #6
+    TEST_BITMAP_06_FILENAME = __dirname + "/test-06.jpg",
+    TEST_BITMAP_06_IMAGE_FORMAT = fi.IMAGE_FORMAT.JPEG,
+    TEST_BITMAP_06_METADATA_MODEL = fi.METADATA_MODEL.EXIF_MAIN,
+    TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS = {
+      DateTime: "2015:01:29 18:20:50",
+      Make: "SAMSUNG",
+      Model: "GT-I8190",
+      Software: "I8190XXANI4"
+    };
     
 describe("BITMAP FUNCTION REFERENCE", function () {    
   describe("General functions", function () {
@@ -1452,6 +1465,34 @@ describe("METADATA FUNCTION REFERENCE", function () {
   });
   
   describe("Metadata iterator", function () {
+    describe("fi.find(First|Next|Close)Metadata", function () {
+      it("should be able to iterate over metadata tags of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+            metadataHandle = null,
+            tag = null,
+            tagType = -1,
+            tagKey = null,
+            tagValue = null,
+            tags = {};
+        bitmap.isNull().should.be.false();
+        tag = ref.alloc(PTAG);
+        metadataHandle = fi.findFirstMetadata(TEST_BITMAP_06_METADATA_MODEL, bitmap, tag);
+        metadataHandle.isNull().should.be.false();
+        if (!metadataHandle.isNull()) {
+          do {
+            tagType = fi.getTagType(tag.deref());
+            if (tagType === fi.METADATA_TYPE.ASCII) {
+              tagKey = fi.getTagKey(tag.deref());
+              tagValue = ref.readCString(fi.getTagValue(tag.deref()), 0);
+              tags[tagKey] = tagValue;
+            }
+          } while (fi.findNextMetadata(metadataHandle, tag));
+          fi.findCloseMetadata(metadataHandle);
+        }
+        tags.should.deep.equal(TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS);
+        fi.unload(bitmap);
+      });
+    });
   });
   
   describe("Metadata accessors", function () {
