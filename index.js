@@ -296,6 +296,19 @@ function assertMetadataModel(arg, argName) {
   );
 }
 
+function assertFilter(arg, argName) {
+  var p;
+  for (p in module.exports.FILTER) {
+    if (arg === module.exports.FILTER[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be a filter (" + arg + ")."
+  );
+}
+
 libraryName = os.platform().indexOf("win") >= 0 ? "FreeImage" : "libfreeimage";
 library = new ffi.Library(libraryName, {
   // BITMAP FUNCTION REFERENCE
@@ -1516,13 +1529,20 @@ module.exports = {
     return library.FreeImage_FlipVertical(bitmap) === TRUE;
   },
   // Upsampling / downsampling
-  // FIBITMAP *FreeImage_Rescale(FIBITMAP *bitmap, int dst_width, int dst_height, FREE_IMAGE_FILTER filter FI_DEFAULT(FILTER_CATMULLROM));
-  rescale: function (bitmap, dst_width, dst_height, filter) {
-    return library.FreeImage_Rescale(bitmap, dst_width, dst_height, filter);
+  rescale: function (bitmap, width, height, filter) {
+    filter = setToDefaultIfUndefined(filter, this.FILTER.CATMULLROM);
+    assertNonNullObject(bitmap, "bitmap");
+    assertInteger(width, "width");
+    assertInteger(height, "height");
+    assertFilter(filter, "filter");
+    return library.FreeImage_Rescale(bitmap, width, height, filter);
   },
-  // FIBITMAP *FreeImage_MakeThumbnail(FIBITMAP *bitmap, int max_pixel_size, BOOL convert FI_DEFAULT(TRUE));
-  makeThumbnail: function (bitmap, max_pixel_size, convert) {
-    return library.FreeImage_MakeThumbnail(bitmap, max_pixel_size, convert);
+  makeThumbnail: function (bitmap, maxSize, convert) {
+    convert = setToDefaultIfUndefined(convert, true);
+    assertNonNullObject(bitmap, "bitmap");
+    assertInteger(maxSize, "maxSize");
+    assertBoolean(convert, "convert");
+    return library.FreeImage_MakeThumbnail(bitmap, maxSize, convert ? TRUE : FALSE);
   },
   // Color manipulation
   // BOOL FreeImage_AdjustCurve(FIBITMAP *bitmap, BYTE *LUT, FREE_IMAGE_COLOR_CHANNEL channel);

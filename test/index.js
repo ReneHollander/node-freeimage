@@ -120,6 +120,9 @@ var should = require("chai").should(),
       RED, LIME
     ],
     TEST_BITMAP_03_TEST_PIXEL_COLOR = MAROON,
+    TEST_BITMAP_03_RESCALED_WIDTH = 4,
+    TEST_BITMAP_03_RESCALED_HEIGHT = 4,
+    TEST_BITMAP_03_RESCALED_PITCH = Math.ceil((TEST_BITMAP_03_RESCALED_WIDTH * TEST_BITMAP_03_BPP / BYTES_TO_BITS) / DWORD_SIZE) * DWORD_SIZE,
     // Properties of test bitmap #4
     TEST_BITMAP_04_FILENAME = __dirname + "/test-04.png",
     TEST_BITMAP_04_IMAGE_FORMAT = fi.IMAGE_FORMAT.PNG,
@@ -1709,6 +1712,52 @@ describe("TOOLKIT FUNCTION REFERENCE", function () {
   });
 
   describe("Upsampling / downsampling", function () {
+    describe("fi.rescale", function () {
+      it("should rescale a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            bitmap2 = null,
+            bits = null,
+            bits2 = null,
+            offset = -1;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.rescale(bitmap, TEST_BITMAP_03_RESCALED_WIDTH, TEST_BITMAP_03_RESCALED_HEIGHT, fi.FILTER.BOX);
+        bitmap2.isNull().should.be.false();
+        bits = fi.getBits(bitmap2);
+        bits.isNull().should.be.false();
+        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_RESCALED_PITCH * TEST_BITMAP_03_RESCALED_HEIGHT, 0));
+        // 23  ->  2233
+        // 01      2233
+        //         0011
+        //         0011
+        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+        bits2[9].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+        bits2[10].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+        bits2[11].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+        offset = (TEST_BITMAP_03_RESCALED_HEIGHT - 1) * TEST_BITMAP_03_RESCALED_PITCH;
+        bits2[offset + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+        bits2[offset + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+        bits2[offset + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+        bits2[offset + 9].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+        bits2[offset + 10].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+        bits2[offset + 11].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);        
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.makeThumbnail", function () {
+      it("should creates a thumbnail from a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.makeThumbnail(bitmap, TEST_BITMAP_03_WIDTH);
+        bitmap2.isNull().should.be.false();       
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("Color manipulation", function () {
