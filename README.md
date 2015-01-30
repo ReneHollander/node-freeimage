@@ -79,6 +79,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 0.11.0 Added assertions and unit tests for helper functions.
 * 0.12.0 Added assertions and unit tests for tag creation and destruction functions.
 * 0.13.0 Added assertions and unit tests for tag accessor functions.
+* 0.14.0 Added assertions and unit tests for metadata iterator functions.
 
 
 ## JavaScript version of supported FreeImage functions
