@@ -1490,21 +1490,30 @@ module.exports = {
   },
   // TOOLKIT FUNCTION REFERENCE
   // Rotation and flipping
-  // FIBITMAP *FreeImage_Rotate(FIBITMAP *bitmap, double angle, const void *bkcolor FI_DEFAULT(NULL));
-  rotate: function (bitmap, angle, bkcolor) {
-    return library.FreeImage_Rotate(bitmap, angle, bkcolor);
+  rotate: function (bitmap, angle, color) {
+    color = setToDefaultIfUndefined(color, ref.NULL);
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(angle, "angle");
+    assertObject(color, "color");
+    return library.FreeImage_Rotate(bitmap, angle, color);
   },
-  // FIBITMAP *FreeImage_RotateEx(FIBITMAP *bitmap, double angle, double x_shift, double y_shift, double x_origin, double y_origin, BOOL use_mask);
-  rotateEx: function (bitmap, angle, x_shift, y_shift, x_origin, y_origin, use_mask) {
-    return library.FreeImage_RotateEx(bitmap, angle, x_shift, y_shift, x_origin, y_origin, use_mask);
+  rotateEx: function (bitmap, angle, xShift, yShift, xOrigin, yOrigin, useMask) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(angle, "angle");
+    assertDouble(xShift, "xShift");
+    assertDouble(yShift, "yShift");
+    assertDouble(xOrigin, "xOrigin");
+    assertDouble(yOrigin, "yOrigin");
+    assertBoolean(useMask, "useMask");
+    return library.FreeImage_RotateEx(bitmap, angle, xShift, yShift, xOrigin, yOrigin, useMask ? TRUE : FALSE);
   },
-  // BOOL FreeImage_FlipHorizontal(FIBITMAP *bitmap);
   flipHorizontal: function (bitmap) {
-    return library.FreeImage_FlipHorizontal(bitmap);
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_FlipHorizontal(bitmap) === TRUE;
   },
-  // BOOL FreeImage_FlipVertical(FIBITMAP *bitmap);
   flipVertical: function (bitmap) {
-    return library.FreeImage_FlipVertical(bitmap);
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_FlipVertical(bitmap) === TRUE;
   },
   // Upsampling / downsampling
   // FIBITMAP *FreeImage_Rescale(FIBITMAP *bitmap, int dst_width, int dst_height, FREE_IMAGE_FILTER filter FI_DEFAULT(FILTER_CATMULLROM));

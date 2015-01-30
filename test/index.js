@@ -1589,6 +1589,123 @@ describe("METADATA FUNCTION REFERENCE", function () {
 
 describe("TOOLKIT FUNCTION REFERENCE", function () {
   describe("Rotation and flipping", function () {
+    describe("fi.rotate", function () {
+      it("should rotate a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            bitmap2 = null,
+            bits = null,
+            bits2 = null;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.rotate(bitmap, 90); // CCW
+        bitmap2.isNull().should.be.false();
+        bits = fi.getBits(bitmap2);
+        bits.isNull().should.be.false();
+        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+        // 23  ->  31
+        // 01      20
+        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);        
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.rotateEx", function () {
+      it("should rotate and shift a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            bitmap2 = null,
+            bits = null,
+            bits2 = null;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.rotateEx(bitmap, 90, 0, -1, 1, 1, true); // CCW
+        bitmap2.isNull().should.be.false();
+        bits = fi.getBits(bitmap2);
+        bits.isNull().should.be.false();
+        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+        // 23  ->  31
+        // 01      20
+        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);        
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.flipHorizontal", function () {
+      it("should flip a bitmap horizontally", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            bits = null,
+            bits2 = null;
+        bitmap.isNull().should.be.false();
+        fi.flipHorizontal(bitmap).should.be.true();
+        bits = fi.getBits(bitmap);
+        bits.isNull().should.be.false();
+        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+        // 23  ->  32
+        // 01      10
+        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);        
+        fi.unload(bitmap);
+      });
+    });
+
+    describe("fi.flipVertical", function () {
+      it("should flip a bitmap vertically", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            bits = null,
+            bits2 = null;
+        bitmap.isNull().should.be.false();
+        fi.flipVertical(bitmap).should.be.true();
+        bits = fi.getBits(bitmap);
+        bits.isNull().should.be.false();
+        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+        // 23  ->  01
+        // 01      23
+        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);        
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("Upsampling / downsampling", function () {
