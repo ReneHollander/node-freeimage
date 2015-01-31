@@ -1638,22 +1638,31 @@ module.exports = {
     return library.FreeImage_SwapPaletteIndices(bitmap, indexA, indexB);
   },
   // Channel processing
-  // FIBITMAP *FreeImage_GetChannel(FIBITMAP *bitmap, FREE_IMAGE_COLOR_CHANNEL channel);
   getChannel: function (bitmap, channel) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertColorChannel(channel, "channel");
     return library.FreeImage_GetChannel(bitmap, channel);
   },
-  // BOOL FreeImage_SetChannel(FIBITMAP *dst, FIBITMAP *src, FREE_IMAGE_COLOR_CHANNEL channel);
-  setChannel: function (dst, src, channel) {
-    return library.FreeImage_SetChannel(dst, src, channel);
+  setChannel: function (bitmap, channelBitmap, channel) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(channelBitmap, "channelBitmap");
+    assertColorChannel(channel, "channel");
+    return library.FreeImage_SetChannel(bitmap, channelBitmap, channel) === TRUE;
   },
-  // FIBITMAP *FreeImage_GetComplexChannel(FIBITMAP *src, FREE_IMAGE_COLOR_CHANNEL channel);
-  getComplexChannel: function (src, channel) {
-    return library.FreeImage_GetComplexChannel(src, channel);
+  getComplexChannel: function (bitmap, channel) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertColorChannel(channel, "channel");
+    return library.FreeImage_GetComplexChannel(bitmap, channel);
   },
-  // BOOL FreeImage_SetComplexChannel(FIBITMAP *dst, FIBITMAP *src, FREE_IMAGE_COLOR_CHANNEL channel);
-  setComplexChannel: function (dst, src, channel) {
-    return library.FreeImage_SetComplexChannel(dst, src, channel);
+  setComplexChannel: function (bitmap, channelBitmap, channel) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(channelBitmap, "channelBitmap");
+    assertColorChannel(channel, "channel");
+    return library.FreeImage_SetComplexChannel(bitmap, channelBitmap, channel) === TRUE;
   },
+  
+  
+  
   // Copy / Paste / Composite routines
   // FIBITMAP *FreeImage_Copy(FIBITMAP *bitmap, int left, int top, int right, int bottom);
   copy: function (bitmap, left, top, right, bottom) {
@@ -1671,6 +1680,9 @@ module.exports = {
   preMultiplyWithAlpha: function (bitmap) {
     return library.FreeImage_PreMultiplyWithAlpha(bitmap);
   },
+  
+  
+  
   // JPEG lossless transformations
   // BOOL FreeImage_JPEGTransform(const char *src_file, const char *dst_file, FREE_IMAGE_OPERATION operation, BOOL perfect FI_DEFAULT(TRUE));
   jpegTransform: function (src_file, dst_file, operation, perfect) {
@@ -1684,6 +1696,9 @@ module.exports = {
   jpegTransformCombined: function (src_file, dst_file, operation, left, top, right, bottom, perfect) {
     return library.FreeImage_JPEGTransformCombined(src_file, dst_file, operation, left, top, right, bottom, perfect);
   },
+  
+  
+  
   // Background filling
   // BOOL FreeImage_FillBackground(FIBITMAP *bitmap, const void *color, int options FI_DEFAULT(0));
   fillBackground: function (bitmap, color, options) {
@@ -1701,6 +1716,9 @@ module.exports = {
   allocateExT: function (type, width, height, bpp, color, options, palette, red_mask, green_mask, blue_mask) {
     return library.FreeImage_AllocateExT(type, width, height, bpp, color, options, palette, red_mask, green_mask, blue_mask);
   },
+  
+  
+  
   // Miscellaneous algorithms
   // FIBITMAP *FreeImage_MultigridPoissonSolver(FIBITMAP *Laplacian, int ncycle FI_DEFAULT(3));
   multigridPoissonSolver: function (Laplacian, ncycle) {

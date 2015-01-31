@@ -19,6 +19,10 @@ var should = require("chai").should(),
       rgbRed: BYTE,
       rgbReserved: BYTE
     }),
+    COMPLEX = RefStruct({
+      r: DOUBLE,
+      i: DOUBLE
+    }),
     Palette = RefArray(RGBQUAD),
     TransparencyTable = RefArray(BYTE),
     ByteArray = RefArray(BYTE),
@@ -26,6 +30,7 @@ var should = require("chai").should(),
     DWordArray = RefArray(DWORD),
     DoubleArray = RefArray(DOUBLE),
     RgbQuadArray = RefArray(RGBQUAD),
+    ComplexArray = RefArray(COMPLEX),
     // Constants
     BYTES_TO_BITS = 8,
     INCHES_TO_METERS = 0.0254,
@@ -79,6 +84,12 @@ var should = require("chai").should(),
       255, 255, 255, 255, 0, 255,
       255, 255, 255, 255, 255, 255
     ],
+    // Properties of temporary bitmap #3
+    TEMP_BITMAP_03_IMAGE_TYPE = fi.IMAGE_TYPE.COMPLEX,
+    TEMP_BITMAP_03_WIDTH = 1,
+    TEMP_BITMAP_03_HEIGHT = 1,
+    TEMP_BITMAP_03_BPP = 128,
+    TEMP_BITMAP_03_PITCH = Math.ceil((TEMP_BITMAP_03_WIDTH * TEMP_BITMAP_03_BPP / BYTES_TO_BITS) / DWORD_SIZE) * DWORD_SIZE,
     // Properties of test bitmap #1
     TEST_BITMAP_01_FILENAME = __dirname + "/test-01.png",
     TEST_BITMAP_01_IMAGE_TYPE = fi.IMAGE_TYPE.BITMAP,
@@ -190,7 +201,7 @@ describe("BITMAP FUNCTION REFERENCE", function () {
     
     describe("fi.allocateT", function () {
       it("should create a bitmap", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_01_IMAGE_TYPE, TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
+        var bitmap = fi.allocateT(TEMP_BITMAP_01_IMAGE_TYPE, TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
         bitmap.isNull().should.be.false();
         fi.unload(bitmap);
       });
@@ -1886,6 +1897,44 @@ describe("TOOLKIT FUNCTION REFERENCE", function () {
   });
 
   describe("Channel processing", function () {
+    describe("fi.(get|set)Channel", function () {
+      it("should get/set the channels of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            channelBitmap = null;
+        bitmap.isNull().should.be.false();
+        channelBitmap = fi.getChannel(bitmap, fi.COLOR_CHANNEL.RED);
+        channelBitmap.isNull().should.be.false();
+        fi.setChannel(bitmap, channelBitmap, fi.COLOR_CHANNEL.GREEN).should.be.true();
+        fi.unload(channelBitmap);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.(get|set)ComplexChannel", function () {
+      it("should get/set the channels of a complex bitmap", function () {
+        var bitmap = fi.allocateT(TEMP_BITMAP_03_IMAGE_TYPE, TEMP_BITMAP_03_WIDTH, TEMP_BITMAP_03_HEIGHT, TEMP_BITMAP_03_BPP),
+            scanLine = null,
+            scanLine2 = null,
+            channelBitmap = null;
+        bitmap.isNull().should.be.false();
+        scanLine = fi.getScanLine(bitmap, 0);
+        scanLine2 = new ComplexArray(ref.reinterpret(scanLine, TEMP_BITMAP_03_PITCH, 0));
+        scanLine2[0].r = 10;
+        scanLine2[0].i = 20;
+        channelBitmap = fi.getComplexChannel(bitmap, fi.COLOR_CHANNEL.REAL);
+        channelBitmap.isNull().should.be.false();
+        scanLine = fi.getScanLine(channelBitmap, 0);
+        scanLine2 = new DoubleArray(ref.reinterpret(scanLine, TEMP_BITMAP_03_PITCH, 0));
+        scanLine2[0].should.equal(10);
+        fi.setComplexChannel(bitmap, channelBitmap, fi.COLOR_CHANNEL.IMAG).should.be.true();
+        scanLine = fi.getScanLine(bitmap, 0);
+        scanLine2 = new ComplexArray(ref.reinterpret(scanLine, TEMP_BITMAP_03_PITCH, 0));
+        scanLine2[0].r = 10;
+        scanLine2[0].i = 10;
+        fi.unload(channelBitmap);
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("Copy / Paste / Composite routines", function () {
