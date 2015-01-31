@@ -10,6 +10,7 @@ var should = require("chai").should(),
     PVOID = ref.refType(VOID),
     BYTE = ref.types.uint8,
     INT = ref.types.int32,
+    DWORD = ref.types.uint32,
     DOUBLE = ref.types.double,
     PTAG = PVOID,
     RGBQUAD = RefStruct({
@@ -22,7 +23,9 @@ var should = require("chai").should(),
     TransparencyTable = RefArray(BYTE),
     ByteArray = RefArray(BYTE),
     IntArray = RefArray(INT),
+    DWordArray = RefArray(DWORD),
     DoubleArray = RefArray(DOUBLE),
+    RgbQuadArray = RefArray(RGBQUAD),
     // Constants
     BYTES_TO_BITS = 8,
     INCHES_TO_METERS = 0.0254,
@@ -1748,7 +1751,7 @@ describe("TOOLKIT FUNCTION REFERENCE", function () {
     });
     
     describe("fi.makeThumbnail", function () {
-      it("should creates a thumbnail from a bitmap", function () {
+      it("should create a thumbnail from a bitmap", function () {
         var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
             bitmap2 = null;
         bitmap.isNull().should.be.false();
@@ -1761,6 +1764,125 @@ describe("TOOLKIT FUNCTION REFERENCE", function () {
   });
 
   describe("Color manipulation", function () {
+    describe("fi.adjustCurve", function () {
+      it("should perform a color transformation on a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            lookupTable = null,
+            i = -1;
+        bitmap.isNull().should.be.false();
+        lookupTable = new ByteArray(256);
+        for (i = 0; i < 256; i += 1) {
+          lookupTable[i] = 255 - i;
+        }
+        fi.adjustCurve(bitmap, lookupTable.buffer, fi.COLOR_CHANNEL.RGB).should.be.true();
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.adjustGamma", function () {
+      it("should perform gamma correction on a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+        bitmap.isNull().should.be.false();
+        fi.adjustGamma(bitmap, 1.5).should.be.true();
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.adjustBrightness", function () {
+      it("should adjust the brightness of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+        bitmap.isNull().should.be.false();
+        fi.adjustBrightness(bitmap, 50).should.be.true();
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.adjustContrast", function () {
+      it("should adjust the contrast of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+        bitmap.isNull().should.be.false();
+        fi.adjustContrast(bitmap, 15).should.be.true();
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.invert", function () {
+      it("should invert a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+        bitmap.isNull().should.be.false();
+        fi.invert(bitmap).should.be.true();
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.getHistogram", function () {
+      it("should compute the histogram of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            histogram = null;
+        bitmap.isNull().should.be.false();
+        histogram = new DWordArray(256);
+        fi.getHistogram(bitmap, histogram.buffer, fi.COLOR_CHANNEL.RED).should.be.true();
+        histogram[0].should.equal(3);
+        histogram[255].should.equal(1);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.getAdjustColorsLookupTable", function () {
+      it("should create a lookup table for color transformation of bitmaps", function () {
+        var lookupTable = new ByteArray(256);
+        fi.getAdjustColorsLookupTable(lookupTable.buffer, 50, 15, 1.5, true).should.equal(4);
+      });
+    });
+    
+    describe("fi.adjustColors", function () {
+      it("should adjust the colors of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+        bitmap.isNull().should.be.false();
+        fi.adjustColors(bitmap, 50, 15, 1.5, true).should.be.true();
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.applyColorMapping", function () {
+      it("should adjust the colors of a bitmap using direct color mapping", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+            srcColors = new RgbQuadArray([RED, LIME, BLUE, BLACK]),
+            dstColors = new RgbQuadArray([AQUA, FUCHSIA, YELLOW, WHITE]);
+        bitmap.isNull().should.be.false();
+        fi.applyColorMapping(bitmap, srcColors.buffer, dstColors.buffer, 4, false, false).should.equal(4);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.swapColors", function () {
+      it("should swap two colors in a bitmap directly", function () {
+        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+        bitmap.isNull().should.be.false();
+        fi.swapColors(bitmap, RED.ref(), BLACK.ref(), false).should.equal(2);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.applyPaletteIndexMapping", function () {
+      it("should adjust the colors of a bitmap using palette index mapping", function () {
+        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+            srcIndices = new ByteArray([9, 10, 12, 13]),
+            dstIndices = new ByteArray([14, 13, 11, 15]);
+        bitmap.isNull().should.be.false();
+        fi.applyPaletteIndexMapping(bitmap, srcIndices.buffer, dstIndices.buffer, 4, false).should.equal(256);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.swapPaletteIndices", function () {
+      it("should swap two colors in a bitmap by swapping palette indices", function () {
+        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME);
+        bitmap.isNull().should.be.false();
+        fi.swapPaletteIndices(bitmap, ref.alloc(BYTE, 9), ref.alloc(BYTE, 13), false).should.equal(128);
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("Channel processing", function () {

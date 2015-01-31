@@ -309,6 +309,19 @@ function assertFilter(arg, argName) {
   );
 }
 
+function assertColorChannel(arg, argName) {
+  var p;
+  for (p in module.exports.COLOR_CHANNEL) {
+    if (arg === module.exports.COLOR_CHANNEL[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be a color channel (" + arg + ")."
+  );
+}
+
 libraryName = os.platform().indexOf("win") >= 0 ? "FreeImage" : "libfreeimage";
 library = new ffi.Library(libraryName, {
   // BITMAP FUNCTION REFERENCE
@@ -1545,53 +1558,84 @@ module.exports = {
     return library.FreeImage_MakeThumbnail(bitmap, maxSize, convert ? TRUE : FALSE);
   },
   // Color manipulation
-  // BOOL FreeImage_AdjustCurve(FIBITMAP *bitmap, BYTE *LUT, FREE_IMAGE_COLOR_CHANNEL channel);
-  adjustCurve: function (bitmap, LUT, channel) {
-    return library.FreeImage_AdjustCurve(bitmap, LUT, channel);
+  adjustCurve: function (bitmap, lookupTable, channel) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(lookupTable, "lookupTable");
+    assertColorChannel(channel, "channel");
+    return library.FreeImage_AdjustCurve(bitmap, lookupTable, channel) === TRUE;
   },
-  // BOOL FreeImage_AdjustGamma(FIBITMAP *bitmap, double gamma);
   adjustGamma: function (bitmap, gamma) {
-    return library.FreeImage_AdjustGamma(bitmap, gamma);
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(gamma, "gamma");
+    return library.FreeImage_AdjustGamma(bitmap, gamma) === TRUE;
   },
-  // BOOL FreeImage_AdjustBrightness(FIBITMAP *bitmap, double percentage);
   adjustBrightness: function (bitmap, percentage) {
-    return library.FreeImage_AdjustBrightness(bitmap, percentage);
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(percentage, "percentage");
+    return library.FreeImage_AdjustBrightness(bitmap, percentage) === TRUE;
   },
-  // BOOL FreeImage_AdjustContrast(FIBITMAP *bitmap, double percentage);
   adjustContrast: function (bitmap, percentage) {
-    return library.FreeImage_AdjustContrast(bitmap, percentage);
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(percentage, "percentage");
+    return library.FreeImage_AdjustContrast(bitmap, percentage) === TRUE;
   },
-  // BOOL FreeImage_Invert(FIBITMAP *bitmap);
   invert: function (bitmap) {
-    return library.FreeImage_Invert(bitmap);
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_Invert(bitmap) === TRUE;
   },
-  // BOOL FreeImage_GetHistogram(FIBITMAP *bitmap, DWORD *histo, FREE_IMAGE_COLOR_CHANNEL channel FI_DEFAULT(FICC_BLACK));
-  getHistogram: function (bitmap, histo, channel) {
-    return library.FreeImage_GetHistogram(bitmap, histo, channel);
+  getHistogram: function (bitmap, histogram, channel) {
+    channel = setToDefaultIfUndefined(channel, this.COLOR_CHANNEL.BLACK);
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(histogram, "histogram");
+    assertColorChannel(channel, "channel");
+    return library.FreeImage_GetHistogram(bitmap, histogram, channel) === TRUE;
   },
-  // int FreeImage_GetAdjustColorsLookupTable(BYTE *LUT, double brightness, double contrast, double gamma, BOOL invert);
-  getAdjustColorsLookupTable: function (LUT, brightness, contrast, gamma, invert) {
-    return library.FreeImage_GetAdjustColorsLookupTable(LUT, brightness, contrast, gamma, invert);
+  getAdjustColorsLookupTable: function (lookupTable, brightness, contrast, gamma, invert) {
+    assertNonNullObject(lookupTable, "lookupTable");
+    assertDouble(brightness, "brightness");
+    assertDouble(contrast, "contrast");
+    assertDouble(gamma, "gamma");
+    assertBoolean(invert, "invert");
+    return library.FreeImage_GetAdjustColorsLookupTable(lookupTable, brightness, contrast, gamma, invert ? TRUE : FALSE);
   },
-  // BOOL FreeImage_AdjustColors(FIBITMAP *bitmap, double brightness, double contrast, double gamma, BOOL invert FI_DEFAULT(FALSE));
   adjustColors: function (bitmap, brightness, contrast, gamma, invert) {
-    return library.FreeImage_AdjustColors(bitmap, brightness, contrast, gamma, invert);
+    invert = setToDefaultIfUndefined(invert, false);
+    assertNonNullObject(bitmap, "bitmap");
+    assertDouble(brightness, "brightness");
+    assertDouble(contrast, "contrast");
+    assertDouble(gamma, "gamma");
+    assertBoolean(invert, "invert");
+    return library.FreeImage_AdjustColors(bitmap, brightness, contrast, gamma, invert ? TRUE : FALSE) === TRUE;
   },
-  // unsigned FreeImage_ApplyColorMapping(FIBITMAP *bitmap, RGBQUAD *srccolors, RGBQUAD *dstcolors, unsigned count, BOOL ignore_alpha, BOOL swap);
-  applyColorMapping: function (bitmap, srccolors, dstcolors, count, ignore_alpha, swap) {
-    return library.FreeImage_ApplyColorMapping(bitmap, srccolors, dstcolors, count, ignore_alpha, swap);
+  applyColorMapping: function (bitmap, srcColors, dstColors, count, ignoreAlpha, swap) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(srcColors, "srcColors");
+    assertNonNullObject(dstColors, "dstColors");
+    assertUnsignedInteger(count, "count");
+    assertBoolean(ignoreAlpha, "ignoreAlpha");
+    assertBoolean(swap, "swap");
+    return library.FreeImage_ApplyColorMapping(bitmap, srcColors, dstColors, count, ignoreAlpha ? TRUE : FALSE, swap ? TRUE : FALSE);
   },
-  // unsigned FreeImage_SwapColors(FIBITMAP *bitmap, RGBQUAD *color_a, RGBQUAD *color_b, BOOL ignore_alpha);
-  swapColors: function (bitmap, color_a, color_b, ignore_alpha) {
-    return library.FreeImage_SwapColors(bitmap, color_a, color_b, ignore_alpha);
+  swapColors: function (bitmap, colorA, colorB, ignoreAlpha) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(colorA, "colorA");
+    assertNonNullObject(colorB, "colorB");
+    assertBoolean(ignoreAlpha, "ignoreAlpha");
+    return library.FreeImage_SwapColors(bitmap, colorA, colorB, ignoreAlpha ? TRUE : FALSE);
   },
-  // unsigned FreeImage_ApplyPaletteIndexMapping(FIBITMAP *bitmap, BYTE *srcindices,  BYTE *dstindices, unsigned count, BOOL swap);
-  applyPaletteIndexMapping: function (bitmap, srcindices, dstindices, count, swap) {
-    return library.FreeImage_ApplyPaletteIndexMapping(bitmap, srcindices, dstindices, count, swap);
+  applyPaletteIndexMapping: function (bitmap, srcIndices, dstIndices, count, swap) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(srcIndices, "srcIndices");
+    assertNonNullObject(dstIndices, "dstIndices");
+    assertUnsignedInteger(count, "count");
+    assertBoolean(swap, "swap");
+    return library.FreeImage_ApplyPaletteIndexMapping(bitmap, srcIndices, dstIndices, count, swap ? TRUE : FALSE);
   },
-  // unsigned FreeImage_SwapPaletteIndices(FIBITMAP *bitmap, BYTE *index_a, BYTE *index_b);
-  swapPaletteIndices: function (bitmap, index_a, index_b) {
-    return library.FreeImage_SwapPaletteIndices(bitmap, index_a, index_b);
+  swapPaletteIndices: function (bitmap, indexA, indexB) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(indexA, "indexA");
+    assertNonNullObject(indexB, "indexB");
+    return library.FreeImage_SwapPaletteIndices(bitmap, indexA, indexB);
   },
   // Channel processing
   // FIBITMAP *FreeImage_GetChannel(FIBITMAP *bitmap, FREE_IMAGE_COLOR_CHANNEL channel);
