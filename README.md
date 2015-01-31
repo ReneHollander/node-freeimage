@@ -1,7 +1,7 @@
 node-freeimage
 ==============
 
-Node.js wrapper around [FreeImage](http://freeimage.sourceforge.net/). This package uses [FFI](https://www.npmjs.com/package/node-ffi), so the FreeImage dynamic library must be installed, see below. If you have any problems, questions or suggestions, please feel free to [contact me](http://stackoverflow.com/users/600135/kol).
+Node.js wrapper around [FreeImage](http://freeimage.sourceforge.net/). This package uses [FFI](https://www.npmjs.com/package/node-ffi), so the FreeImage dynamic library must be installed, see below. If you have any problems, questions or suggestions, please feel free to [contact me](<mailto:kocsis1977@gmail.com>).
 
 
 ## Usage
