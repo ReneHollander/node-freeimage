@@ -3,8 +3,6 @@ node-freeimage
 
 Node.js wrapper around [FreeImage](http://freeimage.sourceforge.net/). This package uses [FFI](https://www.npmjs.com/package/node-ffi), so the FreeImage dynamic library must be installed, see below. If you have any problems, questions or suggestions, please feel free to [contact me](http://stackoverflow.com/users/600135/kol).
 
-**THIS IS WORK IN PROGRESS! MY PURPOSE IS TO ADD ASSERTIONS, UNIT TESTS, AND EXAMPLES FOR EVERY SUPPORTED FUNCTION BEFORE THE END OF JANUARY, 2015.**
-
 
 ## Usage
 
@@ -84,6 +82,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 0.16.0 Added assertions and unit tests for metadata helper functions.
 * 0.17.0 Added assertions and unit tests for rotation and flipping functions.
 * 0.18.0 Added assertions and unit tests for up- and downsampling functions.
+* 0.19.0 Added assertions and unit tests for color manipulation functions.
 
 
 ## JavaScript version of supported FreeImage functions
