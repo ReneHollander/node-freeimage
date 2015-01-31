@@ -83,6 +83,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 0.17.0 Added assertions and unit tests for rotation and flipping functions.
 * 0.18.0 Added assertions and unit tests for up- and downsampling functions.
 * 0.19.0 Added assertions and unit tests for color manipulation functions.
+* 0.20.0 Added assertions and unit tests for channel processing functions.
 
 
 ## JavaScript version of supported FreeImage functions
