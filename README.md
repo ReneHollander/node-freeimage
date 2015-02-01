@@ -91,6 +91,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 0.20.0 Added assertions and unit tests for channel processing functions.
 * 0.21.0 Added assertions and unit tests for copy, paste, and composite routines.
 * 0.22.0 Added assertions and unit tests for JPEG transformation functions.
+* 0.23.0 Added assertions and unit tests for background filling functions.
 
 
 ## JavaScript version of supported FreeImage functions
