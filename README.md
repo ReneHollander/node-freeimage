@@ -36,9 +36,14 @@ After compilation succeeds, copy `FreeImage.dll` from the `Release` directory in
 
 #### b) Linux
 
-Install the FreeImage development package. For example, on Ubuntu:
+Download the [source distribution](http://freeimage.sourceforge.net/download.html), and compile it using GCC:
 
-    sudo apt-get install libfreeimage-dev
+    make
+
+After successful compilation, install it:
+
+    sudo make install
+ 
     
 ### 2. Install `node-freeimage`     
 
