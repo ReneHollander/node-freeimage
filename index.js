@@ -322,6 +322,19 @@ function assertColorChannel(arg, argName) {
   );
 }
 
+function assertJpegOperation(arg, argName) {
+  var p;
+  for (p in module.exports.JPEG_OPERATION) {
+    if (arg === module.exports.JPEG_OPERATION[p]) {
+      return;
+    }
+  }
+  throw new Error(
+    "Argument \"" + argName + "\" " + 
+    "must be a JPEG operation (" + arg + ")."
+  );
+}
+
 libraryName = os.platform().indexOf("win") >= 0 ? "FreeImage" : "libfreeimage";
 library = new ffi.Library(libraryName, {
   // BITMAP FUNCTION REFERENCE
@@ -494,6 +507,7 @@ library = new ffi.Library(libraryName, {
   // JPEG lossless transformations
   "FreeImage_JPEGTransform": [BOOL, [STRING, STRING, LONG, BOOL]],
   "FreeImage_JPEGCrop": [BOOL, [STRING, STRING, LONG, LONG, LONG, LONG]],
+  "FreeImage_JPEGTransformCombined": [BOOL, [STRING, STRING, LONG, PLONG, PLONG, PLONG, PLONG, BOOL]],
   // Background filling
   "FreeImage_FillBackground": [BOOL, [PBITMAP, PVOID, LONG]],
   "FreeImage_EnlargeCanvas": [PBITMAP, [PBITMAP, LONG, LONG, LONG, LONG, PVOID, LONG]],
@@ -1691,21 +1705,35 @@ module.exports = {
     assertNonNullObject(bitmap, "bitmap");
     return library.FreeImage_PreMultiplyWithAlpha(bitmap) === TRUE;
   },
-  
-  
-  
   // JPEG lossless transformations
-  // BOOL FreeImage_JPEGTransform(const char *src_file, const char *dst_file, FREE_IMAGE_OPERATION operation, BOOL perfect FI_DEFAULT(TRUE));
-  jpegTransform: function (src_file, dst_file, operation, perfect) {
-    return library.FreeImage_JPEGTransform(src_file, dst_file, operation, perfect);
+  jpegTransform: function (srcFileName, dstFileName, jpegOperation, perfect) {
+    perfect = setToDefaultIfUndefined(perfect, true);
+    assertNonEmptyString(srcFileName, "srcFileName");
+    assertNonEmptyString(dstFileName, "dstFileName");
+    assertJpegOperation(jpegOperation, "jpegOperation");
+    assertBoolean(perfect, "perfect");
+    return library.FreeImage_JPEGTransform(srcFileName, dstFileName, jpegOperation, perfect ? TRUE : FALSE) === TRUE;
   },
-  // BOOL FreeImage_JPEGCrop(const char *src_file, const char *dst_file, int left, int top, int right, int bottom);
-  jpegCrop: function (src_file, dst_file, left, top, right, bottom) {
-    return library.FreeImage_JPEGCrop(src_file, dst_file, left, top, right, bottom);
+  jpegCrop: function (srcFileName, dstFileName, left, top, right, bottom) {
+    assertNonEmptyString(srcFileName, "srcFileName");
+    assertNonEmptyString(dstFileName, "dstFileName");
+    assertInteger(left, "left");  
+    assertInteger(top, "top");  
+    assertInteger(right, "right");  
+    assertInteger(bottom, "bottom");  
+    return library.FreeImage_JPEGCrop(srcFileName, dstFileName, left, top, right, bottom) === TRUE;
   },
-  // BOOL FreeImage_JPEGTransformCombined(const char *src_file, const char *dst_file, FREE_IMAGE_OPERATION operation, int* left, int* top, int* right, int* bottom, BOOL perfect FI_DEFAULT(TRUE));
-  jpegTransformCombined: function (src_file, dst_file, operation, left, top, right, bottom, perfect) {
-    return library.FreeImage_JPEGTransformCombined(src_file, dst_file, operation, left, top, right, bottom, perfect);
+  jpegTransformCombined: function (srcFileName, dstFileName, jpegOperation, left, top, right, bottom, perfect) {
+    perfect = setToDefaultIfUndefined(perfect, true);
+    assertNonEmptyString(srcFileName, "srcFileName");
+    assertNonEmptyString(dstFileName, "dstFileName");
+    assertJpegOperation(jpegOperation, "jpegOperation");
+    assertObject(left, "left");  
+    assertObject(top, "top");  
+    assertObject(right, "right");  
+    assertObject(bottom, "bottom");
+    assertBoolean(perfect, "perfect");
+    return library.FreeImage_JPEGTransformCombined(srcFileName, dstFileName, jpegOperation, left, top, right, bottom, perfect ? TRUE : FALSE) === TRUE;
   },
   
   

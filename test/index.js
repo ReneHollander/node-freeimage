@@ -173,7 +173,8 @@ var should = require("chai").should(),
       count: TEST_BITMAP_06_COMMENT.length + 1,
       length: TEST_BITMAP_06_COMMENT.length + 1,
       value: TEST_BITMAP_06_COMMENT
-    };
+    },
+    TRANSFORMED_TEST_BITMAP_06_FILENAME = __dirname + "/test-06-transformed.jpg";
     
 describe("BITMAP FUNCTION REFERENCE", function () {    
   describe("General functions", function () {
@@ -1974,6 +1975,30 @@ describe("TOOLKIT FUNCTION REFERENCE", function () {
   });
 
   describe("JPEG lossless transformations", function () {
+    describe("fi.jpegTransform", function () {
+      it("should transform a JPEG bitmap", function () {
+        fi.jpegTransform(TEST_BITMAP_06_FILENAME, TRANSFORMED_TEST_BITMAP_06_FILENAME, fi.JPEG_OPERATION.ROTATE_90).should.be.true();
+        fs.unlinkSync(TRANSFORMED_TEST_BITMAP_06_FILENAME);
+      });
+    });
+
+    describe("fi.jpegCrop", function () {
+      it("should crop a JPEG bitmap", function () {
+        fi.jpegCrop(TEST_BITMAP_06_FILENAME, TRANSFORMED_TEST_BITMAP_06_FILENAME, 0, 0, 8, 8).should.be.true();
+        fs.unlinkSync(TRANSFORMED_TEST_BITMAP_06_FILENAME);
+      });
+    });
+
+    describe("fi.jpegTransformCombined", function () {
+      it("should transform and crop a JPEG bitmap", function () {
+        var left = ref.alloc(INT, 0),
+            top = ref.alloc(INT, 0),
+            right = ref.alloc(INT, 8),
+            bottom = ref.alloc(INT, 8);
+        fi.jpegTransformCombined(TEST_BITMAP_06_FILENAME, TRANSFORMED_TEST_BITMAP_06_FILENAME, fi.JPEG_OPERATION.ROTATE_90, left, top, right, bottom).should.be.true();
+        fs.unlinkSync(TRANSFORMED_TEST_BITMAP_06_FILENAME);
+      });
+    });
   });
 
   describe("Background filling", function () {
