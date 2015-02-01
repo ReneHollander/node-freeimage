@@ -1660,25 +1660,36 @@ module.exports = {
     assertColorChannel(channel, "channel");
     return library.FreeImage_SetComplexChannel(bitmap, channelBitmap, channel) === TRUE;
   },
-  
-  
-  
   // Copy / Paste / Composite routines
-  // FIBITMAP *FreeImage_Copy(FIBITMAP *bitmap, int left, int top, int right, int bottom);
   copy: function (bitmap, left, top, right, bottom) {
+    assertNonNullObject(bitmap, "bitmap");
+    assertInteger(left, "left");  
+    assertInteger(top, "top");  
+    assertInteger(right, "right");  
+    assertInteger(bottom, "bottom");  
     return library.FreeImage_Copy(bitmap, left, top, right, bottom);
   },
-  // BOOL FreeImage_Paste(FIBITMAP *dst, FIBITMAP *src, int left, int top, int alpha);
-  paste: function (dst, src, left, top, alpha) {
-    return library.FreeImage_Paste(dst, src, left, top, alpha);
+  paste: function (dstBitmap, srcBitmap, left, top, alpha) {
+    assertNonNullObject(dstBitmap, "dstBitmap");
+    assertNonNullObject(srcBitmap, "srcBitmap");
+    assertInteger(left, "left");  
+    assertInteger(top, "top");  
+    assertInteger(alpha, "alpha");
+    return library.FreeImage_Paste(dstBitmap, srcBitmap, left, top, alpha) === TRUE;
   },
-  // FIBITMAP *FreeImage_Composite(FIBITMAP *fg, BOOL useFileBkg FI_DEFAULT(FALSE), RGBQUAD *appBkColor FI_DEFAULT(NULL), FIBITMAP *bg FI_DEFAULT(NULL));
-  composite: function (fg, useFileBkg, appBkColor, bg) {
-    return library.FreeImage_Composite(fg, useFileBkg, appBkColor, bg);
+  composite: function (bitmap, useOwnBackgroundColor, backgroundColorToUse, backgroundBitmapToUse) {
+    useOwnBackgroundColor = setToDefaultIfUndefined(useOwnBackgroundColor, false);
+    backgroundColorToUse = setToDefaultIfUndefined(backgroundColorToUse, ref.NULL);
+    backgroundBitmapToUse = setToDefaultIfUndefined(backgroundBitmapToUse, ref.NULL);
+    assertNonNullObject(bitmap, "bitmap");
+    assertBoolean(useOwnBackgroundColor, "useOwnBackgroundColor");
+    assertObject(backgroundColorToUse, "backgroundColorToUse");
+    assertObject(backgroundBitmapToUse, "backgroundBitmapToUse")
+    return library.FreeImage_Composite(bitmap, useOwnBackgroundColor ? TRUE : FALSE, backgroundColorToUse, backgroundBitmapToUse);
   },
-  // BOOL FreeImage_PreMultiplyWithAlpha(FIBITMAP *bitmap);
   preMultiplyWithAlpha: function (bitmap) {
-    return library.FreeImage_PreMultiplyWithAlpha(bitmap);
+    assertNonNullObject(bitmap, "bitmap");
+    return library.FreeImage_PreMultiplyWithAlpha(bitmap) === TRUE;
   },
   
   

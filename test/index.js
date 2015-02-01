@@ -1938,6 +1938,39 @@ describe("TOOLKIT FUNCTION REFERENCE", function () {
   });
 
   describe("Copy / Paste / Composite routines", function () {
+    describe("fi.(copy|paste)", function () {
+      it("should copy/paste any part of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmapPart = null;
+        bitmap.isNull().should.be.false();
+        bitmapPart = fi.copy(bitmap, 4, 4, 12, 12);
+        bitmapPart.isNull().should.be.false();
+        fi.paste(bitmap, bitmapPart, 2, 2, 128).should.be.true();
+        fi.unload(bitmapPart);
+        fi.unload(bitmap);
+      });
+    });
+    
+    describe("fi.composite", function () {
+      it("should composite a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.composite(bitmap, false, FUCHSIA.ref());
+        bitmap2.isNull().should.be.false();
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+  
+    describe("fi.preMultiplyWithAlpha", function () {
+      it("should premultiply the RGB channels of a 32-bit bitmap with its A channel", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+        bitmap.isNull().should.be.false();
+        fi.preMultiplyWithAlpha(bitmap).should.be.true();
+        fi.unload(bitmap);
+      });
+    });
   });
 
   describe("JPEG lossless transformations", function () {
