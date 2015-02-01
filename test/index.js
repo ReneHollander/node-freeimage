@@ -11,6 +11,7 @@ var should = require("chai").should(),
     BYTE = ref.types.uint8,
     INT = ref.types.int32,
     DWORD = ref.types.uint32,
+    FLOAT = ref.types.float,
     DOUBLE = ref.types.double,
     PTAG = PVOID,
     RGBQUAD = RefStruct({
@@ -28,6 +29,7 @@ var should = require("chai").should(),
     ByteArray = RefArray(BYTE),
     IntArray = RefArray(INT),
     DWordArray = RefArray(DWORD),
+    FloatArray = RefArray(FLOAT),
     DoubleArray = RefArray(DOUBLE),
     RgbQuadArray = RefArray(RGBQUAD),
     ComplexArray = RefArray(COMPLEX),
@@ -90,6 +92,12 @@ var should = require("chai").should(),
     TEMP_BITMAP_03_HEIGHT = 1,
     TEMP_BITMAP_03_BPP = 128,
     TEMP_BITMAP_03_PITCH = Math.ceil((TEMP_BITMAP_03_WIDTH * TEMP_BITMAP_03_BPP / BYTES_TO_BITS) / DWORD_SIZE) * DWORD_SIZE,
+    // Properties of temporary bitmap #4
+    TEMP_BITMAP_04_IMAGE_TYPE = fi.IMAGE_TYPE.FLOAT,
+    TEMP_BITMAP_04_WIDTH = 64,
+    TEMP_BITMAP_04_HEIGHT = 32,
+    TEMP_BITMAP_04_BPP = 32,
+    TEMP_BITMAP_04_PITCH = Math.ceil((TEMP_BITMAP_04_WIDTH * TEMP_BITMAP_04_BPP / BYTES_TO_BITS) / DWORD_SIZE) * DWORD_SIZE,
     // Properties of test bitmap #1
     TEST_BITMAP_01_FILENAME = __dirname + "/test-01.png",
     TEST_BITMAP_01_IMAGE_TYPE = fi.IMAGE_TYPE.BITMAP,
@@ -2041,5 +2049,37 @@ describe("TOOLKIT FUNCTION REFERENCE", function () {
   });
 
   describe("Miscellaneous algorithms", function () {
+    describe("fi.multigridPoissonSolver", function () {
+      it("should solve the Poisson equation", function () {
+        var laplacian = fi.allocateT(TEMP_BITMAP_04_IMAGE_TYPE, TEMP_BITMAP_04_WIDTH, TEMP_BITMAP_04_HEIGHT, TEMP_BITMAP_04_BPP),
+            i = -1,
+            j = -1, 
+            hi = TEMP_BITMAP_04_HEIGHT / 2,
+            hj1 = TEMP_BITMAP_04_WIDTH / 4,
+            hj2 = 3 * TEMP_BITMAP_04_WIDTH / 4,
+            d = TEMP_BITMAP_04_WIDTH / 16,
+            ci = false,
+            cj1 = false,
+            cj2 = false,
+            scanLine = null,
+            scanLine2 = null,
+            potential = null;
+        laplacian.isNull().should.be.false();
+        for (i = 0; i < TEMP_BITMAP_04_HEIGHT; i += 1) {
+          scanLine = fi.getScanLine(laplacian, i);
+          scanLine2 = new FloatArray(ref.reinterpret(scanLine, TEMP_BITMAP_04_PITCH, 0));
+          ci = hi - d <= i && i < hi + d;
+          for (j = 0; j < TEMP_BITMAP_04_WIDTH; j += 1) {
+            cj1 = hj1 - d <= j && j < hj1 + d;
+            cj2 = hj2 - d <= j && j < hj2 + d;
+            scanLine2[j] = ci && cj1 ? -1 : ci && cj2 ? +1 : 0;
+          }
+        }
+        potential = fi.multigridPoissonSolver(laplacian);
+        potential.isNull().should.be.false();
+        fi.unload(potential);
+        fi.unload(laplacian);
+      });
+    }); 
   });
 });

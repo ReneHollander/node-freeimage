@@ -1790,8 +1790,10 @@ module.exports = {
     return library.FreeImage_AllocateExT(type, width, height, bpp, color, options, palette, redMask, greenMask, blueMask);
   },
   // Miscellaneous algorithms
-  // FIBITMAP *FreeImage_MultigridPoissonSolver(FIBITMAP *Laplacian, int ncycle FI_DEFAULT(3));
-  multigridPoissonSolver: function (Laplacian, ncycle) {
-    return library.FreeImage_MultigridPoissonSolver(Laplacian, ncycle);
+  multigridPoissonSolver: function (laplacian, nCycles) {
+    nCycles = setToDefaultIfUndefined(nCycles, 3);
+    assertNonNullObject(laplacian, "laplacian");
+    assertInteger(nCycles, "nCycles");
+    return library.FreeImage_MultigridPoissonSolver(laplacian, nCycles);
   }
 }
