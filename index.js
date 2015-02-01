@@ -1735,29 +1735,60 @@ module.exports = {
     assertBoolean(perfect, "perfect");
     return library.FreeImage_JPEGTransformCombined(srcFileName, dstFileName, jpegOperation, left, top, right, bottom, perfect ? TRUE : FALSE) === TRUE;
   },
-  
-  
-  
   // Background filling
-  // BOOL FreeImage_FillBackground(FIBITMAP *bitmap, const void *color, int options FI_DEFAULT(0));
   fillBackground: function (bitmap, color, options) {
-    return library.FreeImage_FillBackground(bitmap, color, options);
+    options = setToDefaultIfUndefined(options, 0);
+    assertNonNullObject(bitmap, "bitmap");
+    assertNonNullObject(color, "color");
+    assertInteger(options, "options");
+    return library.FreeImage_FillBackground(bitmap, color, options) === TRUE;
   },
-  // FIBITMAP *FreeImage_EnlargeCanvas(FIBITMAP *src, int left, int top, int right, int bottom, const void *color, int options FI_DEFAULT(0));
-  enlargeCanvas: function (src, left, top, right, bottom, color, options) {
-    return library.FreeImage_EnlargeCanvas(src, left, top, right, bottom, color, options);
+  enlargeCanvas: function (bitmap, left, top, right, bottom, color, options) {
+    options = setToDefaultIfUndefined(options, 0);
+    assertNonNullObject(bitmap, "bitmap");
+    assertInteger(left, "left");
+    assertInteger(top, "top");
+    assertInteger(right, "right");
+    assertInteger(bottom, "bottom");
+    assertNonNullObject(color, "color");
+    assertInteger(options, "options");
+    return library.FreeImage_EnlargeCanvas(bitmap, left, top, right, bottom, color, options);
   },
-  // FIBITMAP *FreeImage_AllocateEx(int width, int height, int bpp, const RGBQUAD *color, int options FI_DEFAULT(0), const RGBQUAD *palette FI_DEFAULT(NULL), unsigned red_mask FI_DEFAULT(0), unsigned green_mask FI_DEFAULT(0), unsigned blue_mask FI_DEFAULT(0));
-  allocateEx: function (width, height, bpp, color, options, palette, red_mask, green_mask, blue_mask) {
-    return library.FreeImage_AllocateEx(width, height, bpp, color, options, palette, red_mask, green_mask, blue_mask);
+  allocateEx: function (width, height, bpp, color, options, palette, redMask, greenMask, blueMask) {
+    options = setToDefaultIfUndefined(options, 0);
+    palette = setToDefaultIfUndefined(palette, ref.NULL);
+    redMask = setToDefaultIfUndefined(redMask, 0);
+    greenMask = setToDefaultIfUndefined(greenMask, 0);
+    blueMask = setToDefaultIfUndefined(blueMask, 0);
+    assertInteger(width, "width");
+    assertInteger(height, "height");
+    assertInteger(bpp, "bpp");
+    assertNonNullObject(color, "color");
+    assertInteger(options, "options");
+    assertObject(palette, "palette");
+    assertUnsignedInteger(redMask, "redMask");
+    assertUnsignedInteger(greenMask, "greenMask");
+    assertUnsignedInteger(blueMask, "blueMask");
+    return library.FreeImage_AllocateEx(width, height, bpp, color, options, palette, redMask, greenMask, blueMask);
   },
-  // FIBITMAP *FreeImage_AllocateExT(FREE_IMAGE_TYPE type, int width, int height, int bpp, const void *color, int options FI_DEFAULT(0), const RGBQUAD *palette FI_DEFAULT(NULL), unsigned red_mask FI_DEFAULT(0), unsigned green_mask FI_DEFAULT(0), unsigned blue_mask FI_DEFAULT(0));
-  allocateExT: function (type, width, height, bpp, color, options, palette, red_mask, green_mask, blue_mask) {
-    return library.FreeImage_AllocateExT(type, width, height, bpp, color, options, palette, red_mask, green_mask, blue_mask);
+  allocateExT: function (type, width, height, bpp, color, options, palette, redMask, greenMask, blueMask) {
+    options = setToDefaultIfUndefined(options, 0);
+    palette = setToDefaultIfUndefined(palette, ref.NULL);
+    redMask = setToDefaultIfUndefined(redMask, 0);
+    greenMask = setToDefaultIfUndefined(greenMask, 0);
+    blueMask = setToDefaultIfUndefined(blueMask, 0);
+    assertImageType(type, "type");
+    assertInteger(width, "width");
+    assertInteger(height, "height");
+    assertInteger(bpp, "bpp");
+    assertNonNullObject(color, "color");
+    assertInteger(options, "options");
+    assertObject(palette, "palette");
+    assertUnsignedInteger(redMask, "redMask");
+    assertUnsignedInteger(greenMask, "greenMask");
+    assertUnsignedInteger(blueMask, "blueMask");
+    return library.FreeImage_AllocateExT(type, width, height, bpp, color, options, palette, redMask, greenMask, blueMask);
   },
-  
-  
-  
   // Miscellaneous algorithms
   // FIBITMAP *FreeImage_MultigridPoissonSolver(FIBITMAP *Laplacian, int ncycle FI_DEFAULT(3));
   multigridPoissonSolver: function (Laplacian, ncycle) {

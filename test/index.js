@@ -2002,6 +2002,42 @@ describe("TOOLKIT FUNCTION REFERENCE", function () {
   });
 
   describe("Background filling", function () {
+    describe("fi.fillBackground", function () {
+      it("should set the pixels of a bitmap to the given color", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+        bitmap.isNull().should.be.false();
+        fi.fillBackground(bitmap, FUCHSIA.ref()).should.be.true();
+        fi.unload(bitmap);
+      });
+    });
+  
+    describe("fi.enlargeCanvas", function () {
+      it("should change the size of a bitmap", function () {
+        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+            bitmap2 = null;
+        bitmap.isNull().should.be.false();
+        bitmap2 = fi.enlargeCanvas(bitmap, 8, 8, 8, 8, FUCHSIA.ref());
+        bitmap2.isNull().should.be.false();
+        fi.unload(bitmap2);
+        fi.unload(bitmap);
+      });
+    });
+  
+    describe("fi.allocateEx", function () {
+      it("should create a bitmap and fill it with the given color", function () {
+        var bitmap = fi.allocateEx(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP, FUCHSIA.ref());
+        bitmap.isNull().should.be.false();
+        fi.unload(bitmap);
+      });
+    }); 
+  
+    describe("fi.allocateExT", function () {
+      it("should create a bitmap and fill it with the given color", function () {
+        var bitmap = fi.allocateExT(TEMP_BITMAP_01_IMAGE_TYPE, TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP, FUCHSIA.ref());
+        bitmap.isNull().should.be.false();
+        fi.unload(bitmap);
+      });
+    }); 
   });
 
   describe("Miscellaneous algorithms", function () {
