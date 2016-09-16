@@ -57,12 +57,12 @@ var ref = require("ref"),
     PRGBTRIPLE = ref.refType(RGBTRIPLE),
     BITMAPINFOHEADER = RefStruct({
       biSize: DWORD,
-      biWidth: LONG, 
+      biWidth: LONG,
       biHeight: LONG,
       biPlanes: WORD,
       biBitCount: WORD,
       biCompression: DWORD,
-      biSizeImage: DWORD, 
+      biSizeImage: DWORD,
       biXPelsPerMeter: LONG,
       biYPelsPerMeter: LONG,
       biClrUsed: DWORD,
@@ -70,7 +70,7 @@ var ref = require("ref"),
     }),
     PBITMAPINFOHEADER = ref.refType(BITMAPINFOHEADER),
     BITMAPINFO = RefStruct({
-      bmiHeader: BITMAPINFOHEADER, 
+      bmiHeader: BITMAPINFOHEADER,
       bmiColors: RefArray(RGBQUAD)
     }),
     PBITMAPINFO = ref.refType(BITMAPINFO),
@@ -114,7 +114,7 @@ var ref = require("ref"),
     // Library
     libraryName = "",
     library = null;
-    
+
 function setToDefaultIfUndefined(arg, argDefault) {
   return typeof arg === "undefined" ? argDefault : arg;
 }
@@ -122,52 +122,52 @@ function setToDefaultIfUndefined(arg, argDefault) {
 function assertBoolean(arg, argName) {
   if (typeof arg !== "boolean") {
     throw new Error(
-      "Argument \"" + argName + "\" " + 
+      "Argument \"" + argName + "\" " +
       "must be a boolean (" + arg + ")."
     );
   }
-}    
+}
 
 function assertByte(arg, argName) {
   if (typeof arg !== "number" || arg % 1 !== 0 || arg < 0 || 255 < arg) {
     throw new Error(
-      "Argument \"" + argName + "\" " + 
+      "Argument \"" + argName + "\" " +
       "must be a byte (" + arg + ")."
     );
   }
-}    
+}
 
 function assertInteger(arg, argName) {
   if (typeof arg !== "number" || arg % 1 !== 0) {
     throw new Error(
-      "Argument \"" + argName + "\" " + 
+      "Argument \"" + argName + "\" " +
       "must be an integer (" + arg + ")."
     );
   }
-}    
+}
 
 function assertUnsignedInteger(arg, argName) {
   if (typeof arg !== "number" || arg % 1 !== 0 || arg < 0) {
     throw new Error(
-      "Argument \"" + argName + "\" " + 
+      "Argument \"" + argName + "\" " +
       "must be an unsigned integer (" + arg + ")."
     );
   }
-}    
+}
 
 function assertDouble(arg, argName) {
   if (typeof arg !== "number") {
     throw new Error(
-      "Argument \"" + argName + "\" " + 
+      "Argument \"" + argName + "\" " +
       "must be a double-precision floating-point number (" + arg + ")."
     );
   }
-}    
+}
 
 function assertNonEmptyString(arg, argName) {
   if (typeof arg !== "string" || arg.length === 0) {
     throw new Error(
-      "Argument \"" + argName + "\" " + 
+      "Argument \"" + argName + "\" " +
       "must be a non-empty string (" + arg + ")."
     );
   }
@@ -176,7 +176,7 @@ function assertNonEmptyString(arg, argName) {
 function assertObject(arg, argName) {
   if (typeof arg !== "object") {
     throw new Error(
-      "Argument \"" + argName + "\" " + 
+      "Argument \"" + argName + "\" " +
       "must be an object (" + arg + ")."
     );
   }
@@ -184,13 +184,13 @@ function assertObject(arg, argName) {
 
 function assertNonNullObject(arg, argName) {
   if (
-    typeof arg !== "object" || 
+    typeof arg !== "object" ||
     arg === null ||
-    typeof arg.isNull !== "function" || 
+    typeof arg.isNull !== "function" ||
     arg.isNull()
   ) {
     throw new Error(
-      "Argument \"" + argName + "\" " + 
+      "Argument \"" + argName + "\" " +
       "must be a non-null object (" + arg + ")."
     );
   }
@@ -199,7 +199,7 @@ function assertNonNullObject(arg, argName) {
 function assertNullObject(arg, argName) {
   if (arg !== ref.NULL) {
     throw new Error(
-      "Argument \"" + argName + "\" " + 
+      "Argument \"" + argName + "\" " +
       "must be a null object (" + arg + ")."
     );
   }
@@ -213,7 +213,7 @@ function assertImageType(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be an image type (" + arg + ")."
   );
 }
@@ -226,7 +226,7 @@ function assertImageFormat(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be an image format (" + arg + ")."
   );
 }
@@ -239,7 +239,7 @@ function assertQuantization(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be a quantization algorithm (" + arg + ")."
   );
 }
@@ -252,7 +252,7 @@ function assertDithering(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be a dithering algorithm (" + arg + ")."
   );
 }
@@ -265,7 +265,7 @@ function assertToneMappingOperation(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be a tone mapping operation (" + arg + ")."
   );
 }
@@ -278,7 +278,7 @@ function assertMetadataType(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be a metadata type (" + arg + ")."
   );
 }
@@ -291,7 +291,7 @@ function assertMetadataModel(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be a metadata model (" + arg + ")."
   );
 }
@@ -304,7 +304,7 @@ function assertFilter(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be a filter (" + arg + ")."
   );
 }
@@ -317,7 +317,7 @@ function assertColorChannel(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be a color channel (" + arg + ")."
   );
 }
@@ -330,7 +330,7 @@ function assertJpegOperation(arg, argName) {
     }
   }
   throw new Error(
-    "Argument \"" + argName + "\" " + 
+    "Argument \"" + argName + "\" " +
     "must be a JPEG operation (" + arg + ")."
   );
 }
@@ -507,7 +507,7 @@ library = new ffi.Library(libraryName, {
   // JPEG lossless transformations
   "FreeImage_JPEGTransform": [BOOL, [STRING, STRING, LONG, BOOL]],
   "FreeImage_JPEGCrop": [BOOL, [STRING, STRING, LONG, LONG, LONG, LONG]],
-  "FreeImage_JPEGTransformCombined": [BOOL, [STRING, STRING, LONG, PLONG, PLONG, PLONG, PLONG, BOOL]],
+  //"FreeImage_JPEGTransformCombined": [BOOL, [STRING, STRING, LONG, PLONG, PLONG, PLONG, PLONG, BOOL]],
   // Background filling
   "FreeImage_FillBackground": [BOOL, [PBITMAP, PVOID, LONG]],
   "FreeImage_EnlargeCanvas": [PBITMAP, [PBITMAP, LONG, LONG, LONG, LONG, PVOID, LONG]],
@@ -516,7 +516,7 @@ library = new ffi.Library(libraryName, {
   // Miscellaneous algorithms
   "FreeImage_MultigridPoissonSolver": [PBITMAP, [PBITMAP, LONG]]
 });
-  
+
 module.exports = {
   RGBA: {
     RED: 2,
@@ -891,7 +891,7 @@ module.exports = {
     assertUnsignedInteger(greenMask, "greenMask");
     assertUnsignedInteger(blueMask, "blueMask");
     return library.FreeImage_Allocate(
-      width, height, bpp, 
+      width, height, bpp,
       redMask, greenMask, blueMask
     );
   },
@@ -909,7 +909,7 @@ module.exports = {
     assertUnsignedInteger(blueMask, "blueMask");
     return library.FreeImage_AllocateT(
       type,
-      width, height, bpp, 
+      width, height, bpp,
       redMask, greenMask, blueMask
     );
   },
@@ -1348,7 +1348,7 @@ module.exports = {
   getLockedPageNumbers: function (multiBitmap, lockedPageIndexes, lockedPageCount) {
     assertNonNullObject(multiBitmap, "multiBitmap");
     assertObject(lockedPageIndexes, "lockedPageIndexes");
-    assertObject(lockedPageCount, "lockedPageCount");  
+    assertObject(lockedPageCount, "lockedPageCount");
     return library.FreeImage_GetLockedPageNumbers(multiBitmap, lockedPageIndexes, lockedPageCount) === TRUE;
   },
   // Compression functions
@@ -1386,7 +1386,7 @@ module.exports = {
     assertUnsignedInteger(sourceSize, "sourceSize");
     return library.FreeImage_ZLibCRC32(crc, source, sourceSize);
   },
-  // Helper functions  
+  // Helper functions
   isLittleEndian: function () {
     return library.FreeImage_IsLittleEndian() === TRUE;
   },
@@ -1677,17 +1677,17 @@ module.exports = {
   // Copy / Paste / Composite routines
   copy: function (bitmap, left, top, right, bottom) {
     assertNonNullObject(bitmap, "bitmap");
-    assertInteger(left, "left");  
-    assertInteger(top, "top");  
-    assertInteger(right, "right");  
-    assertInteger(bottom, "bottom");  
+    assertInteger(left, "left");
+    assertInteger(top, "top");
+    assertInteger(right, "right");
+    assertInteger(bottom, "bottom");
     return library.FreeImage_Copy(bitmap, left, top, right, bottom);
   },
   paste: function (dstBitmap, srcBitmap, left, top, alpha) {
     assertNonNullObject(dstBitmap, "dstBitmap");
     assertNonNullObject(srcBitmap, "srcBitmap");
-    assertInteger(left, "left");  
-    assertInteger(top, "top");  
+    assertInteger(left, "left");
+    assertInteger(top, "top");
     assertInteger(alpha, "alpha");
     return library.FreeImage_Paste(dstBitmap, srcBitmap, left, top, alpha) === TRUE;
   },
@@ -1717,24 +1717,24 @@ module.exports = {
   jpegCrop: function (srcFileName, dstFileName, left, top, right, bottom) {
     assertNonEmptyString(srcFileName, "srcFileName");
     assertNonEmptyString(dstFileName, "dstFileName");
-    assertInteger(left, "left");  
-    assertInteger(top, "top");  
-    assertInteger(right, "right");  
-    assertInteger(bottom, "bottom");  
+    assertInteger(left, "left");
+    assertInteger(top, "top");
+    assertInteger(right, "right");
+    assertInteger(bottom, "bottom");
     return library.FreeImage_JPEGCrop(srcFileName, dstFileName, left, top, right, bottom) === TRUE;
   },
-  jpegTransformCombined: function (srcFileName, dstFileName, jpegOperation, left, top, right, bottom, perfect) {
-    perfect = setToDefaultIfUndefined(perfect, true);
-    assertNonEmptyString(srcFileName, "srcFileName");
-    assertNonEmptyString(dstFileName, "dstFileName");
-    assertJpegOperation(jpegOperation, "jpegOperation");
-    assertObject(left, "left");  
-    assertObject(top, "top");  
-    assertObject(right, "right");  
-    assertObject(bottom, "bottom");
-    assertBoolean(perfect, "perfect");
-    return library.FreeImage_JPEGTransformCombined(srcFileName, dstFileName, jpegOperation, left, top, right, bottom, perfect ? TRUE : FALSE) === TRUE;
-  },
+  //jpegTransformCombined: function (srcFileName, dstFileName, jpegOperation, left, top, right, bottom, perfect) {
+  //  perfect = setToDefaultIfUndefined(perfect, true);
+  //  assertNonEmptyString(srcFileName, "srcFileName");
+  //  assertNonEmptyString(dstFileName, "dstFileName");
+  //  assertJpegOperation(jpegOperation, "jpegOperation");
+  //  assertObject(left, "left");
+  //  assertObject(top, "top");
+  //  assertObject(right, "right");
+  //  assertObject(bottom, "bottom");
+  //  assertBoolean(perfect, "perfect");
+  //  return library.FreeImage_JPEGTransformCombined(srcFileName, dstFileName, jpegOperation, left, top, right, bottom, perfect ? TRUE : FALSE) === TRUE;
+  //},
   // Background filling
   fillBackground: function (bitmap, color, options) {
     options = setToDefaultIfUndefined(options, 0);

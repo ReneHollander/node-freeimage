@@ -26,8 +26,8 @@ Node.js wrapper around [FreeImage](http://freeimage.sourceforge.net/). This pack
 The FreeImage binary distribution won't work. All exported functions were compiled using the `__stdcall` calling convention and have names in the DLL like `_FreeImage_GetVersion@0`. The `node-freeimage` package assumes that function names are not mangled.   
 
 You need to download the [source distribution](http://freeimage.sourceforge.net/download.html), and compile it using Visual Studio. There are solution files for VS2003, VS2005 and VS2008, but more modern VS versions also work, just open VS2008.sln and let VS upgrade every project. The following settings are needed:
- 
--  Select Release Mode. 
+
+-  Select Release Mode.
 -  On 32-bit Windows, compile for 32-bit (it's the default), but on 64-bit Windows, compile for 64-bit ([MSDN](http://msdn.microsoft.com/en-us/library/9yb4317s.aspx)).
 -  In `FreeImage.h`, find this: `#define DLL_CALLCONV __stdcall` and replace `__stdcall` with `__cdecl`.    
 -  If you get errors referring to `std::max` and `std::min`, add `#include <algorithm>` to the `#include` list of the affected files.
@@ -43,14 +43,14 @@ Download the [source distribution](http://freeimage.sourceforge.net/download.htm
 After successful compilation, install it:
 
     sudo make install
- 
-    
+
+
 ### 2. Install `node-freeimage`     
 
 From npmjs.org:
 
     npm install node-freeimage
-  
+
 From bitbucket.org:
 
     npm install git+https://bitbucket.org/koldev/node-freeimage.git
@@ -59,8 +59,8 @@ From bitbucket.org:
 ## Tests
 
     npm test
- 
-   
+
+
 ## Contributing
 
 In lieu of a formal styleguide, take care to maintain the existing coding style.
@@ -252,17 +252,17 @@ It is assumed that `node-freeimage` has been loaded as follows:
 
 #### Memory I/O streams
 
-- `FreeImage_OpenMemory`: --- 
-- `FreeImage_CloseMemory`: --- 
-- `FreeImage_LoadFromMemory`: --- 
-- `FreeImage_SaveToMemory`: --- 
-- `FreeImage_AcquireMemory`: --- 
-- `FreeImage_TellMemory`: --- 
-- `FreeImage_SeekMemory`: --- 
-- `FreeImage_ReadMemory`: --- 
-- `FreeImage_WriteMemory`: --- 
-- `FreeImage_LoadMultiBitmapFromMemory`: --- 
-- `FreeImage_SaveMultiBitmapToMemory`: --- 
+- `FreeImage_OpenMemory`: ---
+- `FreeImage_CloseMemory`: ---
+- `FreeImage_LoadFromMemory`: ---
+- `FreeImage_SaveToMemory`: ---
+- `FreeImage_AcquireMemory`: ---
+- `FreeImage_TellMemory`: ---
+- `FreeImage_SeekMemory`: ---
+- `FreeImage_ReadMemory`: ---
+- `FreeImage_WriteMemory`: ---
+- `FreeImage_LoadMultiBitmapFromMemory`: ---
+- `FreeImage_SaveMultiBitmapToMemory`: ---
 
 #### Compression functions
 
