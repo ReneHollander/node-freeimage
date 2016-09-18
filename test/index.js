@@ -15,14 +15,14 @@ var should = require("chai").should(),
     DOUBLE = ref.types.double,
     PTAG = PVOID,
     RGBQUAD = RefStruct({
-      rgbBlue: BYTE,
-      rgbGreen: BYTE,
-      rgbRed: BYTE,
-      rgbReserved: BYTE
+        rgbBlue: BYTE,
+        rgbGreen: BYTE,
+        rgbRed: BYTE,
+        rgbReserved: BYTE
     }),
     COMPLEX = RefStruct({
-      r: DOUBLE,
-      i: DOUBLE
+        r: DOUBLE,
+        i: DOUBLE
     }),
     Palette = RefArray(RGBQUAD),
     TransparencyTable = RefArray(BYTE),
@@ -41,22 +41,22 @@ var should = require("chai").should(),
     DWORD_SIZE = 4,
     INT_SIZE = 4,
     DOUBLE_SIZE = 8,
-    BLACK = new RGBQUAD({ rgbBlue: 0, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
-    WHITE = new RGBQUAD({ rgbBlue: 255, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
-    GRAY = new RGBQUAD({ rgbBlue: 128, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
-    SILVER = new RGBQUAD({ rgbBlue: 192, rgbGreen: 192, rgbRed: 192, rgbReserved: 0 }),
-    RED = new RGBQUAD({ rgbBlue: 0, rgbGreen: 0, rgbRed: 255, rgbReserved: 0 }),
-    LIME = new RGBQUAD({ rgbBlue: 0, rgbGreen: 255, rgbRed: 0, rgbReserved: 0 }),
-    BLUE = new RGBQUAD({ rgbBlue: 255, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
-    AQUA = new RGBQUAD({ rgbBlue: 255, rgbGreen: 255, rgbRed: 0, rgbReserved: 0 }),
-    FUCHSIA = new RGBQUAD({ rgbBlue: 255, rgbGreen: 0, rgbRed: 255, rgbReserved: 0 }),
-    YELLOW = new RGBQUAD({ rgbBlue: 0, rgbGreen: 255, rgbRed: 255, rgbReserved: 0 }),
-    MAROON = new RGBQUAD({ rgbBlue: 0, rgbGreen: 0, rgbRed: 128, rgbReserved: 0 }),
-    GREEN = new RGBQUAD({ rgbBlue: 0, rgbGreen: 128, rgbRed: 0, rgbReserved: 0 }),
-    NAVY = new RGBQUAD({ rgbBlue: 128, rgbGreen: 0, rgbRed: 0, rgbReserved: 0 }),
-    TEAL = new RGBQUAD({ rgbBlue: 128, rgbGreen: 128, rgbRed: 0, rgbReserved: 0 }),
-    PURPLE = new RGBQUAD({ rgbBlue: 128, rgbGreen: 0, rgbRed: 128, rgbReserved: 0 }),
-    OLIVE = new RGBQUAD({ rgbBlue: 0, rgbGreen: 128, rgbRed: 128, rgbReserved: 0 }),
+    BLACK = new RGBQUAD({rgbBlue: 0, rgbGreen: 0, rgbRed: 0, rgbReserved: 0}),
+    WHITE = new RGBQUAD({rgbBlue: 255, rgbGreen: 255, rgbRed: 255, rgbReserved: 0}),
+    GRAY = new RGBQUAD({rgbBlue: 128, rgbGreen: 128, rgbRed: 128, rgbReserved: 0}),
+    SILVER = new RGBQUAD({rgbBlue: 192, rgbGreen: 192, rgbRed: 192, rgbReserved: 0}),
+    RED = new RGBQUAD({rgbBlue: 0, rgbGreen: 0, rgbRed: 255, rgbReserved: 0}),
+    LIME = new RGBQUAD({rgbBlue: 0, rgbGreen: 255, rgbRed: 0, rgbReserved: 0}),
+    BLUE = new RGBQUAD({rgbBlue: 255, rgbGreen: 0, rgbRed: 0, rgbReserved: 0}),
+    AQUA = new RGBQUAD({rgbBlue: 255, rgbGreen: 255, rgbRed: 0, rgbReserved: 0}),
+    FUCHSIA = new RGBQUAD({rgbBlue: 255, rgbGreen: 0, rgbRed: 255, rgbReserved: 0}),
+    YELLOW = new RGBQUAD({rgbBlue: 0, rgbGreen: 255, rgbRed: 255, rgbReserved: 0}),
+    MAROON = new RGBQUAD({rgbBlue: 0, rgbGreen: 0, rgbRed: 128, rgbReserved: 0}),
+    GREEN = new RGBQUAD({rgbBlue: 0, rgbGreen: 128, rgbRed: 0, rgbReserved: 0}),
+    NAVY = new RGBQUAD({rgbBlue: 128, rgbGreen: 0, rgbRed: 0, rgbReserved: 0}),
+    TEAL = new RGBQUAD({rgbBlue: 128, rgbGreen: 128, rgbRed: 0, rgbReserved: 0}),
+    PURPLE = new RGBQUAD({rgbBlue: 128, rgbGreen: 0, rgbRed: 128, rgbReserved: 0}),
+    OLIVE = new RGBQUAD({rgbBlue: 0, rgbGreen: 128, rgbRed: 128, rgbReserved: 0}),
     // Properties of temporary bitmap #1
     TEMP_BITMAP_01_FILENAME = __dirname + "/temp-01.png",
     TEMP_BITMAP_01_IMAGE_TYPE = fi.IMAGE_TYPE.BITMAP,
@@ -77,14 +77,14 @@ var should = require("chai").should(),
     TEMP_BITMAP_02_BPP = 4,
     TEMP_BITMAP_02_COLOR_COUNT = Math.pow(2, TEMP_BITMAP_02_BPP),
     TEMP_BITMAP_02_PALETTE = [
-      BLACK, WHITE, GRAY, SILVER,
-      RED, LIME, BLUE, AQUA, FUCHSIA, YELLOW,
-      MAROON, GREEN, NAVY, TEAL, PURPLE, OLIVE
+        BLACK, WHITE, GRAY, SILVER,
+        RED, LIME, BLUE, AQUA, FUCHSIA, YELLOW,
+        MAROON, GREEN, NAVY, TEAL, PURPLE, OLIVE
     ],
     TEMP_BITMAP_02_TRANSPARENCY_TABLE = [
-      255, 255, 255, 255,
-      255, 255, 255, 255, 0, 255,
-      255, 255, 255, 255, 255, 255
+        255, 255, 255, 255,
+        255, 255, 255, 255, 0, 255,
+        255, 255, 255, 255, 255, 255
     ],
     // Properties of temporary bitmap #3
     TEMP_BITMAP_03_IMAGE_TYPE = fi.IMAGE_TYPE.COMPLEX,
@@ -123,12 +123,12 @@ var should = require("chai").should(),
     TEST_BITMAP_02_BPP = 4,
     TEST_BITMAP_02_COLOR_COUNT = Math.pow(2, TEST_BITMAP_02_BPP),
     TEST_BITMAP_02_PALETTE = [
-      BLACK, MAROON, GREEN, OLIVE, NAVY, PURPLE, TEAL, GRAY,
-      SILVER, RED, LIME, YELLOW, BLUE, FUCHSIA, AQUA, WHITE
+        BLACK, MAROON, GREEN, OLIVE, NAVY, PURPLE, TEAL, GRAY,
+        SILVER, RED, LIME, YELLOW, BLUE, FUCHSIA, AQUA, WHITE
     ],
     TEST_BITMAP_02_TRANSPARENCY_TABLE = [
-      255, 255, 255, 255, 255, 255, 255, 255,
-      255, 255, 255, 255, 255, 0, 255, 255
+        255, 255, 255, 255, 255, 255, 255, 255,
+        255, 255, 255, 255, 255, 0, 255, 255
     ],
     // Properties of test bitmap #3
     TEST_BITMAP_03_FILENAME = __dirname + "/test-03.png",
@@ -138,8 +138,8 @@ var should = require("chai").should(),
     TEST_BITMAP_03_BPP = 24,
     TEST_BITMAP_03_PITCH = Math.ceil((TEST_BITMAP_03_WIDTH * TEST_BITMAP_03_BPP / BYTES_TO_BITS) / DWORD_SIZE) * DWORD_SIZE,
     TEST_BITMAP_03_PIXEL_COLORS = [
-      BLUE, BLACK,
-      RED, LIME
+        BLUE, BLACK,
+        RED, LIME
     ],
     TEST_BITMAP_03_TEST_PIXEL_COLOR = MAROON,
     TEST_BITMAP_03_RESCALED_WIDTH = 4,
@@ -168,1918 +168,1929 @@ var should = require("chai").should(),
     TEST_BITMAP_06_METADATA_MODEL = fi.METADATA_MODEL.EXIF_MAIN,
     TEST_BITMAP_06_METADATA_COUNT = 11,
     TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS = {
-      DateTime: "2015:01:29 18:20:50",
-      Make: "SAMSUNG",
-      Model: "GT-I8190",
-      Software: "I8190XXANI4"
+        DateTime: "2015:01:29 18:20:50",
+        Make: "SAMSUNG",
+        Model: "GT-I8190",
+        Software: "I8190XXANI4"
     },
     TEST_BITMAP_06_COMMENT_METADATA_MODEL = fi.METADATA_MODEL.COMMENTS,
     TEST_BITMAP_06_COMMENT = "hello, world",
     TEST_BITMAP_06_COMMENT_TAG = {
-      key: "Comment",
-      type: fi.METADATA_TYPE.ASCII,
-      count: TEST_BITMAP_06_COMMENT.length + 1,
-      length: TEST_BITMAP_06_COMMENT.length + 1,
-      value: TEST_BITMAP_06_COMMENT
+        key: "Comment",
+        type: fi.METADATA_TYPE.ASCII,
+        count: TEST_BITMAP_06_COMMENT.length + 1,
+        length: TEST_BITMAP_06_COMMENT.length + 1,
+        value: TEST_BITMAP_06_COMMENT
     },
     TRANSFORMED_TEST_BITMAP_06_FILENAME = __dirname + "/test-06-transformed.jpg";
 
 describe("BITMAP FUNCTION REFERENCE", function () {
-  describe("General functions", function () {
-    describe("fi.getVersion", function () {
-      it("should return major, minor and patch version", function () {
-        fi.getVersion().should.match(/^\d+\.\d+\.\d+$/);
-      });
+    describe("General functions", function () {
+        describe("fi.getVersion", function () {
+            it("should return major, minor and patch version", function () {
+                fi.getVersion().should.match(/^\d+\.\d+\.\d+$/);
+            });
+        });
+
+        describe("fi.getCopyrightMessage", function () {
+            it("should return a string containing \"FreeImage\"", function () {
+                fi.getCopyrightMessage().should.have.string("FreeImage");
+            });
+        });
+    });
+
+    describe("Bitmap management functions", function () {
+        describe("fi.allocate", function () {
+            it("should create a bitmap", function () {
+                var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
+                bitmap.isNull().should.be.false();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.allocateT", function () {
+            it("should create a bitmap", function () {
+                var bitmap = fi.allocateT(TEMP_BITMAP_01_IMAGE_TYPE, TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
+                bitmap.isNull().should.be.false();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.load", function () {
+            it("should load a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.save", function () {
+            it("should save a bitmap", function () {
+                var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
+                    success = false;
+                bitmap.isNull().should.be.false();
+                success = fi.save(TEMP_BITMAP_01_IMAGE_FORMAT, bitmap, TEMP_BITMAP_01_FILENAME);
+                success.should.be.true();
+                fi.unload(bitmap);
+                fs.unlinkSync(TEMP_BITMAP_01_FILENAME);
+            });
+        });
+
+        describe("fi.clone", function () {
+            it("should clone a bitmap", function () {
+                var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
+                    bitmap2 = null;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.clone(bitmap);
+                bitmap2.isNull().should.be.false();
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+    });
+
+    describe("Bitmap information functions", function () {
+        describe("fi.getImageType", function () {
+            it("should get the type of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    type = -1;
+                bitmap.isNull().should.be.false();
+                type = fi.getImageType(bitmap);
+                type.should.equal(TEST_BITMAP_01_IMAGE_TYPE);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getColorsUsed", function () {
+            it("should get the palette size (!) of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    paletteSize = -1;
+                bitmap.isNull().should.be.false();
+                paletteSize = fi.getColorsUsed(bitmap);
+                paletteSize.should.equal(TEST_BITMAP_01_PALETTE_SIZE);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getBPP", function () {
+            it("should get the size of one pixel in the bitmap in bits", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bpp = -1;
+                bitmap.isNull().should.be.false();
+                bpp = fi.getBPP(bitmap);
+                bpp.should.equal(TEST_BITMAP_01_BPP);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getWidth", function () {
+            it("should get the width of a bitmap in pixels", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    width = -1;
+                bitmap.isNull().should.be.false();
+                width = fi.getWidth(bitmap);
+                width.should.equal(TEST_BITMAP_01_WIDTH);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getHeight", function () {
+            it("should get the height of a bitmap in pixels", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    height = -1;
+                bitmap.isNull().should.be.false();
+                height = fi.getHeight(bitmap);
+                height.should.equal(TEST_BITMAP_01_HEIGHT);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getLine", function () {
+            it("should get the width of a bitmap in bytes", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    line = -1;
+                bitmap.isNull().should.be.false();
+                line = fi.getLine(bitmap);
+                line.should.equal(TEST_BITMAP_01_LINE);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getPitch", function () {
+            it("should get the pitch (scan width) of a bitmap in bytes", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    pitch = -1;
+                bitmap.isNull().should.be.false();
+                pitch = fi.getPitch(bitmap);
+                pitch.should.equal(TEST_BITMAP_01_PITCH);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getDIBSize", function () {
+            it("should get the DIB size of a bitmap in bytes", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    dibSize = -1;
+                bitmap.isNull().should.be.false();
+                dibSize = fi.getDIBSize(bitmap);
+                dibSize.should.equal(TEST_BITMAP_01_DIB_SIZE);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getPalette", function () {
+            it("should return null for a non-palettized bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    palette = null;
+                bitmap.isNull().should.be.false();
+                palette = fi.getPalette(bitmap);
+                palette.isNull().should.be.true();
+                fi.unload(bitmap);
+            });
+
+            it("should get the palette of a palettized bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+                    palette = null,
+                    palette2 = null,
+                    i = -1;
+                bitmap.isNull().should.be.false();
+                palette = fi.getPalette(bitmap);
+                palette.isNull().should.be.false();
+                palette2 = new Palette(ref.reinterpret(palette, TEST_BITMAP_02_COLOR_COUNT * RGBQUAD_SIZE, 0));
+                for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
+                    palette2[i].rgbBlue.should.equal(TEST_BITMAP_02_PALETTE[i].rgbBlue);
+                    palette2[i].rgbGreen.should.equal(TEST_BITMAP_02_PALETTE[i].rgbGreen);
+                    palette2[i].rgbRed.should.equal(TEST_BITMAP_02_PALETTE[i].rgbRed);
+                    palette2[i].rgbReserved.should.equal(TEST_BITMAP_02_PALETTE[i].rgbReserved);
+                }
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getDotsPerMeterX", function () {
+            it("should get the X-resolution of a bitmap in dpm", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    dpmX = -1;
+                bitmap.isNull().should.be.false();
+                dpmX = fi.getDotsPerMeterX(bitmap);
+                dpmX.should.equal(TEST_BITMAP_01_DPM_X);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getDotsPerMeterY", function () {
+            it("should get the Y-resolution of a bitmap in dpm", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    dpmY = -1;
+                bitmap.isNull().should.be.false();
+                dpmY = fi.getDotsPerMeterY(bitmap);
+                dpmY.should.equal(TEST_BITMAP_01_DPM_Y);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.setDotsPerMeterX", function () {
+            it("should set the X-resolution of a bitmap in dpm", function () {
+                var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
+                    dpmX = TEMP_BITMAP_01_DPM_X;
+                bitmap.isNull().should.be.false();
+                fi.setDotsPerMeterX(bitmap, dpmX);
+                dpmX = fi.getDotsPerMeterX(bitmap);
+                dpmX.should.equal(dpmX);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.setDotsPerMeterY", function () {
+            it("should set the Y-resolution of a bitmap in dpm", function () {
+                var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
+                    dpmY = TEMP_BITMAP_01_DPM_Y;
+                bitmap.isNull().should.be.false();
+                fi.setDotsPerMeterY(bitmap, dpmY);
+                dpmY = fi.getDotsPerMeterY(bitmap);
+                dpmY.should.equal(dpmY);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getInfoHeader", function () {
+            it("should get the BITMAPINFOHEADER of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    infoHeader = null;
+                bitmap.isNull().should.be.false();
+                infoHeader = fi.getInfoHeader(bitmap);
+                infoHeader.isNull().should.be.false();
+                infoHeader = infoHeader.deref();
+                infoHeader.biSize.should.equal(BITMAPINFOHEADER_SIZE);
+                infoHeader.biWidth.should.equal(TEST_BITMAP_01_WIDTH);
+                infoHeader.biHeight.should.equal(TEST_BITMAP_01_HEIGHT);
+                infoHeader.biPlanes.should.equal(1);
+                infoHeader.biBitCount.should.equal(TEST_BITMAP_01_BPP);
+                infoHeader.biCompression.should.equal(0);
+                infoHeader.biSizeImage.should.equal(0);
+                infoHeader.biXPelsPerMeter.should.equal(TEST_BITMAP_01_DPM_X);
+                infoHeader.biYPelsPerMeter.should.equal(TEST_BITMAP_01_DPM_Y);
+                infoHeader.biClrUsed.should.equal(0);
+                infoHeader.biClrImportant.should.equal(0);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getInfo", function () {
+            it("should get the BITMAPINFO of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    info = null;
+                bitmap.isNull().should.be.false();
+                info = fi.getInfo(bitmap);
+                info.isNull().should.be.false();
+                info = info.deref();
+                info.bmiHeader.biSize.should.equal(BITMAPINFOHEADER_SIZE);
+                info.bmiHeader.biWidth.should.equal(TEST_BITMAP_01_WIDTH);
+                info.bmiHeader.biHeight.should.equal(TEST_BITMAP_01_HEIGHT);
+                info.bmiHeader.biPlanes.should.equal(1);
+                info.bmiHeader.biBitCount.should.equal(TEST_BITMAP_01_BPP);
+                info.bmiHeader.biCompression.should.equal(0);
+                info.bmiHeader.biSizeImage.should.equal(0);
+                info.bmiHeader.biXPelsPerMeter.should.equal(TEST_BITMAP_01_DPM_X);
+                info.bmiHeader.biYPelsPerMeter.should.equal(TEST_BITMAP_01_DPM_Y);
+                info.bmiHeader.biClrUsed.should.equal(0);
+                info.bmiHeader.biClrImportant.should.equal(0);
+                info.bmiColors.length.should.equal(0);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getColorType", function () {
+            it("should get the color type of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    colorType = -1;
+                bitmap.isNull().should.be.false();
+                colorType = fi.getColorType(bitmap);
+                colorType.should.equal(TEST_BITMAP_01_COLOR_TYPE);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getRedMask", function () {
+            it("should get the red mask of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    redMask = -1;
+                bitmap.isNull().should.be.false();
+                redMask = fi.getRedMask(bitmap);
+                redMask.should.equal(TEST_BITMAP_01_RED_MASK);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getGreenMask", function () {
+            it("should get the green mask of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    greenMask = -1;
+                bitmap.isNull().should.be.false();
+                greenMask = fi.getGreenMask(bitmap);
+                greenMask.should.equal(TEST_BITMAP_01_GREEN_MASK);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getBlueMask", function () {
+            it("should get the blue mask of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    blueMask = -1;
+                bitmap.isNull().should.be.false();
+                blueMask = fi.getBlueMask(bitmap);
+                blueMask.should.equal(TEST_BITMAP_01_BLUE_MASK);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getTransparencyCount", function () {
+            it("should get the transparency count of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+                    count = -1;
+                bitmap.isNull().should.be.false();
+                count = fi.getTransparencyCount(bitmap);
+                count.should.equal(TEST_BITMAP_02_COLOR_COUNT);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getTransparencyTable", function () {
+            it("should get the transparency table of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+                    table = null,
+                    table2 = null,
+                    i = -1;
+                bitmap.isNull().should.be.false();
+                table = fi.getTransparencyTable(bitmap);
+                table.isNull().should.be.false();
+                table2 = new TransparencyTable(ref.reinterpret(table, TEST_BITMAP_02_COLOR_COUNT, 0));
+                for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
+                    table2[i].should.equal(TEST_BITMAP_02_TRANSPARENCY_TABLE[i]);
+                }
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.setTransparencyTable", function () {
+            it("should set the transparency table of a bitmap", function () {
+                var bitmap = fi.allocate(TEMP_BITMAP_02_WIDTH, TEMP_BITMAP_02_HEIGHT, TEMP_BITMAP_02_BPP),
+                    table = new Buffer(TEMP_BITMAP_02_TRANSPARENCY_TABLE),
+                    table2 = null;
+                bitmap.isNull().should.be.false();
+                fi.setTransparencyTable(bitmap, table, TEMP_BITMAP_02_COLOR_COUNT);
+                bitmap.isNull().should.be.false();
+                table = fi.getTransparencyTable(bitmap);
+                table.isNull().should.be.false();
+                table2 = new TransparencyTable(ref.reinterpret(table, TEMP_BITMAP_02_COLOR_COUNT, 0));
+                for (i = 0; i < TEMP_BITMAP_02_COLOR_COUNT; i += 1) {
+                    table2[i].should.equal(TEMP_BITMAP_02_TRANSPARENCY_TABLE[i]);
+                }
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.(is|set)Transparent", function () {
+            it("should get/set the transparency state of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+                    isTransparent = false,
+                    i = -1;
+                bitmap.isNull().should.be.false();
+                for (i = 0; i < 5; i += 1) {
+                    isTransparent = i % 2 === 0;
+                    fi.setTransparent(bitmap, isTransparent);
+                    fi.isTransparent(bitmap).should.equal(isTransparent);
+                }
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.(get|set)TransparentIndex", function () {
+            it("should get/set the palette index of the transparent color of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+                    i = -1;
+                bitmap.isNull().should.be.false();
+                for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
+                    fi.setTransparentIndex(bitmap, i);
+                    fi.getTransparentIndex(bitmap).should.equal(i);
+                }
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.(has|get|set)BackgroundColor", function () {
+            it("should get/set the background color of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    color = new RGBQUAD(AQUA);
+                bitmap.isNull().should.be.false();
+                fi.hasBackgroundColor(bitmap).should.be.false();
+                fi.getBackgroundColor(bitmap, color.ref()).should.be.false();
+                fi.setBackgroundColor(bitmap, color.ref()).should.be.true();
+                fi.hasBackgroundColor(bitmap).should.be.true();
+                fi.getBackgroundColor(bitmap, color.ref()).should.be.true();
+                color.rgbBlue.should.equal(AQUA.rgbBlue);
+                color.rgbGreen.should.equal(AQUA.rgbGreen);
+                color.rgbRed.should.equal(AQUA.rgbRed);
+                color.rgbReserved.should.equal(AQUA.rgbReserved);
+                fi.setBackgroundColor(bitmap, ref.NULL).should.be.true();
+                fi.hasBackgroundColor(bitmap).should.be.false();
+                fi.getBackgroundColor(bitmap, color.ref()).should.be.false();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.hasPixels", function () {
+            it("should determine if a bitmap has pixels", function () {
+                var bitmap1 = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME, fi.LOAD_SAVE_OPTION.LOAD_NOPIXELS);
+                bitmap1.isNull().should.be.false();
+                bitmap2.isNull().should.be.false();
+                fi.hasPixels(bitmap1).should.be.true();
+                fi.hasPixels(bitmap2).should.be.false();
+                fi.unload(bitmap2);
+                fi.unload(bitmap1);
+            });
+        });
+
+        describe("fi.(get|set)Thumbnail", function () {
+            it("should get/set the thumbnail of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    thumbnail = null;
+                bitmap.isNull().should.be.false();
+                fi.getThumbnail(bitmap).isNull().should.be.true();
+                thumbnail = fi.clone(bitmap);
+                thumbnail.isNull().should.be.false();
+                fi.setThumbnail(bitmap, thumbnail).should.be.true();
+                fi.getThumbnail(bitmap).isNull().should.be.false();
+                fi.unload(bitmap);
+            });
+        });
+    });
+
+    describe("Filetype functions", function () {
+        describe("fi.getFileType", function () {
+            it("should get the image format of a bitmap", function () {
+                var format = fi.getFileType(TEST_BITMAP_01_FILENAME);
+                format.should.equal(TEST_BITMAP_01_IMAGE_FORMAT);
+            });
+        });
+    });
+
+    describe("Pixel access functions", function () {
+        describe("fi.getBits", function () {
+            it("should get the bits of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    bits = null,
+                    bits2 = null;
+                bitmap.isNull().should.be.false();
+                bits = fi.getBits(bitmap);
+                bits.isNull().should.be.false();
+                bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+                bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+                bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+                bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+                bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+                bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+                bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getScanLine", function () {
+            it("should get the scan lines of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    scanLine = null,
+                    scanLine2 = null;
+                bitmap.isNull().should.be.false();
+                scanLine = fi.getScanLine(bitmap, 0);
+                scanLine.isNull().should.be.false();
+                scanLine2 = new ByteArray(ref.reinterpret(scanLine, TEST_BITMAP_03_PITCH, 0));
+                scanLine2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+                scanLine2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+                scanLine2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+                scanLine2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+                scanLine2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+                scanLine2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+                scanLine = fi.getScanLine(bitmap, 1);
+                scanLine.isNull().should.be.false();
+                scanLine2 = new ByteArray(ref.reinterpret(scanLine, TEST_BITMAP_03_PITCH, 0));
+                scanLine2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+                scanLine2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+                scanLine2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+                scanLine2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+                scanLine2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+                scanLine2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getPixelIndex", function () {
+            it("should return false for a non-palettized bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    pixelIndex = ref.alloc(BYTE, 0),
+                    success = false;
+                bitmap.isNull().should.be.false();
+                success = fi.getPixelIndex(bitmap, 0, 0, pixelIndex);
+                success.should.be.false();
+                pixelIndex.deref().should.equal(0);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getPixelColor", function () {
+            it("should get the pixel colors of a non-palettized bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    pixelColor = ref.alloc(RGBQUAD, BLACK),
+                    success = false;
+                bitmap.isNull().should.be.false();
+                success = fi.getPixelColor(bitmap, 0, 0, pixelColor);
+                success.should.be.true();
+                pixelColor.deref().rgbBlue.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+                pixelColor.deref().rgbGreen.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+                pixelColor.deref().rgbRed.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.setPixelIndex", function () {
+            it("should return false for a non-palettized bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    pixelIndex = ref.alloc(BYTE, 0),
+                    success = false;
+                bitmap.isNull().should.be.false();
+                success = fi.setPixelIndex(bitmap, 0, 0, pixelIndex);
+                success.should.be.false();
+                pixelIndex.deref().should.equal(0);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.setPixelColor", function () {
+            it("should set the pixel colors of a non-palettized bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    pixelColor = ref.alloc(RGBQUAD, TEST_BITMAP_03_TEST_PIXEL_COLOR),
+                    success = false;
+                bitmap.isNull().should.be.false();
+                success = fi.setPixelColor(bitmap, 0, 0, pixelColor);
+                success.should.be.true();
+                success = fi.getPixelColor(bitmap, 0, 0, pixelColor);
+                success.should.be.true();
+                pixelColor.deref().rgbBlue.should.equal(TEST_BITMAP_03_TEST_PIXEL_COLOR.rgbBlue);
+                pixelColor.deref().rgbGreen.should.equal(TEST_BITMAP_03_TEST_PIXEL_COLOR.rgbGreen);
+                pixelColor.deref().rgbRed.should.equal(TEST_BITMAP_03_TEST_PIXEL_COLOR.rgbRed);
+                fi.unload(bitmap);
+            });
+        });
+    });
+
+    describe("Conversion functions", function () {
+        describe("fi.convertTo4Bits", function () {
+            it("should convert a 32-bit bitmap to a 4-bit one", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertTo4Bits(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(4);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertTo8Bits", function () {
+            it("should convert a 32-bit bitmap to an 8-bit one", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertTo8Bits(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(8);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertToGreyscale", function () {
+            it("should convert a 32-bit bitmap to a greyscale one", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertToGreyscale(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(8);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertTo16Bits555", function () {
+            it("should convert a 32-bit bitmap to a 16-bit one (555)", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertTo16Bits555(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(16);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertTo16Bits565", function () {
+            it("should convert a 32-bit bitmap to a 16-bit one (565)", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertTo16Bits565(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(16);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertTo24Bits", function () {
+            it("should convert a 32-bit bitmap to a 24-bit one", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertTo24Bits(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(24);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertTo32Bits", function () {
+            it("should convert a 4-bit bitmap to a 32-bit one", function () {
+                var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertTo32Bits(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(32);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.colorQuantize", function () {
+            it("should quantize a 24-bit bitmap (Wu)", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.colorQuantize(bitmap, fi.QUANTIZATION.WUQUANT);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(8);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.colorQuantizeEx", function () {
+            it("should quantize a 24-bit bitmap (Wu)", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.colorQuantizeEx(bitmap, fi.QUANTIZATION.WUQUANT);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(8);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.threshold", function () {
+            it("should convert a 32-bit bitmap to a 1-bit one using a threshold", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.threshold(bitmap, 150);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(1);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.dither", function () {
+            it("should convert a 32-bit bitmap to a 1-bit one using dithering", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.dither(bitmap, fi.DITHERING.FS);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(1);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertFromRawBits", function () {
+            it("should create a bitmap from a pixel color array", function () {
+                var width = 2,
+                    height = 2,
+                    bpp = 24,
+                    pitch = width * bpp / BYTES_TO_BITS,
+                    bits = ref.reinterpret(new Buffer([
+                        0, 255, 255,
+                        0, 0, 0,
+                        255, 255, 0,
+                        255, 0, 255
+                    ]), height * pitch, 0),
+                    bitmap = null;
+                bitmap = fi.convertFromRawBits(
+                    bits,
+                    width, height, pitch, bpp,
+                    fi.RGBA_MASK.RED, fi.RGBA_MASK.GREEN, fi.RGBA_MASK.BLUE
+                );
+                bitmap.isNull().should.be.false();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertToRawBits", function () {
+            it("should convert a bitmap to a pixel color array", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    pitch = TEST_BITMAP_03_WIDTH * TEST_BITMAP_03_BPP / BYTES_TO_BITS,
+                    bits = new Buffer(TEST_BITMAP_03_HEIGHT * pitch);
+                bitmap.isNull().should.be.false();
+                fi.convertToRawBits(
+                    bits, bitmap,
+                    pitch, TEST_BITMAP_03_BPP,
+                    fi.RGBA_MASK.RED, fi.RGBA_MASK.GREEN, fi.RGBA_MASK.BLUE,
+                    true
+                );
+                bits[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+                bits[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+                bits[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+                bits[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+                bits[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+                bits[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+                bits[pitch + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+                bits[pitch + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+                bits[pitch + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+                bits[pitch + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+                bits[pitch + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+                bits[pitch + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertToStandardType", function () {
+            it("should return the clone of a standard bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertToStandardType(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(32);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertToType", function () {
+            it("should convert a bitmap to another type", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    type2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertToType(bitmap, fi.IMAGE_TYPE.FLOAT);
+                bitmap2.isNull().should.be.false();
+                type2 = fi.getImageType(bitmap2);
+                type2.should.equal(fi.IMAGE_TYPE.FLOAT);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertToFloat", function () {
+            it("should convert a bitmap to float type", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    type2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertToFloat(bitmap);
+                bitmap2.isNull().should.be.false();
+                type2 = fi.getImageType(bitmap2);
+                type2.should.equal(fi.IMAGE_TYPE.FLOAT);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertToRGBF", function () {
+            it("should convert a bitmap to RGBF type", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    type2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertToRGBF(bitmap);
+                bitmap2.isNull().should.be.false();
+                type2 = fi.getImageType(bitmap2);
+                type2.should.equal(fi.IMAGE_TYPE.RGBF);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertToUINT16", function () {
+            it("should convert a bitmap to UINT16 type", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    type2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertToUINT16(bitmap);
+                bitmap2.isNull().should.be.false();
+                type2 = fi.getImageType(bitmap2);
+                type2.should.equal(fi.IMAGE_TYPE.UINT16);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.convertToRGB16", function () {
+            it("should convert a bitmap to RGB16 type", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null,
+                    type2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.convertToRGB16(bitmap);
+                bitmap2.isNull().should.be.false();
+                type2 = fi.getImageType(bitmap2);
+                type2.should.equal(fi.IMAGE_TYPE.RGB16);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+    });
+
+    describe("Tone mapping operators", function () {
+        describe("fi.toneMapping", function () {
+            it("should convert a 48-bit bitmap to a 24-bit one", function () {
+                var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.toneMapping(bitmap, fi.TONE_MAPPING_OPERATION.REINHARD05);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(24);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.tmoDrago03", function () {
+            it("should convert a 48-bit bitmap to a 24-bit one", function () {
+                var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.tmoDrago03(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(24);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.tmoReinhard05", function () {
+            it("should convert a 48-bit bitmap to a 24-bit one", function () {
+                var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.tmoReinhard05(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(24);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.tmoReinhard05Ex", function () {
+            it("should convert a 48-bit bitmap to a 24-bit one", function () {
+                var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.tmoReinhard05Ex(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(24);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.tmoFattal02", function () {
+            it("should convert a 48-bit bitmap to a 24-bit one", function () {
+                var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
+                    bitmap2 = null,
+                    bpp2 = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.tmoFattal02(bitmap);
+                bitmap2.isNull().should.be.false();
+                bpp2 = fi.getBPP(bitmap2);
+                bpp2.should.equal(24);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+    });
+
+    describe("ICC profile functions", function () {
+        describe("fi.(get|create|destroy)ICCProfile", function () {
+            it("should get/create/destroy the ICC profile of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    profile = null,
+                    data = null,
+                    data2 = null;
+                bitmap.isNull().should.be.false();
+                profile = fi.getICCProfile(bitmap);
+                profile.isNull().should.be.false();
+                profile.deref().flags.should.equal(0);
+                profile.deref().size.should.equal(0);
+                profile.deref().data.isNull().should.be.true();
+                data = new Buffer([1, 2, 3, 4, 5]);
+                fi.createICCProfile(bitmap, data, data.length);
+                profile = fi.getICCProfile(bitmap);
+                profile.deref().flags.should.equal(0);
+                profile.deref().size.should.equal(data.length);
+                profile.deref().data.isNull().should.be.false();
+                data2 = ref.reinterpret(profile.deref().data, profile.deref().size, 0);
+                data2.should.deep.equal(data);
+                fi.destroyICCProfile(bitmap);
+                profile = fi.getICCProfile(bitmap);
+                profile.isNull().should.be.false();
+                profile.deref().flags.should.equal(0);
+                profile.deref().size.should.equal(0);
+                profile.deref().data.isNull().should.be.true();
+                fi.unload(bitmap);
+            });
+        });
+    });
+
+    describe("Multipage functions", function () {
+        describe("fi.(open|close)MultiBitmap", function () {
+            it("should open/close a multibitmap", function () {
+                var multiBitmap = null,
+                    success = false;
+                multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_FILENAME, false, true);
+                multiBitmap.isNull().should.be.false();
+                success = fi.closeMultiBitmap(multiBitmap);
+                success.should.be.true();
+            });
+        });
+
+        describe("fi.getPageCount", function () {
+            it("should return the page count of a multibitmap", function () {
+                var multiBitmap = null,
+                    pageCount = -1;
+                multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_FILENAME, false, true);
+                multiBitmap.isNull().should.be.false();
+                pageCount = fi.getPageCount(multiBitmap);
+                pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT);
+                success = fi.closeMultiBitmap(multiBitmap);
+                success.should.be.true();
+            });
+        });
+
+        describe("fi.appendPage", function () {
+            it("should append a page to a multibitmap", function () {
+                var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+                    bitmap = null,
+                    multiBitmap = null,
+                    pageCount = -1;
+                fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+                try {
+                    bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+                    bitmap.isNull().should.be.false();
+                    multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+                    multiBitmap.isNull().should.be.false();
+                    fi.appendPage(multiBitmap, bitmap);
+                    pageCount = fi.getPageCount(multiBitmap);
+                    pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT + 1);
+                    success = fi.closeMultiBitmap(multiBitmap);
+                    success.should.be.true();
+                    fi.unload(bitmap);
+                } finally {
+                    fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+                }
+            });
+        });
+
+        describe("fi.insertPage", function () {
+            it("should insert a page into a multibitmap", function () {
+                var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+                    bitmap = null,
+                    multiBitmap = null,
+                    pageCount = -1;
+                fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+                try {
+                    bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+                    bitmap.isNull().should.be.false();
+                    multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+                    multiBitmap.isNull().should.be.false();
+                    fi.insertPage(multiBitmap, 1, bitmap);
+                    pageCount = fi.getPageCount(multiBitmap);
+                    pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT + 1);
+                    success = fi.closeMultiBitmap(multiBitmap);
+                    success.should.be.true();
+                    fi.unload(bitmap);
+                } finally {
+                    fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+                }
+            });
+        });
+
+        describe("fi.deletePage", function () {
+            it("should delete a page from a multibitmap", function () {
+                var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+                    bitmap = null,
+                    multiBitmap = null,
+                    pageCount = -1;
+                fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+                try {
+                    bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+                    bitmap.isNull().should.be.false();
+                    multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+                    multiBitmap.isNull().should.be.false();
+                    fi.deletePage(multiBitmap, 1);
+                    pageCount = fi.getPageCount(multiBitmap);
+                    pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT - 1);
+                    success = fi.closeMultiBitmap(multiBitmap);
+                    success.should.be.true();
+                    fi.unload(bitmap);
+                } finally {
+                    fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+                }
+            });
+        });
+
+        describe("fi.(lock|unlock)Page", function () {
+            it("should lock/unlock a page of a multibitmap", function () {
+                var multiBitmap = null,
+                    pageCount = -1,
+                    pageIndex = -1,
+                    pageBitmap = null,
+                    width = -1,
+                    height = -1,
+                    success = false;
+                multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_FILENAME, false, true);
+                multiBitmap.isNull().should.be.false();
+                pageCount = fi.getPageCount(multiBitmap);
+                pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT);
+                for (pageIndex = 0; pageIndex < pageCount; pageIndex += 1) {
+                    pageBitmap = fi.lockPage(multiBitmap, pageIndex);
+                    try {
+                        width = fi.getWidth(pageBitmap);
+                        width.should.equal(TEST_BITMAP_05_PAGE_WIDTH);
+                        height = fi.getHeight(pageBitmap);
+                        height.should.equal(TEST_BITMAP_05_PAGE_HEIGHT);
+                    } finally {
+                        fi.unlockPage(multiBitmap, pageBitmap, false);
+                    }
+                }
+                success = fi.closeMultiBitmap(multiBitmap);
+                success.should.be.true();
+            });
+        });
+
+        describe("fi.movePage", function () {
+            it("should move a page inside a multibitmap", function () {
+                var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+                    multiBitmap = null,
+                    success = false;
+                fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+                try {
+                    multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+                    multiBitmap.isNull().should.be.false();
+                    success = fi.movePage(multiBitmap, 2, 0);
+                    success.should.be.true();
+                    success = fi.closeMultiBitmap(multiBitmap);
+                    success.should.be.true();
+                } finally {
+                    fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+                }
+            });
+        });
+
+        describe("fi.getLockedPageNumbers", function () {
+            it("should get the indexes of locked pages of a multibitmap", function () {
+                var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
+                    multiBitmap = null,
+                    pageBitmap0 = null,
+                    pageBitmap2 = null,
+                    success = false,
+                    lockedPageCount = ref.alloc(INT),
+                    lockedPageIndexes = null,
+                    lockedPageIndexes2 = null;
+                fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
+                try {
+                    multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
+                    multiBitmap.isNull().should.be.false();
+                    pageBitmap0 = fi.lockPage(multiBitmap, 0);
+                    pageBitmap2 = fi.lockPage(multiBitmap, 2);
+                    try {
+                        success = fi.getLockedPageNumbers(multiBitmap, ref.NULL, lockedPageCount);
+                        success.should.be.true();
+                        lockedPageCount.deref().should.equal(2);
+                        lockedPageIndexes = new Buffer(lockedPageCount.deref() * INT_SIZE);
+                        success = fi.getLockedPageNumbers(multiBitmap, lockedPageIndexes, lockedPageCount);
+                        success.should.be.true();
+                        lockedPageIndexes2 = new IntArray(lockedPageIndexes);
+                        lockedPageIndexes2.length.should.equal(lockedPageCount.deref());
+                        lockedPageIndexes2.toString().should.match(/^(0,2)|(2,0)$/);
+                    } finally {
+                        fi.unlockPage(multiBitmap, pageBitmap2, false);
+                        fi.unlockPage(multiBitmap, pageBitmap0, false);
+                    }
+                    success = fi.closeMultiBitmap(multiBitmap);
+                    success.should.be.true();
+                } finally {
+                    fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
+                }
+            });
+        });
+    });
+
+    describe("Memory Functions", function () {
+        describe("fi.(open|close)Memory", function () {
+            it("should open and close memory", function () {
+                var data = new Buffer([1, 2, 3, 4, 5, 6, 7, 8]);
+                var fimem = fi.openMemory(data, data.length);
+                fimem.should.not.equal(undefined);
+                fi.closeMemory(fimem);
+            });
+        });
+    });
+
+    describe("Compression functions", function () {
+        describe("fi.zLib(Compress|Uncompress)", function () {
+            it("should compress/uncompress a byte array", function () {
+                var data = null,
+                    compressedSize = -1,
+                    compressedData = null,
+                    uncompressedSize = -1,
+                    uncompressedData = null,
+                    i = -1;
+                data = new Buffer([1, 2, 3, 4, 1, 2, 3, 4]);
+                compressedSize = Math.round(1.1 * data.length + 12);
+                compressedData = new Buffer(compressedSize);
+                compressedSize = fi.zLibCompress(compressedData, compressedSize, data, data.length);
+                compressedSize.should.not.equal(0);
+                uncompressedSize = 10 * data.length;
+                uncompressedData = new Buffer(uncompressedSize);
+                uncompressedSize = fi.zLibUncompress(uncompressedData, uncompressedSize, compressedData, compressedSize);
+                uncompressedSize.should.equal(data.length);
+                for (i = 0; i < data.length; i += 1) {
+                    uncompressedData[i].should.equal(data[i]);
+                }
+            });
+        });
+
+        describe("fi.zLib(GZip|GUnzip)", function () {
+            it("should compress/uncompress a byte array", function () {
+                var data = null,
+                    compressedSize = -1,
+                    compressedData = null,
+                    uncompressedSize = -1,
+                    uncompressedData = null,
+                    i = -1;
+                data = new Buffer([1, 2, 3, 4, 1, 2, 3, 4]);
+                compressedSize = Math.round(1.1 * data.length + 24);
+                compressedData = new Buffer(compressedSize);
+                compressedSize = fi.zLibGZip(compressedData, compressedSize, data, data.length);
+                compressedSize.should.not.equal(0);
+                uncompressedSize = 10 * data.length;
+                uncompressedData = new Buffer(uncompressedSize);
+                uncompressedSize = fi.zLibGUnzip(uncompressedData, uncompressedSize, compressedData, compressedSize);
+                uncompressedSize.should.equal(data.length);
+                for (i = 0; i < data.length; i += 1) {
+                    uncompressedData[i].should.equal(data[i]);
+                }
+            });
+        });
+
+        describe("fi.zLibCRC32", function () {
+            it("should calculate the CRC checksum of a byte array", function () {
+                var data = null,
+                    crc = -1;
+                data = new Buffer([0xCA, 0xFE, 0xBA, 0xBE]);
+                crc = fi.zLibCRC32(0, data, data.length);
+                crc.should.equal(0xB51D571D);
+            });
+        });
+    });
+
+    describe("Helper functions", function () {
+        describe("fi.isLittleEndian", function () {
+            it("should determine endianness", function () {
+                fi.isLittleEndian().should.equal(os.endianness() === "LE");
+            });
+        });
+
+        describe("fi.lookupX11Color", function () {
+            it("should convert an X11 color name into an RGB value", function () {
+                var success = false,
+                    red = ref.alloc(BYTE, 0),
+                    green = ref.alloc(BYTE, 0),
+                    blue = ref.alloc(BYTE, 0);
+                success = fi.lookupX11Color("papayawhip", red, green, blue);
+                success.should.be.true();
+                red.deref().should.equal(255);
+                green.deref().should.equal(239);
+                blue.deref().should.equal(213);
+            });
+        });
+
+        describe("fi.lookupSVGColor", function () {
+            it("should convert an SVG color name into an RGB value", function () {
+                var success = false,
+                    red = ref.alloc(BYTE, 0),
+                    green = ref.alloc(BYTE, 0),
+                    blue = ref.alloc(BYTE, 0);
+                success = fi.lookupSVGColor("lemonchiffon", red, green, blue);
+                success.should.be.true();
+                red.deref().should.equal(255);
+                green.deref().should.equal(250);
+                blue.deref().should.equal(205);
+            });
+        });
     });
-
-    describe("fi.getCopyrightMessage", function () {
-      it("should return a string containing \"FreeImage\"", function () {
-        fi.getCopyrightMessage().should.have.string("FreeImage");
-      });
-    });
-  });
-
-  describe("Bitmap management functions", function () {
-    describe("fi.allocate", function () {
-      it("should create a bitmap", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
-        bitmap.isNull().should.be.false();
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.allocateT", function () {
-      it("should create a bitmap", function () {
-        var bitmap = fi.allocateT(TEMP_BITMAP_01_IMAGE_TYPE, TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
-        bitmap.isNull().should.be.false();
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.load", function () {
-      it("should load a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.save", function () {
-      it("should save a bitmap", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
-            success = false;
-        bitmap.isNull().should.be.false();
-        success = fi.save(TEMP_BITMAP_01_IMAGE_FORMAT, bitmap, TEMP_BITMAP_01_FILENAME);
-        success.should.be.true();
-        fi.unload(bitmap);
-        fs.unlinkSync(TEMP_BITMAP_01_FILENAME);
-      });
-    });
-
-    describe("fi.clone", function () {
-      it("should clone a bitmap", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
-            bitmap2 = null;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.clone(bitmap);
-        bitmap2.isNull().should.be.false();
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Bitmap information functions", function () {
-    describe("fi.getImageType", function () {
-      it("should get the type of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            type = -1;
-        bitmap.isNull().should.be.false();
-        type = fi.getImageType(bitmap);
-        type.should.equal(TEST_BITMAP_01_IMAGE_TYPE);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getColorsUsed", function () {
-      it("should get the palette size (!) of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            paletteSize = -1;
-        bitmap.isNull().should.be.false();
-        paletteSize = fi.getColorsUsed(bitmap);
-        paletteSize.should.equal(TEST_BITMAP_01_PALETTE_SIZE);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getBPP", function () {
-      it("should get the size of one pixel in the bitmap in bits", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bpp = -1;
-        bitmap.isNull().should.be.false();
-        bpp = fi.getBPP(bitmap);
-        bpp.should.equal(TEST_BITMAP_01_BPP);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getWidth", function () {
-      it("should get the width of a bitmap in pixels", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            width = -1;
-        bitmap.isNull().should.be.false();
-        width = fi.getWidth(bitmap);
-        width.should.equal(TEST_BITMAP_01_WIDTH);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getHeight", function () {
-      it("should get the height of a bitmap in pixels", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            height = -1;
-        bitmap.isNull().should.be.false();
-        height = fi.getHeight(bitmap);
-        height.should.equal(TEST_BITMAP_01_HEIGHT);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getLine", function () {
-      it("should get the width of a bitmap in bytes", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            line = -1;
-        bitmap.isNull().should.be.false();
-        line = fi.getLine(bitmap);
-        line.should.equal(TEST_BITMAP_01_LINE);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getPitch", function () {
-      it("should get the pitch (scan width) of a bitmap in bytes", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            pitch = -1;
-        bitmap.isNull().should.be.false();
-        pitch = fi.getPitch(bitmap);
-        pitch.should.equal(TEST_BITMAP_01_PITCH);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getDIBSize", function () {
-      it("should get the DIB size of a bitmap in bytes", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            dibSize = -1;
-        bitmap.isNull().should.be.false();
-        dibSize = fi.getDIBSize(bitmap);
-        dibSize.should.equal(TEST_BITMAP_01_DIB_SIZE);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getPalette", function () {
-      it("should return null for a non-palettized bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            palette = null;
-        bitmap.isNull().should.be.false();
-        palette = fi.getPalette(bitmap);
-        palette.isNull().should.be.true();
-        fi.unload(bitmap);
-      });
-
-      it("should get the palette of a palettized bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
-            palette = null,
-            palette2 = null,
-            i = -1;
-        bitmap.isNull().should.be.false();
-        palette = fi.getPalette(bitmap);
-        palette.isNull().should.be.false();
-        palette2 = new Palette(ref.reinterpret(palette, TEST_BITMAP_02_COLOR_COUNT * RGBQUAD_SIZE, 0));
-        for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
-          palette2[i].rgbBlue.should.equal(TEST_BITMAP_02_PALETTE[i].rgbBlue);
-          palette2[i].rgbGreen.should.equal(TEST_BITMAP_02_PALETTE[i].rgbGreen);
-          palette2[i].rgbRed.should.equal(TEST_BITMAP_02_PALETTE[i].rgbRed);
-          palette2[i].rgbReserved.should.equal(TEST_BITMAP_02_PALETTE[i].rgbReserved);
-        }
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getDotsPerMeterX", function () {
-      it("should get the X-resolution of a bitmap in dpm", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            dpmX = -1;
-        bitmap.isNull().should.be.false();
-        dpmX = fi.getDotsPerMeterX(bitmap);
-        dpmX.should.equal(TEST_BITMAP_01_DPM_X);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getDotsPerMeterY", function () {
-      it("should get the Y-resolution of a bitmap in dpm", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            dpmY = -1;
-        bitmap.isNull().should.be.false();
-        dpmY = fi.getDotsPerMeterY(bitmap);
-        dpmY.should.equal(TEST_BITMAP_01_DPM_Y);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.setDotsPerMeterX", function () {
-      it("should set the X-resolution of a bitmap in dpm", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
-            dpmX = TEMP_BITMAP_01_DPM_X;
-        bitmap.isNull().should.be.false();
-        fi.setDotsPerMeterX(bitmap, dpmX);
-        dpmX = fi.getDotsPerMeterX(bitmap);
-        dpmX.should.equal(dpmX);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.setDotsPerMeterY", function () {
-      it("should set the Y-resolution of a bitmap in dpm", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP),
-            dpmY = TEMP_BITMAP_01_DPM_Y;
-        bitmap.isNull().should.be.false();
-        fi.setDotsPerMeterY(bitmap, dpmY);
-        dpmY = fi.getDotsPerMeterY(bitmap);
-        dpmY.should.equal(dpmY);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getInfoHeader", function () {
-      it("should get the BITMAPINFOHEADER of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            infoHeader = null;
-        bitmap.isNull().should.be.false();
-        infoHeader = fi.getInfoHeader(bitmap);
-        infoHeader.isNull().should.be.false();
-        infoHeader = infoHeader.deref();
-        infoHeader.biSize.should.equal(BITMAPINFOHEADER_SIZE);
-        infoHeader.biWidth.should.equal(TEST_BITMAP_01_WIDTH);
-        infoHeader.biHeight.should.equal(TEST_BITMAP_01_HEIGHT);
-        infoHeader.biPlanes.should.equal(1);
-        infoHeader.biBitCount.should.equal(TEST_BITMAP_01_BPP);
-        infoHeader.biCompression.should.equal(0);
-        infoHeader.biSizeImage.should.equal(0);
-        infoHeader.biXPelsPerMeter.should.equal(TEST_BITMAP_01_DPM_X);
-        infoHeader.biYPelsPerMeter.should.equal(TEST_BITMAP_01_DPM_Y);
-        infoHeader.biClrUsed.should.equal(0);
-        infoHeader.biClrImportant.should.equal(0);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getInfo", function () {
-      it("should get the BITMAPINFO of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            info = null;
-        bitmap.isNull().should.be.false();
-        info = fi.getInfo(bitmap);
-        info.isNull().should.be.false();
-        info = info.deref();
-        info.bmiHeader.biSize.should.equal(BITMAPINFOHEADER_SIZE);
-        info.bmiHeader.biWidth.should.equal(TEST_BITMAP_01_WIDTH);
-        info.bmiHeader.biHeight.should.equal(TEST_BITMAP_01_HEIGHT);
-        info.bmiHeader.biPlanes.should.equal(1);
-        info.bmiHeader.biBitCount.should.equal(TEST_BITMAP_01_BPP);
-        info.bmiHeader.biCompression.should.equal(0);
-        info.bmiHeader.biSizeImage.should.equal(0);
-        info.bmiHeader.biXPelsPerMeter.should.equal(TEST_BITMAP_01_DPM_X);
-        info.bmiHeader.biYPelsPerMeter.should.equal(TEST_BITMAP_01_DPM_Y);
-        info.bmiHeader.biClrUsed.should.equal(0);
-        info.bmiHeader.biClrImportant.should.equal(0);
-        info.bmiColors.length.should.equal(0);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getColorType", function () {
-      it("should get the color type of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            colorType = -1;
-        bitmap.isNull().should.be.false();
-        colorType = fi.getColorType(bitmap);
-        colorType.should.equal(TEST_BITMAP_01_COLOR_TYPE);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getRedMask", function () {
-      it("should get the red mask of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            redMask = -1;
-        bitmap.isNull().should.be.false();
-        redMask = fi.getRedMask(bitmap);
-        redMask.should.equal(TEST_BITMAP_01_RED_MASK);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getGreenMask", function () {
-      it("should get the green mask of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            greenMask = -1;
-        bitmap.isNull().should.be.false();
-        greenMask = fi.getGreenMask(bitmap);
-        greenMask.should.equal(TEST_BITMAP_01_GREEN_MASK);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getBlueMask", function () {
-      it("should get the blue mask of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            blueMask = -1;
-        bitmap.isNull().should.be.false();
-        blueMask = fi.getBlueMask(bitmap);
-        blueMask.should.equal(TEST_BITMAP_01_BLUE_MASK);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getTransparencyCount", function () {
-      it("should get the transparency count of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
-            count = -1;
-        bitmap.isNull().should.be.false();
-        count = fi.getTransparencyCount(bitmap);
-        count.should.equal(TEST_BITMAP_02_COLOR_COUNT);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getTransparencyTable", function () {
-      it("should get the transparency table of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
-            table = null,
-            table2 = null,
-            i = -1;
-        bitmap.isNull().should.be.false();
-        table = fi.getTransparencyTable(bitmap);
-        table.isNull().should.be.false();
-        table2 = new TransparencyTable(ref.reinterpret(table, TEST_BITMAP_02_COLOR_COUNT, 0));
-        for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
-          table2[i].should.equal(TEST_BITMAP_02_TRANSPARENCY_TABLE[i]);
-        }
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.setTransparencyTable", function () {
-      it("should set the transparency table of a bitmap", function () {
-        var bitmap = fi.allocate(TEMP_BITMAP_02_WIDTH, TEMP_BITMAP_02_HEIGHT, TEMP_BITMAP_02_BPP),
-            table = new Buffer(TEMP_BITMAP_02_TRANSPARENCY_TABLE),
-            table2 = null;
-        bitmap.isNull().should.be.false();
-        fi.setTransparencyTable(bitmap, table, TEMP_BITMAP_02_COLOR_COUNT);
-        bitmap.isNull().should.be.false();
-        table = fi.getTransparencyTable(bitmap);
-        table.isNull().should.be.false();
-        table2 = new TransparencyTable(ref.reinterpret(table, TEMP_BITMAP_02_COLOR_COUNT, 0));
-        for (i = 0; i < TEMP_BITMAP_02_COLOR_COUNT; i += 1) {
-          table2[i].should.equal(TEMP_BITMAP_02_TRANSPARENCY_TABLE[i]);
-        }
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.(is|set)Transparent", function () {
-      it("should get/set the transparency state of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
-            isTransparent = false,
-            i = -1;
-        bitmap.isNull().should.be.false();
-        for (i = 0; i < 5; i += 1) {
-          isTransparent = i % 2 === 0;
-          fi.setTransparent(bitmap, isTransparent);
-          fi.isTransparent(bitmap).should.equal(isTransparent);
-        }
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.(get|set)TransparentIndex", function () {
-      it("should get/set the palette index of the transparent color of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
-            i = -1;
-        bitmap.isNull().should.be.false();
-        for (i = 0; i < TEST_BITMAP_02_COLOR_COUNT; i += 1) {
-          fi.setTransparentIndex(bitmap, i);
-          fi.getTransparentIndex(bitmap).should.equal(i);
-        }
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.(has|get|set)BackgroundColor", function () {
-      it("should get/set the background color of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            color = new RGBQUAD(AQUA);
-        bitmap.isNull().should.be.false();
-        fi.hasBackgroundColor(bitmap).should.be.false();
-        fi.getBackgroundColor(bitmap, color.ref()).should.be.false();
-        fi.setBackgroundColor(bitmap, color.ref()).should.be.true();
-        fi.hasBackgroundColor(bitmap).should.be.true();
-        fi.getBackgroundColor(bitmap, color.ref()).should.be.true();
-        color.rgbBlue.should.equal(AQUA.rgbBlue);
-        color.rgbGreen.should.equal(AQUA.rgbGreen);
-        color.rgbRed.should.equal(AQUA.rgbRed);
-        color.rgbReserved.should.equal(AQUA.rgbReserved);
-        fi.setBackgroundColor(bitmap, ref.NULL).should.be.true();
-        fi.hasBackgroundColor(bitmap).should.be.false();
-        fi.getBackgroundColor(bitmap, color.ref()).should.be.false();
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.hasPixels", function () {
-      it("should determine if a bitmap has pixels", function () {
-        var bitmap1 = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME, fi.LOAD_SAVE_OPTION.LOAD_NOPIXELS);
-        bitmap1.isNull().should.be.false();
-        bitmap2.isNull().should.be.false();
-        fi.hasPixels(bitmap1).should.be.true();
-        fi.hasPixels(bitmap2).should.be.false();
-        fi.unload(bitmap2);
-        fi.unload(bitmap1);
-      });
-    });
-
-    describe("fi.(get|set)Thumbnail", function () {
-      it("should get/set the thumbnail of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            thumbnail = null;
-        bitmap.isNull().should.be.false();
-        fi.getThumbnail(bitmap).isNull().should.be.true();
-        thumbnail = fi.clone(bitmap);
-        thumbnail.isNull().should.be.false();
-        fi.setThumbnail(bitmap, thumbnail).should.be.true();
-        fi.getThumbnail(bitmap).isNull().should.be.false();
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Filetype functions", function () {
-    describe("fi.getFileType", function () {
-      it("should get the image format of a bitmap", function () {
-        var format = fi.getFileType(TEST_BITMAP_01_FILENAME);
-        format.should.equal(TEST_BITMAP_01_IMAGE_FORMAT);
-      });
-    });
-  });
-
-  describe("Pixel access functions", function () {
-    describe("fi.getBits", function () {
-      it("should get the bits of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            bits = null,
-            bits2 = null;
-        bitmap.isNull().should.be.false();
-        bits = fi.getBits(bitmap);
-        bits.isNull().should.be.false();
-        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
-        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
-        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
-        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
-        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
-        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
-        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getScanLine", function () {
-      it("should get the scan lines of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            scanLine = null,
-            scanLine2 = null;
-        bitmap.isNull().should.be.false();
-        scanLine = fi.getScanLine(bitmap, 0);
-        scanLine.isNull().should.be.false();
-        scanLine2 = new ByteArray(ref.reinterpret(scanLine, TEST_BITMAP_03_PITCH, 0));
-        scanLine2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
-        scanLine2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
-        scanLine2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
-        scanLine2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
-        scanLine2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
-        scanLine2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
-        scanLine = fi.getScanLine(bitmap, 1);
-        scanLine.isNull().should.be.false();
-        scanLine2 = new ByteArray(ref.reinterpret(scanLine, TEST_BITMAP_03_PITCH, 0));
-        scanLine2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
-        scanLine2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
-        scanLine2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
-        scanLine2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
-        scanLine2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
-        scanLine2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getPixelIndex", function () {
-      it("should return false for a non-palettized bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            pixelIndex = ref.alloc(BYTE, 0),
-            success = false;
-        bitmap.isNull().should.be.false();
-        success = fi.getPixelIndex(bitmap, 0, 0, pixelIndex);
-        success.should.be.false();
-        pixelIndex.deref().should.equal(0);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getPixelColor", function () {
-      it("should get the pixel colors of a non-palettized bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            pixelColor = ref.alloc(RGBQUAD, BLACK),
-            success = false;
-        bitmap.isNull().should.be.false();
-        success = fi.getPixelColor(bitmap, 0, 0, pixelColor);
-        success.should.be.true();
-        pixelColor.deref().rgbBlue.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
-        pixelColor.deref().rgbGreen.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
-        pixelColor.deref().rgbRed.should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.setPixelIndex", function () {
-      it("should return false for a non-palettized bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            pixelIndex = ref.alloc(BYTE, 0),
-            success = false;
-        bitmap.isNull().should.be.false();
-        success = fi.setPixelIndex(bitmap, 0, 0, pixelIndex);
-        success.should.be.false();
-        pixelIndex.deref().should.equal(0);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.setPixelColor", function () {
-      it("should set the pixel colors of a non-palettized bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            pixelColor = ref.alloc(RGBQUAD, TEST_BITMAP_03_TEST_PIXEL_COLOR),
-            success = false;
-        bitmap.isNull().should.be.false();
-        success = fi.setPixelColor(bitmap, 0, 0, pixelColor);
-        success.should.be.true();
-        success = fi.getPixelColor(bitmap, 0, 0, pixelColor);
-        success.should.be.true();
-        pixelColor.deref().rgbBlue.should.equal(TEST_BITMAP_03_TEST_PIXEL_COLOR.rgbBlue);
-        pixelColor.deref().rgbGreen.should.equal(TEST_BITMAP_03_TEST_PIXEL_COLOR.rgbGreen);
-        pixelColor.deref().rgbRed.should.equal(TEST_BITMAP_03_TEST_PIXEL_COLOR.rgbRed);
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Conversion functions", function () {
-    describe("fi.convertTo4Bits", function () {
-      it("should convert a 32-bit bitmap to a 4-bit one", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertTo4Bits(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(4);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertTo8Bits", function () {
-      it("should convert a 32-bit bitmap to an 8-bit one", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertTo8Bits(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(8);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertToGreyscale", function () {
-      it("should convert a 32-bit bitmap to a greyscale one", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertToGreyscale(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(8);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertTo16Bits555", function () {
-      it("should convert a 32-bit bitmap to a 16-bit one (555)", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertTo16Bits555(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(16);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertTo16Bits565", function () {
-      it("should convert a 32-bit bitmap to a 16-bit one (565)", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertTo16Bits565(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(16);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertTo24Bits", function () {
-      it("should convert a 32-bit bitmap to a 24-bit one", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertTo24Bits(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(24);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertTo32Bits", function () {
-      it("should convert a 4-bit bitmap to a 32-bit one", function () {
-        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertTo32Bits(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(32);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.colorQuantize", function () {
-      it("should quantize a 24-bit bitmap (Wu)", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.colorQuantize(bitmap, fi.QUANTIZATION.WUQUANT);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(8);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.colorQuantizeEx", function () {
-      it("should quantize a 24-bit bitmap (Wu)", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.colorQuantizeEx(bitmap, fi.QUANTIZATION.WUQUANT);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(8);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.threshold", function () {
-      it("should convert a 32-bit bitmap to a 1-bit one using a threshold", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.threshold(bitmap, 150);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(1);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.dither", function () {
-      it("should convert a 32-bit bitmap to a 1-bit one using dithering", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.dither(bitmap, fi.DITHERING.FS);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(1);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertFromRawBits", function () {
-      it("should create a bitmap from a pixel color array", function () {
-        var width = 2,
-            height = 2,
-            bpp = 24,
-            pitch = width * bpp / BYTES_TO_BITS,
-            bits = ref.reinterpret(new Buffer([
-              0, 255, 255,
-              0, 0, 0,
-              255, 255, 0,
-              255, 0, 255
-            ]), height * pitch, 0),
-            bitmap = null;
-        bitmap = fi.convertFromRawBits(
-          bits,
-          width, height, pitch, bpp,
-          fi.RGBA_MASK.RED, fi.RGBA_MASK.GREEN, fi.RGBA_MASK.BLUE
-        );
-        bitmap.isNull().should.be.false();
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertToRawBits", function () {
-      it("should convert a bitmap to a pixel color array", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            pitch = TEST_BITMAP_03_WIDTH * TEST_BITMAP_03_BPP / BYTES_TO_BITS,
-            bits = new Buffer(TEST_BITMAP_03_HEIGHT * pitch);
-        bitmap.isNull().should.be.false();
-        fi.convertToRawBits(
-          bits, bitmap,
-          pitch, TEST_BITMAP_03_BPP,
-          fi.RGBA_MASK.RED, fi.RGBA_MASK.GREEN, fi.RGBA_MASK.BLUE,
-          true
-        );
-        bits[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
-        bits[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
-        bits[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
-        bits[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
-        bits[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
-        bits[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
-        bits[pitch + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
-        bits[pitch + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
-        bits[pitch + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
-        bits[pitch + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
-        bits[pitch + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
-        bits[pitch + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertToStandardType", function () {
-      it("should return the clone of a standard bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertToStandardType(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(32);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertToType", function () {
-      it("should convert a bitmap to another type", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            type2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertToType(bitmap, fi.IMAGE_TYPE.FLOAT);
-        bitmap2.isNull().should.be.false();
-        type2 = fi.getImageType(bitmap2);
-        type2.should.equal(fi.IMAGE_TYPE.FLOAT);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertToFloat", function () {
-      it("should convert a bitmap to float type", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            type2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertToFloat(bitmap);
-        bitmap2.isNull().should.be.false();
-        type2 = fi.getImageType(bitmap2);
-        type2.should.equal(fi.IMAGE_TYPE.FLOAT);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertToRGBF", function () {
-      it("should convert a bitmap to RGBF type", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            type2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertToRGBF(bitmap);
-        bitmap2.isNull().should.be.false();
-        type2 = fi.getImageType(bitmap2);
-        type2.should.equal(fi.IMAGE_TYPE.RGBF);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertToUINT16", function () {
-      it("should convert a bitmap to UINT16 type", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            type2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertToUINT16(bitmap);
-        bitmap2.isNull().should.be.false();
-        type2 = fi.getImageType(bitmap2);
-        type2.should.equal(fi.IMAGE_TYPE.UINT16);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.convertToRGB16", function () {
-      it("should convert a bitmap to RGB16 type", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null,
-            type2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.convertToRGB16(bitmap);
-        bitmap2.isNull().should.be.false();
-        type2 = fi.getImageType(bitmap2);
-        type2.should.equal(fi.IMAGE_TYPE.RGB16);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Tone mapping operators", function () {
-    describe("fi.toneMapping", function () {
-      it("should convert a 48-bit bitmap to a 24-bit one", function () {
-        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.toneMapping(bitmap, fi.TONE_MAPPING_OPERATION.REINHARD05);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(24);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.tmoDrago03", function () {
-      it("should convert a 48-bit bitmap to a 24-bit one", function () {
-        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.tmoDrago03(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(24);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.tmoReinhard05", function () {
-      it("should convert a 48-bit bitmap to a 24-bit one", function () {
-        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.tmoReinhard05(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(24);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.tmoReinhard05Ex", function () {
-      it("should convert a 48-bit bitmap to a 24-bit one", function () {
-        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.tmoReinhard05Ex(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(24);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.tmoFattal02", function () {
-      it("should convert a 48-bit bitmap to a 24-bit one", function () {
-        var bitmap = fi.load(TEST_BITMAP_04_IMAGE_FORMAT, TEST_BITMAP_04_FILENAME),
-            bitmap2 = null,
-            bpp2 = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.tmoFattal02(bitmap);
-        bitmap2.isNull().should.be.false();
-        bpp2 = fi.getBPP(bitmap2);
-        bpp2.should.equal(24);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("ICC profile functions", function () {
-    describe("fi.(get|create|destroy)ICCProfile", function () {
-      it("should get/create/destroy the ICC profile of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            profile = null,
-            data = null,
-            data2 = null;
-        bitmap.isNull().should.be.false();
-        profile = fi.getICCProfile(bitmap);
-        profile.isNull().should.be.false();
-        profile.deref().flags.should.equal(0);
-        profile.deref().size.should.equal(0);
-        profile.deref().data.isNull().should.be.true();
-        data = new Buffer([1, 2, 3, 4, 5]);
-        fi.createICCProfile(bitmap, data, data.length);
-        profile = fi.getICCProfile(bitmap);
-        profile.deref().flags.should.equal(0);
-        profile.deref().size.should.equal(data.length);
-        profile.deref().data.isNull().should.be.false();
-        data2 = ref.reinterpret(profile.deref().data, profile.deref().size, 0);
-        data2.should.deep.equal(data);
-        fi.destroyICCProfile(bitmap);
-        profile = fi.getICCProfile(bitmap);
-        profile.isNull().should.be.false();
-        profile.deref().flags.should.equal(0);
-        profile.deref().size.should.equal(0);
-        profile.deref().data.isNull().should.be.true();
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Multipage functions", function () {
-    describe("fi.(open|close)MultiBitmap", function () {
-      it("should open/close a multibitmap", function () {
-        var multiBitmap = null,
-            success = false;
-        multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_FILENAME, false, true);
-        multiBitmap.isNull().should.be.false();
-        success = fi.closeMultiBitmap(multiBitmap);
-        success.should.be.true();
-      });
-    });
-
-    describe("fi.getPageCount", function () {
-      it("should return the page count of a multibitmap", function () {
-        var multiBitmap = null,
-            pageCount = -1;
-        multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_FILENAME, false, true);
-        multiBitmap.isNull().should.be.false();
-        pageCount = fi.getPageCount(multiBitmap);
-        pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT);
-        success = fi.closeMultiBitmap(multiBitmap);
-        success.should.be.true();
-      });
-    });
-
-    describe("fi.appendPage", function () {
-      it("should append a page to a multibitmap", function () {
-        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
-            bitmap = null,
-            multiBitmap = null,
-            pageCount = -1;
-        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
-        try {
-          bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
-          bitmap.isNull().should.be.false();
-          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
-          multiBitmap.isNull().should.be.false();
-          fi.appendPage(multiBitmap, bitmap);
-          pageCount = fi.getPageCount(multiBitmap);
-          pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT + 1);
-          success = fi.closeMultiBitmap(multiBitmap);
-          success.should.be.true();
-          fi.unload(bitmap);
-        } finally {
-          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
-        }
-      });
-    });
-
-    describe("fi.insertPage", function () {
-      it("should insert a page into a multibitmap", function () {
-        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
-            bitmap = null,
-            multiBitmap = null,
-            pageCount = -1;
-        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
-        try {
-          bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
-          bitmap.isNull().should.be.false();
-          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
-          multiBitmap.isNull().should.be.false();
-          fi.insertPage(multiBitmap, 1, bitmap);
-          pageCount = fi.getPageCount(multiBitmap);
-          pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT + 1);
-          success = fi.closeMultiBitmap(multiBitmap);
-          success.should.be.true();
-          fi.unload(bitmap);
-        } finally {
-          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
-        }
-      });
-    });
-
-    describe("fi.deletePage", function () {
-      it("should delete a page from a multibitmap", function () {
-        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
-            bitmap = null,
-            multiBitmap = null,
-            pageCount = -1;
-        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
-        try {
-          bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
-          bitmap.isNull().should.be.false();
-          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
-          multiBitmap.isNull().should.be.false();
-          fi.deletePage(multiBitmap, 1);
-          pageCount = fi.getPageCount(multiBitmap);
-          pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT - 1);
-          success = fi.closeMultiBitmap(multiBitmap);
-          success.should.be.true();
-          fi.unload(bitmap);
-        } finally {
-          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
-        }
-      });
-    });
-
-    describe("fi.(lock|unlock)Page", function () {
-      it("should lock/unlock a page of a multibitmap", function () {
-        var multiBitmap = null,
-            pageCount = -1,
-            pageIndex = -1,
-            pageBitmap = null,
-            width = -1,
-            height = -1,
-            success = false;
-        multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_FILENAME, false, true);
-        multiBitmap.isNull().should.be.false();
-        pageCount = fi.getPageCount(multiBitmap);
-        pageCount.should.equal(TEST_BITMAP_05_PAGE_COUNT);
-        for (pageIndex = 0; pageIndex < pageCount; pageIndex += 1) {
-          pageBitmap = fi.lockPage(multiBitmap, pageIndex);
-          try {
-            width = fi.getWidth(pageBitmap);
-            width.should.equal(TEST_BITMAP_05_PAGE_WIDTH);
-            height = fi.getHeight(pageBitmap);
-            height.should.equal(TEST_BITMAP_05_PAGE_HEIGHT);
-          } finally {
-            fi.unlockPage(multiBitmap, pageBitmap, false);
-          }
-        }
-        success = fi.closeMultiBitmap(multiBitmap);
-        success.should.be.true();
-      });
-    });
-
-    describe("fi.movePage", function () {
-      it("should move a page inside a multibitmap", function () {
-        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
-            multiBitmap = null,
-            success = false;
-        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
-        try {
-          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
-          multiBitmap.isNull().should.be.false();
-          success = fi.movePage(multiBitmap, 2, 0);
-          success.should.be.true();
-          success = fi.closeMultiBitmap(multiBitmap);
-          success.should.be.true();
-        } finally {
-          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
-        }
-      });
-    });
-
-    describe("fi.getLockedPageNumbers", function () {
-      it("should get the indexes of locked pages of a multibitmap", function () {
-        var TEST_BITMAP_05_TMP_COPY_FILENAME = TEST_BITMAP_05_FILENAME + ".tmp",
-            multiBitmap = null,
-            pageBitmap0 = null,
-            pageBitmap2 = null,
-            success = false,
-            lockedPageCount = ref.alloc(INT),
-            lockedPageIndexes = null,
-            lockedPageIndexes2 = null;
-        fs.writeFileSync(TEST_BITMAP_05_TMP_COPY_FILENAME, fs.readFileSync(TEST_BITMAP_05_FILENAME));
-        try {
-          multiBitmap = fi.openMultiBitmap(TEST_BITMAP_05_IMAGE_FORMAT, TEST_BITMAP_05_TMP_COPY_FILENAME, false, false);
-          multiBitmap.isNull().should.be.false();
-          pageBitmap0 = fi.lockPage(multiBitmap, 0);
-          pageBitmap2 = fi.lockPage(multiBitmap, 2);
-          try {
-            success = fi.getLockedPageNumbers(multiBitmap, ref.NULL, lockedPageCount);
-            success.should.be.true();
-            lockedPageCount.deref().should.equal(2);
-            lockedPageIndexes = new Buffer(lockedPageCount.deref() * INT_SIZE);
-            success = fi.getLockedPageNumbers(multiBitmap, lockedPageIndexes, lockedPageCount);
-            success.should.be.true();
-            lockedPageIndexes2 = new IntArray(lockedPageIndexes);
-            lockedPageIndexes2.length.should.equal(lockedPageCount.deref());
-            lockedPageIndexes2.toString().should.match(/^(0,2)|(2,0)$/);
-          } finally {
-            fi.unlockPage(multiBitmap, pageBitmap2, false);
-            fi.unlockPage(multiBitmap, pageBitmap0, false);
-          }
-          success = fi.closeMultiBitmap(multiBitmap);
-          success.should.be.true();
-        } finally {
-          fs.unlinkSync(TEST_BITMAP_05_TMP_COPY_FILENAME);
-        }
-      });
-    });
-  });
-
-  describe("Compression functions", function () {
-    describe("fi.zLib(Compress|Uncompress)", function () {
-      it("should compress/uncompress a byte array", function () {
-        var data = null,
-            compressedSize = -1,
-            compressedData = null,
-            uncompressedSize = -1,
-            uncompressedData = null,
-            i = -1;
-        data = new Buffer([1, 2, 3, 4, 1, 2, 3, 4]);
-        compressedSize = Math.round(1.1 * data.length + 12);
-        compressedData = new Buffer(compressedSize);
-        compressedSize = fi.zLibCompress(compressedData, compressedSize, data, data.length);
-        compressedSize.should.not.equal(0);
-        uncompressedSize = 10 * data.length;
-        uncompressedData = new Buffer(uncompressedSize);
-        uncompressedSize = fi.zLibUncompress(uncompressedData, uncompressedSize, compressedData, compressedSize);
-        uncompressedSize.should.equal(data.length);
-        for (i = 0; i < data.length; i += 1) {
-          uncompressedData[i].should.equal(data[i]);
-        }
-      });
-    });
-
-    describe("fi.zLib(GZip|GUnzip)", function () {
-      it("should compress/uncompress a byte array", function () {
-        var data = null,
-            compressedSize = -1,
-            compressedData = null,
-            uncompressedSize = -1,
-            uncompressedData = null,
-            i = -1;
-        data = new Buffer([1, 2, 3, 4, 1, 2, 3, 4]);
-        compressedSize = Math.round(1.1 * data.length + 24);
-        compressedData = new Buffer(compressedSize);
-        compressedSize = fi.zLibGZip(compressedData, compressedSize, data, data.length);
-        compressedSize.should.not.equal(0);
-        uncompressedSize = 10 * data.length;
-        uncompressedData = new Buffer(uncompressedSize);
-        uncompressedSize = fi.zLibGUnzip(uncompressedData, uncompressedSize, compressedData, compressedSize);
-        uncompressedSize.should.equal(data.length);
-        for (i = 0; i < data.length; i += 1) {
-          uncompressedData[i].should.equal(data[i]);
-        }
-      });
-    });
-
-    describe("fi.zLibCRC32", function () {
-      it("should calculate the CRC checksum of a byte array", function () {
-        var data = null,
-            crc = -1;
-        data = new Buffer([0xCA, 0xFE, 0xBA, 0xBE]);
-        crc = fi.zLibCRC32(0, data, data.length);
-        crc.should.equal(0xB51D571D);
-      });
-    });
-  });
-
-  describe("Helper functions", function () {
-    describe("fi.isLittleEndian", function () {
-      it("should determine endianness", function () {
-        fi.isLittleEndian().should.equal(os.endianness() === "LE");
-      });
-    });
-
-    describe("fi.lookupX11Color", function () {
-      it("should convert an X11 color name into an RGB value", function () {
-        var success = false,
-            red = ref.alloc(BYTE, 0),
-            green = ref.alloc(BYTE, 0),
-            blue = ref.alloc(BYTE, 0);
-        success = fi.lookupX11Color("papayawhip", red, green, blue);
-        success.should.be.true();
-        red.deref().should.equal(255);
-        green.deref().should.equal(239);
-        blue.deref().should.equal(213);
-      });
-    });
-
-    describe("fi.lookupSVGColor", function () {
-      it("should convert an SVG color name into an RGB value", function () {
-        var success = false,
-            red = ref.alloc(BYTE, 0),
-            green = ref.alloc(BYTE, 0),
-            blue = ref.alloc(BYTE, 0);
-        success = fi.lookupSVGColor("lemonchiffon", red, green, blue);
-        success.should.be.true();
-        red.deref().should.equal(255);
-        green.deref().should.equal(250);
-        blue.deref().should.equal(205);
-      });
-    });
-  });
 });
 
 describe("METADATA FUNCTION REFERENCE", function () {
-  describe("Tag creation and destruction", function () {
-    describe("fi.(create|delete)Tag", function () {
-      it("should create/delete a tag", function () {
-        var tag = null;
-        tag = fi.createTag();
-        tag.isNull().should.be.false();
-        fi.deleteTag(tag);
-      });
+    describe("Tag creation and destruction", function () {
+        describe("fi.(create|delete)Tag", function () {
+            it("should create/delete a tag", function () {
+                var tag = null;
+                tag = fi.createTag();
+                tag.isNull().should.be.false();
+                fi.deleteTag(tag);
+            });
+        });
+
+        describe("fi.cloneTag", function () {
+            it("should clone a tag", function () {
+                var tag = null,
+                    tag2 = null;
+                tag = fi.createTag();
+                tag.isNull().should.be.false();
+                tag2 = fi.cloneTag(tag);
+                tag2.isNull().should.be.false();
+                fi.deleteTag(tag2);
+                fi.deleteTag(tag);
+            });
+        });
     });
 
-    describe("fi.cloneTag", function () {
-      it("should clone a tag", function () {
-        var tag = null,
-            tag2 = null;
-        tag = fi.createTag();
-        tag.isNull().should.be.false();
-        tag2 = fi.cloneTag(tag);
-        tag2.isNull().should.be.false();
-        fi.deleteTag(tag2);
-        fi.deleteTag(tag);
-      });
-    });
-  });
-
-  describe("Tag accessors", function () {
-    describe("fi.(get|set)Tag(ID|Key|Description|Type|Count|Length|Value)", function () {
-      it("should get/set the ID/key/description/type/count/length/value of a tag", function () {
-        var tag = null,
-            value = null;
-        tag = fi.createTag();
-        tag.isNull().should.be.false();
-        fi.setTagID(tag, TAG_ID).should.be.true();
-        fi.getTagID(tag).should.equal(TAG_ID);
-        fi.setTagKey(tag, TAG_KEY).should.be.true();
-        fi.getTagKey(tag).should.equal(TAG_KEY);
-        fi.setTagDescription(tag, TAG_DESCRIPTION).should.be.true();
-        fi.getTagDescription(tag).should.equal(TAG_DESCRIPTION);
-        fi.setTagType(tag, TAG_TYPE).should.be.true();
-        fi.getTagType(tag).should.equal(TAG_TYPE);
-        fi.setTagCount(tag, TAG_COUNT).should.be.true();
-        fi.getTagCount(tag).should.equal(TAG_COUNT);
-        fi.setTagLength(tag, TAG_LENGTH).should.be.true();
-        fi.getTagLength(tag).should.equal(TAG_LENGTH);
-        value = ref.alloc(DOUBLE, TAG_VALUE);
-        fi.setTagValue(tag, value).should.be.true();
-        value = fi.getTagValue(tag);
-        value.isNull().should.be.false();
-        value = new DoubleArray(value)[0];
-        value.should.equal(TAG_VALUE);
-        fi.deleteTag(tag);
-      });
-    });
-  });
-
-  describe("Metadata iterator", function () {
-    describe("fi.find(First|Next|Close)Metadata", function () {
-      it("should iterate over metadata tags of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
-            metadataHandle = null,
-            tag = null,
-            tagType = -1,
-            tagKey = "",
-            tagValue = "",
-            tags = {};
-        bitmap.isNull().should.be.false();
-        tag = ref.alloc(PTAG);
-        metadataHandle = fi.findFirstMetadata(TEST_BITMAP_06_METADATA_MODEL, bitmap, tag);
-        metadataHandle.isNull().should.be.false();
-        if (!metadataHandle.isNull()) {
-          do {
-            tagType = fi.getTagType(tag.deref());
-            if (tagType === fi.METADATA_TYPE.ASCII) {
-              tagKey = fi.getTagKey(tag.deref());
-              tagValue = ref.readCString(fi.getTagValue(tag.deref()), 0);
-              tags[tagKey] = tagValue;
-            }
-          } while (fi.findNextMetadata(metadataHandle, tag));
-          fi.findCloseMetadata(metadataHandle);
-        }
-        tags.should.deep.equal(TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS);
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Metadata accessors", function () {
-    describe("fi.getMetadata", function () {
-      it("should get a metadata tag of a bitmap by key", function () {
-        var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
-            tag = null,
-            p = "",
-            tagValue = "";
-        bitmap.isNull().should.be.false();
-        tag = ref.alloc(PTAG);
-        for (p in TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS) {
-          fi.getMetadata(TEST_BITMAP_06_METADATA_MODEL, bitmap, p, tag).should.be.true();
-          tagValue = ref.readCString(fi.getTagValue(tag.deref()), 0);
-          tagValue.should.equal(TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS[p]);
-        }
-        fi.unload(bitmap);
-      });
+    describe("Tag accessors", function () {
+        describe("fi.(get|set)Tag(ID|Key|Description|Type|Count|Length|Value)", function () {
+            it("should get/set the ID/key/description/type/count/length/value of a tag", function () {
+                var tag = null,
+                    value = null;
+                tag = fi.createTag();
+                tag.isNull().should.be.false();
+                fi.setTagID(tag, TAG_ID).should.be.true();
+                fi.getTagID(tag).should.equal(TAG_ID);
+                fi.setTagKey(tag, TAG_KEY).should.be.true();
+                fi.getTagKey(tag).should.equal(TAG_KEY);
+                fi.setTagDescription(tag, TAG_DESCRIPTION).should.be.true();
+                fi.getTagDescription(tag).should.equal(TAG_DESCRIPTION);
+                fi.setTagType(tag, TAG_TYPE).should.be.true();
+                fi.getTagType(tag).should.equal(TAG_TYPE);
+                fi.setTagCount(tag, TAG_COUNT).should.be.true();
+                fi.getTagCount(tag).should.equal(TAG_COUNT);
+                fi.setTagLength(tag, TAG_LENGTH).should.be.true();
+                fi.getTagLength(tag).should.equal(TAG_LENGTH);
+                value = ref.alloc(DOUBLE, TAG_VALUE);
+                fi.setTagValue(tag, value).should.be.true();
+                value = fi.getTagValue(tag);
+                value.isNull().should.be.false();
+                value = new DoubleArray(value)[0];
+                value.should.equal(TAG_VALUE);
+                fi.deleteTag(tag);
+            });
+        });
     });
 
-    describe("fi.setMetadata", function () {
-      it("should set a metadata tag of a bitmap by key", function () {
-        var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
-            tag = null,
-            value = null,
-            success = false;
-        bitmap.isNull().should.be.false();
-        tag = fi.createTag();
-        tag.isNull().should.be.false();
-        fi.setTagKey(tag, TEST_BITMAP_06_COMMENT_TAG.key).should.be.true();
-        fi.setTagType(tag, TEST_BITMAP_06_COMMENT_TAG.type).should.be.true();
-        fi.setTagCount(tag, TEST_BITMAP_06_COMMENT_TAG.count).should.be.true();
-        fi.setTagLength(tag, TEST_BITMAP_06_COMMENT_TAG.length).should.be.true();
-        value = ref.allocCString(TEST_BITMAP_06_COMMENT_TAG.value);
-        fi.setTagValue(tag, value).should.be.true();
-        fi.setMetadata(TEST_BITMAP_06_COMMENT_METADATA_MODEL, bitmap, TEST_BITMAP_06_COMMENT_TAG.key, tag).should.be.true();
-        fi.deleteTag(tag);
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Metadata helper functions", function () {
-    describe("fi.getMetadataCount", function () {
-      it("should get the number of metadata tags in a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
-            count = -1;
-        bitmap.isNull().should.be.false();
-        count = fi.getMetadataCount(TEST_BITMAP_06_METADATA_MODEL, bitmap);
-        count.should.equal(TEST_BITMAP_06_METADATA_COUNT);
-        fi.unload(bitmap);
-      });
+    describe("Metadata iterator", function () {
+        describe("fi.find(First|Next|Close)Metadata", function () {
+            it("should iterate over metadata tags of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+                    metadataHandle = null,
+                    tag = null,
+                    tagType = -1,
+                    tagKey = "",
+                    tagValue = "",
+                    tags = {};
+                bitmap.isNull().should.be.false();
+                tag = ref.alloc(PTAG);
+                metadataHandle = fi.findFirstMetadata(TEST_BITMAP_06_METADATA_MODEL, bitmap, tag);
+                metadataHandle.isNull().should.be.false();
+                if (!metadataHandle.isNull()) {
+                    do {
+                        tagType = fi.getTagType(tag.deref());
+                        if (tagType === fi.METADATA_TYPE.ASCII) {
+                            tagKey = fi.getTagKey(tag.deref());
+                            tagValue = ref.readCString(fi.getTagValue(tag.deref()), 0);
+                            tags[tagKey] = tagValue;
+                        }
+                    } while (fi.findNextMetadata(metadataHandle, tag));
+                    fi.findCloseMetadata(metadataHandle);
+                }
+                tags.should.deep.equal(TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS);
+                fi.unload(bitmap);
+            });
+        });
     });
 
-    describe("fi.cloneMetadata", function () {
-      it("should copy all metadata tags of a bitmap into another", function () {
-        var srcBitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
-            dstBitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
-        srcBitmap.isNull().should.be.false();
-        dstBitmap.isNull().should.be.false();
-        fi.cloneMetadata(dstBitmap, srcBitmap).should.be.true();
-        fi.unload(dstBitmap);
-        fi.unload(srcBitmap);
-      });
+    describe("Metadata accessors", function () {
+        describe("fi.getMetadata", function () {
+            it("should get a metadata tag of a bitmap by key", function () {
+                var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+                    tag = null,
+                    p = "",
+                    tagValue = "";
+                bitmap.isNull().should.be.false();
+                tag = ref.alloc(PTAG);
+                for (p in TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS) {
+                    fi.getMetadata(TEST_BITMAP_06_METADATA_MODEL, bitmap, p, tag).should.be.true();
+                    tagValue = ref.readCString(fi.getTagValue(tag.deref()), 0);
+                    tagValue.should.equal(TEST_BITMAP_06_EXIF_MAIN_ASCII_TAGS[p]);
+                }
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.setMetadata", function () {
+            it("should set a metadata tag of a bitmap by key", function () {
+                var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+                    tag = null,
+                    value = null,
+                    success = false;
+                bitmap.isNull().should.be.false();
+                tag = fi.createTag();
+                tag.isNull().should.be.false();
+                fi.setTagKey(tag, TEST_BITMAP_06_COMMENT_TAG.key).should.be.true();
+                fi.setTagType(tag, TEST_BITMAP_06_COMMENT_TAG.type).should.be.true();
+                fi.setTagCount(tag, TEST_BITMAP_06_COMMENT_TAG.count).should.be.true();
+                fi.setTagLength(tag, TEST_BITMAP_06_COMMENT_TAG.length).should.be.true();
+                value = ref.allocCString(TEST_BITMAP_06_COMMENT_TAG.value);
+                fi.setTagValue(tag, value).should.be.true();
+                fi.setMetadata(TEST_BITMAP_06_COMMENT_METADATA_MODEL, bitmap, TEST_BITMAP_06_COMMENT_TAG.key, tag).should.be.true();
+                fi.deleteTag(tag);
+                fi.unload(bitmap);
+            });
+        });
     });
 
-    describe("fi.tagToString", function () {
-      it("should convert a metadata tag to string", function () {
-        var tag = null;
-        tag = fi.createTag();
-        tag.isNull().should.be.false();
-        fi.setTagKey(tag, TEST_BITMAP_06_COMMENT_TAG.key).should.be.true();
-        fi.setTagType(tag, TEST_BITMAP_06_COMMENT_TAG.type).should.be.true();
-        fi.setTagCount(tag, TEST_BITMAP_06_COMMENT_TAG.count).should.be.true();
-        fi.setTagLength(tag, TEST_BITMAP_06_COMMENT_TAG.length).should.be.true();
-        value = ref.allocCString(TEST_BITMAP_06_COMMENT_TAG.value);
-        fi.setTagValue(tag, value).should.be.true();
-        fi.tagToString(TEST_BITMAP_06_COMMENT_METADATA_MODEL, tag).should.equal(TEST_BITMAP_06_COMMENT_TAG.value);
-        fi.deleteTag(tag);
-      });
+    describe("Metadata helper functions", function () {
+        describe("fi.getMetadataCount", function () {
+            it("should get the number of metadata tags in a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+                    count = -1;
+                bitmap.isNull().should.be.false();
+                count = fi.getMetadataCount(TEST_BITMAP_06_METADATA_MODEL, bitmap);
+                count.should.equal(TEST_BITMAP_06_METADATA_COUNT);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.cloneMetadata", function () {
+            it("should copy all metadata tags of a bitmap into another", function () {
+                var srcBitmap = fi.load(TEST_BITMAP_06_IMAGE_FORMAT, TEST_BITMAP_06_FILENAME),
+                    dstBitmap = fi.allocate(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP);
+                srcBitmap.isNull().should.be.false();
+                dstBitmap.isNull().should.be.false();
+                fi.cloneMetadata(dstBitmap, srcBitmap).should.be.true();
+                fi.unload(dstBitmap);
+                fi.unload(srcBitmap);
+            });
+        });
+
+        describe("fi.tagToString", function () {
+            it("should convert a metadata tag to string", function () {
+                var tag = null;
+                tag = fi.createTag();
+                tag.isNull().should.be.false();
+                fi.setTagKey(tag, TEST_BITMAP_06_COMMENT_TAG.key).should.be.true();
+                fi.setTagType(tag, TEST_BITMAP_06_COMMENT_TAG.type).should.be.true();
+                fi.setTagCount(tag, TEST_BITMAP_06_COMMENT_TAG.count).should.be.true();
+                fi.setTagLength(tag, TEST_BITMAP_06_COMMENT_TAG.length).should.be.true();
+                value = ref.allocCString(TEST_BITMAP_06_COMMENT_TAG.value);
+                fi.setTagValue(tag, value).should.be.true();
+                fi.tagToString(TEST_BITMAP_06_COMMENT_METADATA_MODEL, tag).should.equal(TEST_BITMAP_06_COMMENT_TAG.value);
+                fi.deleteTag(tag);
+            });
+        });
     });
-  });
 });
 
 describe("TOOLKIT FUNCTION REFERENCE", function () {
-  describe("Rotation and flipping", function () {
-    describe("fi.rotate", function () {
-      it("should rotate a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            bitmap2 = null,
-            bits = null,
-            bits2 = null;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.rotate(bitmap, 90); // CCW
-        bitmap2.isNull().should.be.false();
-        bits = fi.getBits(bitmap2);
-        bits.isNull().should.be.false();
-        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
-        // 23  ->  31
-        // 01      20
-        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
-        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
-        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
-        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
-        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
-        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
+    describe("Rotation and flipping", function () {
+        describe("fi.rotate", function () {
+            it("should rotate a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    bitmap2 = null,
+                    bits = null,
+                    bits2 = null;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.rotate(bitmap, 90); // CCW
+                bitmap2.isNull().should.be.false();
+                bits = fi.getBits(bitmap2);
+                bits.isNull().should.be.false();
+                bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+                // 23  ->  31
+                // 01      20
+                bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+                bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+                bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+                bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+                bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+                bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.rotateEx", function () {
+            it("should rotate and shift a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    bitmap2 = null,
+                    bits = null,
+                    bits2 = null;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.rotateEx(bitmap, 90, 0, -1, 1, 1, true); // CCW
+                bitmap2.isNull().should.be.false();
+                bits = fi.getBits(bitmap2);
+                bits.isNull().should.be.false();
+                bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+                // 23  ->  31
+                // 01      20
+                bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+                bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+                bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+                bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+                bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+                bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.flipHorizontal", function () {
+            it("should flip a bitmap horizontally", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    bits = null,
+                    bits2 = null;
+                bitmap.isNull().should.be.false();
+                fi.flipHorizontal(bitmap).should.be.true();
+                bits = fi.getBits(bitmap);
+                bits.isNull().should.be.false();
+                bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+                // 23  ->  32
+                // 01      10
+                bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+                bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+                bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+                bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+                bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+                bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.flipVertical", function () {
+            it("should flip a bitmap vertically", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    bits = null,
+                    bits2 = null;
+                bitmap.isNull().should.be.false();
+                fi.flipVertical(bitmap).should.be.true();
+                bits = fi.getBits(bitmap);
+                bits.isNull().should.be.false();
+                bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
+                // 23  ->  01
+                // 01      23
+                bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+                bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+                bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+                bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+                bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+                bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+                bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+                bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+                bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+                fi.unload(bitmap);
+            });
+        });
     });
 
-    describe("fi.rotateEx", function () {
-      it("should rotate and shift a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            bitmap2 = null,
-            bits = null,
-            bits2 = null;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.rotateEx(bitmap, 90, 0, -1, 1, 1, true); // CCW
-        bitmap2.isNull().should.be.false();
-        bits = fi.getBits(bitmap2);
-        bits.isNull().should.be.false();
-        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
-        // 23  ->  31
-        // 01      20
-        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
-        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
-        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
-        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
-        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
-        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
+    describe("Upsampling / downsampling", function () {
+        describe("fi.rescale", function () {
+            it("should rescale a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    bitmap2 = null,
+                    bits = null,
+                    bits2 = null,
+                    offset = -1;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.rescale(bitmap, TEST_BITMAP_03_RESCALED_WIDTH, TEST_BITMAP_03_RESCALED_HEIGHT, fi.FILTER.BOX);
+                bitmap2.isNull().should.be.false();
+                bits = fi.getBits(bitmap2);
+                bits.isNull().should.be.false();
+                bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_RESCALED_PITCH * TEST_BITMAP_03_RESCALED_HEIGHT, 0));
+                // 23  ->  2233
+                // 01      2233
+                //         0011
+                //         0011
+                bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
+                bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
+                bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
+                bits2[9].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
+                bits2[10].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
+                bits2[11].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
+                offset = (TEST_BITMAP_03_RESCALED_HEIGHT - 1) * TEST_BITMAP_03_RESCALED_PITCH;
+                bits2[offset + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
+                bits2[offset + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
+                bits2[offset + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
+                bits2[offset + 9].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
+                bits2[offset + 10].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
+                bits2[offset + 11].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.makeThumbnail", function () {
+            it("should create a thumbnail from a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.makeThumbnail(bitmap, TEST_BITMAP_03_WIDTH);
+                bitmap2.isNull().should.be.false();
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
     });
 
-    describe("fi.flipHorizontal", function () {
-      it("should flip a bitmap horizontally", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            bits = null,
-            bits2 = null;
-        bitmap.isNull().should.be.false();
-        fi.flipHorizontal(bitmap).should.be.true();
-        bits = fi.getBits(bitmap);
-        bits.isNull().should.be.false();
-        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
-        // 23  ->  32
-        // 01      10
-        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
-        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
-        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
-        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
-        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
-        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
-        fi.unload(bitmap);
-      });
+    describe("Color manipulation", function () {
+        describe("fi.adjustCurve", function () {
+            it("should perform a color transformation on a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    lookupTable = null,
+                    i = -1;
+                bitmap.isNull().should.be.false();
+                lookupTable = new ByteArray(256);
+                for (i = 0; i < 256; i += 1) {
+                    lookupTable[i] = 255 - i;
+                }
+                fi.adjustCurve(bitmap, lookupTable.buffer, fi.COLOR_CHANNEL.RGB).should.be.true();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.adjustGamma", function () {
+            it("should perform gamma correction on a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.adjustGamma(bitmap, 1.5).should.be.true();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.adjustBrightness", function () {
+            it("should adjust the brightness of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.adjustBrightness(bitmap, 50).should.be.true();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.adjustContrast", function () {
+            it("should adjust the contrast of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.adjustContrast(bitmap, 15).should.be.true();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.invert", function () {
+            it("should invert a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.invert(bitmap).should.be.true();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getHistogram", function () {
+            it("should compute the histogram of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    histogram = null;
+                bitmap.isNull().should.be.false();
+                histogram = new DWordArray(256);
+                fi.getHistogram(bitmap, histogram.buffer, fi.COLOR_CHANNEL.RED).should.be.true();
+                histogram[0].should.equal(3);
+                histogram[255].should.equal(1);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.getAdjustColorsLookupTable", function () {
+            it("should create a lookup table for color transformation of bitmaps", function () {
+                var lookupTable = new ByteArray(256);
+                fi.getAdjustColorsLookupTable(lookupTable.buffer, 50, 15, 1.5, true).should.equal(4);
+            });
+        });
+
+        describe("fi.adjustColors", function () {
+            it("should adjust the colors of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.adjustColors(bitmap, 50, 15, 1.5, true).should.be.true();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.applyColorMapping", function () {
+            it("should adjust the colors of a bitmap using direct color mapping", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    srcColors = new RgbQuadArray([RED, LIME, BLUE, BLACK]),
+                    dstColors = new RgbQuadArray([AQUA, FUCHSIA, YELLOW, WHITE]);
+                bitmap.isNull().should.be.false();
+                fi.applyColorMapping(bitmap, srcColors.buffer, dstColors.buffer, 4, false, false).should.equal(4);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.swapColors", function () {
+            it("should swap two colors in a bitmap directly", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.swapColors(bitmap, RED.ref(), BLACK.ref(), false).should.equal(2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.applyPaletteIndexMapping", function () {
+            it("should adjust the colors of a bitmap using palette index mapping", function () {
+                var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
+                    srcIndices = new ByteArray([9, 10, 12, 13]),
+                    dstIndices = new ByteArray([14, 13, 11, 15]);
+                bitmap.isNull().should.be.false();
+                fi.applyPaletteIndexMapping(bitmap, srcIndices.buffer, dstIndices.buffer, 4, false).should.equal(256);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.swapPaletteIndices", function () {
+            it("should swap two colors in a bitmap by swapping palette indices", function () {
+                var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.swapPaletteIndices(bitmap, ref.alloc(BYTE, 9), ref.alloc(BYTE, 13), false).should.equal(128);
+                fi.unload(bitmap);
+            });
+        });
     });
 
-    describe("fi.flipVertical", function () {
-      it("should flip a bitmap vertically", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            bits = null,
-            bits2 = null;
-        bitmap.isNull().should.be.false();
-        fi.flipVertical(bitmap).should.be.true();
-        bits = fi.getBits(bitmap);
-        bits.isNull().should.be.false();
-        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_PITCH * TEST_BITMAP_03_HEIGHT, 0));
-        // 23  ->  01
-        // 01      23
-        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
-        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
-        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
-        bits2[3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
-        bits2[4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
-        bits2[5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
-        bits2[TEST_BITMAP_03_PITCH + 3].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
-        bits2[TEST_BITMAP_03_PITCH + 4].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
-        bits2[TEST_BITMAP_03_PITCH + 5].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
-        fi.unload(bitmap);
-      });
-    });
-  });
+    describe("Channel processing", function () {
+        describe("fi.(get|set)Channel", function () {
+            it("should get/set the channels of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
+                    channelBitmap = null;
+                bitmap.isNull().should.be.false();
+                channelBitmap = fi.getChannel(bitmap, fi.COLOR_CHANNEL.RED);
+                channelBitmap.isNull().should.be.false();
+                fi.setChannel(bitmap, channelBitmap, fi.COLOR_CHANNEL.GREEN).should.be.true();
+                fi.unload(channelBitmap);
+                fi.unload(bitmap);
+            });
+        });
 
-  describe("Upsampling / downsampling", function () {
-    describe("fi.rescale", function () {
-      it("should rescale a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            bitmap2 = null,
-            bits = null,
-            bits2 = null,
-            offset = -1;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.rescale(bitmap, TEST_BITMAP_03_RESCALED_WIDTH, TEST_BITMAP_03_RESCALED_HEIGHT, fi.FILTER.BOX);
-        bitmap2.isNull().should.be.false();
-        bits = fi.getBits(bitmap2);
-        bits.isNull().should.be.false();
-        bits2 = new ByteArray(ref.reinterpret(bits, TEST_BITMAP_03_RESCALED_PITCH * TEST_BITMAP_03_RESCALED_HEIGHT, 0));
-        // 23  ->  2233
-        // 01      2233
-        //         0011
-        //         0011
-        bits2[0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbBlue);
-        bits2[1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbGreen);
-        bits2[2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[0].rgbRed);
-        bits2[9].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbBlue);
-        bits2[10].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbGreen);
-        bits2[11].should.equal(TEST_BITMAP_03_PIXEL_COLORS[1].rgbRed);
-        offset = (TEST_BITMAP_03_RESCALED_HEIGHT - 1) * TEST_BITMAP_03_RESCALED_PITCH;
-        bits2[offset + 0].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbBlue);
-        bits2[offset + 1].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbGreen);
-        bits2[offset + 2].should.equal(TEST_BITMAP_03_PIXEL_COLORS[2].rgbRed);
-        bits2[offset + 9].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbBlue);
-        bits2[offset + 10].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbGreen);
-        bits2[offset + 11].should.equal(TEST_BITMAP_03_PIXEL_COLORS[3].rgbRed);
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
+        describe("fi.(get|set)ComplexChannel", function () {
+            it("should get/set the channels of a complex bitmap", function () {
+                var bitmap = fi.allocateT(TEMP_BITMAP_03_IMAGE_TYPE, TEMP_BITMAP_03_WIDTH, TEMP_BITMAP_03_HEIGHT, TEMP_BITMAP_03_BPP),
+                    scanLine = null,
+                    scanLine2 = null,
+                    channelBitmap = null;
+                bitmap.isNull().should.be.false();
+                scanLine = fi.getScanLine(bitmap, 0);
+                scanLine2 = new ComplexArray(ref.reinterpret(scanLine, TEMP_BITMAP_03_PITCH, 0));
+                scanLine2[0].r = 10;
+                scanLine2[0].i = 20;
+                channelBitmap = fi.getComplexChannel(bitmap, fi.COLOR_CHANNEL.REAL);
+                channelBitmap.isNull().should.be.false();
+                scanLine = fi.getScanLine(channelBitmap, 0);
+                scanLine2 = new DoubleArray(ref.reinterpret(scanLine, TEMP_BITMAP_03_PITCH, 0));
+                scanLine2[0].should.equal(10);
+                fi.setComplexChannel(bitmap, channelBitmap, fi.COLOR_CHANNEL.IMAG).should.be.true();
+                scanLine = fi.getScanLine(bitmap, 0);
+                scanLine2 = new ComplexArray(ref.reinterpret(scanLine, TEMP_BITMAP_03_PITCH, 0));
+                scanLine2[0].r = 10;
+                scanLine2[0].i = 10;
+                fi.unload(channelBitmap);
+                fi.unload(bitmap);
+            });
+        });
     });
 
-    describe("fi.makeThumbnail", function () {
-      it("should create a thumbnail from a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.makeThumbnail(bitmap, TEST_BITMAP_03_WIDTH);
-        bitmap2.isNull().should.be.false();
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-  });
+    describe("Copy / Paste / Composite routines", function () {
+        describe("fi.(copy|paste)", function () {
+            it("should copy/paste any part of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmapPart = null;
+                bitmap.isNull().should.be.false();
+                bitmapPart = fi.copy(bitmap, 4, 4, 12, 12);
+                bitmapPart.isNull().should.be.false();
+                fi.paste(bitmap, bitmapPart, 2, 2, 128).should.be.true();
+                fi.unload(bitmapPart);
+                fi.unload(bitmap);
+            });
+        });
 
-  describe("Color manipulation", function () {
-    describe("fi.adjustCurve", function () {
-      it("should perform a color transformation on a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            lookupTable = null,
-            i = -1;
-        bitmap.isNull().should.be.false();
-        lookupTable = new ByteArray(256);
-        for (i = 0; i < 256; i += 1) {
-          lookupTable[i] = 255 - i;
-        }
-        fi.adjustCurve(bitmap, lookupTable.buffer, fi.COLOR_CHANNEL.RGB).should.be.true();
-        fi.unload(bitmap);
-      });
-    });
+        describe("fi.composite", function () {
+            it("should composite a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.composite(bitmap, false, FUCHSIA.ref());
+                bitmap2.isNull().should.be.false();
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
 
-    describe("fi.adjustGamma", function () {
-      it("should perform gamma correction on a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.adjustGamma(bitmap, 1.5).should.be.true();
-        fi.unload(bitmap);
-      });
+        describe("fi.preMultiplyWithAlpha", function () {
+            it("should premultiply the RGB channels of a 32-bit bitmap with its A channel", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.preMultiplyWithAlpha(bitmap).should.be.true();
+                fi.unload(bitmap);
+            });
+        });
     });
 
-    describe("fi.adjustBrightness", function () {
-      it("should adjust the brightness of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.adjustBrightness(bitmap, 50).should.be.true();
-        fi.unload(bitmap);
-      });
+    describe("JPEG lossless transformations", function () {
+        describe("fi.jpegTransform", function () {
+            it("should transform a JPEG bitmap", function () {
+                fi.jpegTransform(TEST_BITMAP_06_FILENAME, TRANSFORMED_TEST_BITMAP_06_FILENAME, fi.JPEG_OPERATION.ROTATE_90).should.be.true();
+                fs.unlinkSync(TRANSFORMED_TEST_BITMAP_06_FILENAME);
+            });
+        });
+
+        describe("fi.jpegCrop", function () {
+            it("should crop a JPEG bitmap", function () {
+                fi.jpegCrop(TEST_BITMAP_06_FILENAME, TRANSFORMED_TEST_BITMAP_06_FILENAME, 0, 0, 8, 8).should.be.true();
+                fs.unlinkSync(TRANSFORMED_TEST_BITMAP_06_FILENAME);
+            });
+        });
+
+        describe("fi.jpegTransformCombined", function () {
+            it("should transform and crop a JPEG bitmap", function () {
+                var left = ref.alloc(INT, 0),
+                    top = ref.alloc(INT, 0),
+                    right = ref.alloc(INT, 8),
+                    bottom = ref.alloc(INT, 8);
+                fi.jpegTransformCombined(TEST_BITMAP_06_FILENAME, TRANSFORMED_TEST_BITMAP_06_FILENAME, fi.JPEG_OPERATION.ROTATE_90, left, top, right, bottom).should.be.true();
+                fs.unlinkSync(TRANSFORMED_TEST_BITMAP_06_FILENAME);
+            });
+        });
     });
 
-    describe("fi.adjustContrast", function () {
-      it("should adjust the contrast of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.adjustContrast(bitmap, 15).should.be.true();
-        fi.unload(bitmap);
-      });
+    describe("Background filling", function () {
+        describe("fi.fillBackground", function () {
+            it("should set the pixels of a bitmap to the given color", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
+                bitmap.isNull().should.be.false();
+                fi.fillBackground(bitmap, FUCHSIA.ref()).should.be.true();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.enlargeCanvas", function () {
+            it("should change the size of a bitmap", function () {
+                var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
+                    bitmap2 = null;
+                bitmap.isNull().should.be.false();
+                bitmap2 = fi.enlargeCanvas(bitmap, 8, 8, 8, 8, FUCHSIA.ref());
+                bitmap2.isNull().should.be.false();
+                fi.unload(bitmap2);
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.allocateEx", function () {
+            it("should create a bitmap and fill it with the given color", function () {
+                var bitmap = fi.allocateEx(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP, FUCHSIA.ref());
+                bitmap.isNull().should.be.false();
+                fi.unload(bitmap);
+            });
+        });
+
+        describe("fi.allocateExT", function () {
+            it("should create a bitmap and fill it with the given color", function () {
+                var bitmap = fi.allocateExT(TEMP_BITMAP_01_IMAGE_TYPE, TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP, FUCHSIA.ref());
+                bitmap.isNull().should.be.false();
+                fi.unload(bitmap);
+            });
+        });
     });
 
-    describe("fi.invert", function () {
-      it("should invert a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.invert(bitmap).should.be.true();
-        fi.unload(bitmap);
-      });
+    describe("Miscellaneous algorithms", function () {
+        describe("fi.multigridPoissonSolver", function () {
+            it("should solve the Poisson equation", function () {
+                var laplacian = fi.allocateT(TEMP_BITMAP_04_IMAGE_TYPE, TEMP_BITMAP_04_WIDTH, TEMP_BITMAP_04_HEIGHT, TEMP_BITMAP_04_BPP),
+                    i = -1,
+                    j = -1,
+                    hi = TEMP_BITMAP_04_HEIGHT / 2,
+                    hj1 = TEMP_BITMAP_04_WIDTH / 4,
+                    hj2 = 3 * TEMP_BITMAP_04_WIDTH / 4,
+                    d = TEMP_BITMAP_04_WIDTH / 16,
+                    ci = false,
+                    cj1 = false,
+                    cj2 = false,
+                    scanLine = null,
+                    scanLine2 = null,
+                    potential = null;
+                laplacian.isNull().should.be.false();
+                for (i = 0; i < TEMP_BITMAP_04_HEIGHT; i += 1) {
+                    scanLine = fi.getScanLine(laplacian, i);
+                    scanLine2 = new FloatArray(ref.reinterpret(scanLine, TEMP_BITMAP_04_PITCH, 0));
+                    ci = hi - d <= i && i < hi + d;
+                    for (j = 0; j < TEMP_BITMAP_04_WIDTH; j += 1) {
+                        cj1 = hj1 - d <= j && j < hj1 + d;
+                        cj2 = hj2 - d <= j && j < hj2 + d;
+                        scanLine2[j] = ci && cj1 ? -1 : ci && cj2 ? +1 : 0;
+                    }
+                }
+                potential = fi.multigridPoissonSolver(laplacian);
+                potential.isNull().should.be.false();
+                fi.unload(potential);
+                fi.unload(laplacian);
+            });
+        });
     });
-
-    describe("fi.getHistogram", function () {
-      it("should compute the histogram of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            histogram = null;
-        bitmap.isNull().should.be.false();
-        histogram = new DWordArray(256);
-        fi.getHistogram(bitmap, histogram.buffer, fi.COLOR_CHANNEL.RED).should.be.true();
-        histogram[0].should.equal(3);
-        histogram[255].should.equal(1);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.getAdjustColorsLookupTable", function () {
-      it("should create a lookup table for color transformation of bitmaps", function () {
-        var lookupTable = new ByteArray(256);
-        fi.getAdjustColorsLookupTable(lookupTable.buffer, 50, 15, 1.5, true).should.equal(4);
-      });
-    });
-
-    describe("fi.adjustColors", function () {
-      it("should adjust the colors of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.adjustColors(bitmap, 50, 15, 1.5, true).should.be.true();
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.applyColorMapping", function () {
-      it("should adjust the colors of a bitmap using direct color mapping", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            srcColors = new RgbQuadArray([RED, LIME, BLUE, BLACK]),
-            dstColors = new RgbQuadArray([AQUA, FUCHSIA, YELLOW, WHITE]);
-        bitmap.isNull().should.be.false();
-        fi.applyColorMapping(bitmap, srcColors.buffer, dstColors.buffer, 4, false, false).should.equal(4);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.swapColors", function () {
-      it("should swap two colors in a bitmap directly", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.swapColors(bitmap, RED.ref(), BLACK.ref(), false).should.equal(2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.applyPaletteIndexMapping", function () {
-      it("should adjust the colors of a bitmap using palette index mapping", function () {
-        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME),
-            srcIndices = new ByteArray([9, 10, 12, 13]),
-            dstIndices = new ByteArray([14, 13, 11, 15]);
-        bitmap.isNull().should.be.false();
-        fi.applyPaletteIndexMapping(bitmap, srcIndices.buffer, dstIndices.buffer, 4, false).should.equal(256);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.swapPaletteIndices", function () {
-      it("should swap two colors in a bitmap by swapping palette indices", function () {
-        var bitmap = fi.load(TEST_BITMAP_02_IMAGE_FORMAT, TEST_BITMAP_02_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.swapPaletteIndices(bitmap, ref.alloc(BYTE, 9), ref.alloc(BYTE, 13), false).should.equal(128);
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Channel processing", function () {
-    describe("fi.(get|set)Channel", function () {
-      it("should get/set the channels of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_03_IMAGE_FORMAT, TEST_BITMAP_03_FILENAME),
-            channelBitmap = null;
-        bitmap.isNull().should.be.false();
-        channelBitmap = fi.getChannel(bitmap, fi.COLOR_CHANNEL.RED);
-        channelBitmap.isNull().should.be.false();
-        fi.setChannel(bitmap, channelBitmap, fi.COLOR_CHANNEL.GREEN).should.be.true();
-        fi.unload(channelBitmap);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.(get|set)ComplexChannel", function () {
-      it("should get/set the channels of a complex bitmap", function () {
-        var bitmap = fi.allocateT(TEMP_BITMAP_03_IMAGE_TYPE, TEMP_BITMAP_03_WIDTH, TEMP_BITMAP_03_HEIGHT, TEMP_BITMAP_03_BPP),
-            scanLine = null,
-            scanLine2 = null,
-            channelBitmap = null;
-        bitmap.isNull().should.be.false();
-        scanLine = fi.getScanLine(bitmap, 0);
-        scanLine2 = new ComplexArray(ref.reinterpret(scanLine, TEMP_BITMAP_03_PITCH, 0));
-        scanLine2[0].r = 10;
-        scanLine2[0].i = 20;
-        channelBitmap = fi.getComplexChannel(bitmap, fi.COLOR_CHANNEL.REAL);
-        channelBitmap.isNull().should.be.false();
-        scanLine = fi.getScanLine(channelBitmap, 0);
-        scanLine2 = new DoubleArray(ref.reinterpret(scanLine, TEMP_BITMAP_03_PITCH, 0));
-        scanLine2[0].should.equal(10);
-        fi.setComplexChannel(bitmap, channelBitmap, fi.COLOR_CHANNEL.IMAG).should.be.true();
-        scanLine = fi.getScanLine(bitmap, 0);
-        scanLine2 = new ComplexArray(ref.reinterpret(scanLine, TEMP_BITMAP_03_PITCH, 0));
-        scanLine2[0].r = 10;
-        scanLine2[0].i = 10;
-        fi.unload(channelBitmap);
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Copy / Paste / Composite routines", function () {
-    describe("fi.(copy|paste)", function () {
-      it("should copy/paste any part of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmapPart = null;
-        bitmap.isNull().should.be.false();
-        bitmapPart = fi.copy(bitmap, 4, 4, 12, 12);
-        bitmapPart.isNull().should.be.false();
-        fi.paste(bitmap, bitmapPart, 2, 2, 128).should.be.true();
-        fi.unload(bitmapPart);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.composite", function () {
-      it("should composite a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.composite(bitmap, false, FUCHSIA.ref());
-        bitmap2.isNull().should.be.false();
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.preMultiplyWithAlpha", function () {
-      it("should premultiply the RGB channels of a 32-bit bitmap with its A channel", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.preMultiplyWithAlpha(bitmap).should.be.true();
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("JPEG lossless transformations", function () {
-    describe("fi.jpegTransform", function () {
-      it("should transform a JPEG bitmap", function () {
-        fi.jpegTransform(TEST_BITMAP_06_FILENAME, TRANSFORMED_TEST_BITMAP_06_FILENAME, fi.JPEG_OPERATION.ROTATE_90).should.be.true();
-        fs.unlinkSync(TRANSFORMED_TEST_BITMAP_06_FILENAME);
-      });
-    });
-
-    describe("fi.jpegCrop", function () {
-      it("should crop a JPEG bitmap", function () {
-        fi.jpegCrop(TEST_BITMAP_06_FILENAME, TRANSFORMED_TEST_BITMAP_06_FILENAME, 0, 0, 8, 8).should.be.true();
-        fs.unlinkSync(TRANSFORMED_TEST_BITMAP_06_FILENAME);
-      });
-    });
-
-    describe("fi.jpegTransformCombined", function () {
-      it("should transform and crop a JPEG bitmap", function () {
-        var left = ref.alloc(INT, 0),
-            top = ref.alloc(INT, 0),
-            right = ref.alloc(INT, 8),
-            bottom = ref.alloc(INT, 8);
-        fi.jpegTransformCombined(TEST_BITMAP_06_FILENAME, TRANSFORMED_TEST_BITMAP_06_FILENAME, fi.JPEG_OPERATION.ROTATE_90, left, top, right, bottom).should.be.true();
-        fs.unlinkSync(TRANSFORMED_TEST_BITMAP_06_FILENAME);
-      });
-    });
-  });
-
-  describe("Background filling", function () {
-    describe("fi.fillBackground", function () {
-      it("should set the pixels of a bitmap to the given color", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME);
-        bitmap.isNull().should.be.false();
-        fi.fillBackground(bitmap, FUCHSIA.ref()).should.be.true();
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.enlargeCanvas", function () {
-      it("should change the size of a bitmap", function () {
-        var bitmap = fi.load(TEST_BITMAP_01_IMAGE_FORMAT, TEST_BITMAP_01_FILENAME),
-            bitmap2 = null;
-        bitmap.isNull().should.be.false();
-        bitmap2 = fi.enlargeCanvas(bitmap, 8, 8, 8, 8, FUCHSIA.ref());
-        bitmap2.isNull().should.be.false();
-        fi.unload(bitmap2);
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.allocateEx", function () {
-      it("should create a bitmap and fill it with the given color", function () {
-        var bitmap = fi.allocateEx(TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP, FUCHSIA.ref());
-        bitmap.isNull().should.be.false();
-        fi.unload(bitmap);
-      });
-    });
-
-    describe("fi.allocateExT", function () {
-      it("should create a bitmap and fill it with the given color", function () {
-        var bitmap = fi.allocateExT(TEMP_BITMAP_01_IMAGE_TYPE, TEMP_BITMAP_01_WIDTH, TEMP_BITMAP_01_HEIGHT, TEMP_BITMAP_01_BPP, FUCHSIA.ref());
-        bitmap.isNull().should.be.false();
-        fi.unload(bitmap);
-      });
-    });
-  });
-
-  describe("Miscellaneous algorithms", function () {
-    describe("fi.multigridPoissonSolver", function () {
-      it("should solve the Poisson equation", function () {
-        var laplacian = fi.allocateT(TEMP_BITMAP_04_IMAGE_TYPE, TEMP_BITMAP_04_WIDTH, TEMP_BITMAP_04_HEIGHT, TEMP_BITMAP_04_BPP),
-            i = -1,
-            j = -1,
-            hi = TEMP_BITMAP_04_HEIGHT / 2,
-            hj1 = TEMP_BITMAP_04_WIDTH / 4,
-            hj2 = 3 * TEMP_BITMAP_04_WIDTH / 4,
-            d = TEMP_BITMAP_04_WIDTH / 16,
-            ci = false,
-            cj1 = false,
-            cj2 = false,
-            scanLine = null,
-            scanLine2 = null,
-            potential = null;
-        laplacian.isNull().should.be.false();
-        for (i = 0; i < TEMP_BITMAP_04_HEIGHT; i += 1) {
-          scanLine = fi.getScanLine(laplacian, i);
-          scanLine2 = new FloatArray(ref.reinterpret(scanLine, TEMP_BITMAP_04_PITCH, 0));
-          ci = hi - d <= i && i < hi + d;
-          for (j = 0; j < TEMP_BITMAP_04_WIDTH; j += 1) {
-            cj1 = hj1 - d <= j && j < hj1 + d;
-            cj2 = hj2 - d <= j && j < hj2 + d;
-            scanLine2[j] = ci && cj1 ? -1 : ci && cj2 ? +1 : 0;
-          }
-        }
-        potential = fi.multigridPoissonSolver(laplacian);
-        potential.isNull().should.be.false();
-        fi.unload(potential);
-        fi.unload(laplacian);
-      });
-    });
-  });
 });
