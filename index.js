@@ -387,7 +387,7 @@ library = new ffi.Library(libraryName, {
     "FreeImage_SetThumbnail": [BOOL, [PBITMAP, PBITMAP]],
     // Filetype functions
     "FreeImage_GetFileType": [LONG, [STRING, LONG]],
-    "FreeImage_GetFileTypeFromMemory": [LONG, [FIMEMORY, LONG]],
+    "FreeImage_GetFileTypeFromMemory": [LONG, [PFIMEMORY, LONG]],
     // Pixel access functions
     "FreeImage_GetBits": [PBYTE, [PBITMAP]],
     "FreeImage_GetScanLine": [PBYTE, [PBITMAP, LONG]],
@@ -1370,8 +1370,8 @@ module.exports = {
     },
     // Memory I/O Streams
     openMemory: function (data, size_in_bytes) {
-        setToDefaultIfUndefined(size_in_bytes, 0);
         setToDefaultIfUndefined(data, 0);
+        setToDefaultIfUndefined(size_in_bytes, 0);
         assertInteger(size_in_bytes, "size_in_bytes");
         return library.FreeImage_OpenMemory(data, size_in_bytes);
     },
